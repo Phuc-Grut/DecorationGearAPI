@@ -18,16 +18,12 @@ public class Program
     {
         var builder = WebApplication.CreateBuilder(args);
 
-        // Configure DbContext
         ConfigureDbContext(builder);
 
-        // Add services to the container
         ConfigureServices(builder);
 
-        // Configure CORS
         ConfigureCors(builder);
 
-        // Configure Authentication and JWT
         ConfigureAuthentication(builder);
 
         var app = builder.Build();
