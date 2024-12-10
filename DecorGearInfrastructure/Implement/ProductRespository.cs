@@ -1,5 +1,6 @@
-﻿ using AutoMapper;
+﻿using AutoMapper;
 using DecorGearApplication.DataTransferObj.ImageList;
+using DecorGearApplication.DataTransferObj.KeyBoardDetails;
 using DecorGearApplication.DataTransferObj.MouseDetails;
 using DecorGearApplication.DataTransferObj.Product;
 using DecorGearApplication.Interface;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Security.AccessControl;
 using System.Text;
@@ -120,18 +122,15 @@ namespace DecorGearInfrastructure.Implement
 
         public bool IsValidImageFormat(string imagePath)
         {
-            // Thư mục chứa ảnh trong server
             var rootDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
 
-            // Kiểm tra nếu đường dẫn nằm trong thư mục "wwwroot/images"
             var fullImagePath = Path.GetFullPath(imagePath);
 
             if (!fullImagePath.StartsWith(rootDirectory))
             {
-                return false; // Đường dẫn không hợp lệ
+                return false;
             }
 
-            // Các định dạng hợp lệ
             var validExtensions = new List<string> { ".jpg", ".jpeg" };
 
             // Lấy phần mở rộng của tệp
@@ -146,10 +145,10 @@ namespace DecorGearInfrastructure.Implement
             // Kiểm tra file có tồn tại không
             if (!File.Exists(fullImagePath))
             {
-                return false; // Tệp không tồn tại
+                return false;
             }
 
-            return true; // Tệp hợp lệ
+            return true;
         }
 
 
@@ -173,75 +172,94 @@ namespace DecorGearInfrastructure.Implement
 
         public async Task<List<ProductDto>> GetAllProduct(ViewProductRequest? request, CancellationToken cancellationToken)
         {
-            var query = (from p in _appDbContext.Products
-                        join b in _appDbContext.Brands on p.BrandID equals b.BrandID
-                        join s in _appDbContext.Sales on p.SaleID equals s.SaleID into saleJoin
-                        from s in saleJoin.DefaultIfEmpty() // Left join để Sale có thể null
-                        join sc in _appDbContext.SubCategories on p.SubCategoryID equals sc.SubCategoryID
-                        //join i in _appDbContext.ImageLists on p.ProductID equals i.ProductID
-                        select new ProductDto
-                        {
-                            ProductID = p.ProductID,
-                            ProductName = p.ProductName, // Thêm ProductName
-                            Price = p.Price,             // Thêm Price
-                            BrandName = b.BrandName,
-                            //SaleID = s != null ? s.SaleID : null,
-                            SaleCode = s != null ? s.SaleName : null,
-                            //SubCategoryID = sc.SubCategoryID,
-                            SubCategoryName = sc.SubCategoryName,
-                            View = p.View,
-                            Quantity = p.Quantity,
-                            Weight = p.Weight,
-                            AvatarProduct = p.AvatarProduct,
-                            Description = p.Description,
-                            Size = p.Size,
-                            BatteryCapacity = p.BatteryCapacity,
-                            //ImageProduct = _appDbContext.ImageLists
-                            //        .Where(img => img.ProductID == p.ProductID)
-                            //        .Select(img => img.ImagePath)
-                            //        .ToList()
-                        }).AsNoTracking().AsQueryable();
+            var query = _appDbContext.Products
+                .Include(p => p.SubCategory)
+                    .ThenInclude(sc => sc.Category)
+                .Include(p => p.MouseDetails)
+                .Include(p => p.KeyboardDetails)
+                .Include(p => p.ImageLists)
+                .AsQueryable();
 
-            // Lọc sản phẩm 
             if (request.ProductID.HasValue)
             {
-                query = query.Where(x => x.ProductID == request.ProductID);
+                query = query.Where(p => p.ProductID == request.ProductID);
             }
             if (!string.IsNullOrEmpty(request.ProductName))
             {
-                query = query.Where(x => x.ProductName == request.ProductName);
+                query = query.Where(p => p.ProductName.Contains(request.ProductName));
             }
             if (request.Price.HasValue)
             {
-                query = query.Where(x => x.Price == request.Price);
+                query = query.Where(p => p.Price == request.Price);
             }
             if (request.View.HasValue)
             {
-                query = query.Where(x => x.View == request.View);
+                query = query.Where(p => p.View == request.View);
             }
             if (request.Quantity.HasValue)
             {
-                query = query.Where(x => x.Quantity == request.Quantity);
+                query = query.Where(p => p.Quantity == request.Quantity);
             }
             if (request.Weight.HasValue)
             {
-                query = query.Where(x => x.Weight == request.Weight);
+                query = query.Where(p => p.Weight == request.Weight);
             }
             if (!string.IsNullOrEmpty(request.Description))
             {
-                query = query.Where(x => x.Description == request.Description);
+                query = query.Where(p => p.Description.Contains(request.Description));
             }
             if (!string.IsNullOrEmpty(request.Size))
             {
-                query = query.Where(x => x.Size == request.Size);
+                query = query.Where(p => p.Size == request.Size);
             }
             if (request.BatteryCapacity.HasValue)
             {
-                query = query.Where(x => x.BatteryCapacity == request.BatteryCapacity);
+                query = query.Where(p => p.BatteryCapacity == request.BatteryCapacity);
             }
 
-            var result = await query.ToListAsync();
-            return result;
+            var products = await query.Select(p => new ProductDto
+            {
+                ProductID = p.ProductID,
+                ProductName = p.ProductName,
+                Price = p.Price,
+                Category = p.SubCategory.Category.CategoryName,
+                SaleID = p.Sale.SaleID,
+                SaleCode = p.Sale.SalePercent,
+                ImageProduct = p.ImageLists.Select(img => img.ImagePath).ToList(),
+                ProductDetail = p.SubCategory.Category.CategoryID == 1
+                ? (object?)p.MouseDetails.Select(md => new MouseDetailsDto
+                {
+                    MouseDetailID = md.MouseDetailID,
+                    Color = md.Color,
+                    DPI = md.DPI,
+                    Connectivity = md.Connectivity,
+                    Dimensions = md.Dimensions,
+                    Material = md.Material,
+                    EyeReading = md.EyeReading,
+                    Button = md.Button,
+                    LED = md.LED,
+                    SS = md.SS
+                }).ToList()
+                : p.SubCategory.Category.CategoryID == 2
+                ? (object?)p.KeyboardDetails.Select(kd => new KeyBoardDetailsDto
+                {
+                    KeyboardDetailID = kd.KeyboardDetailID,
+                    Color = kd.Color,
+                    Layout = kd.Layout,
+                    Case = kd.Case,
+                    Switch = kd.Switch,
+                    SwitchLife = kd.SwitchLife,
+                    Led = kd.Led,
+                    KeycapMaterial = kd.KeycapMaterial,
+                    SwitchMaterial = kd.SwitchMaterial,
+                    SS = kd.SS,
+                    Stabilizes = kd.Stabilizes,
+                    PCB = kd.PCB,
+                }).ToList()
+                : null
+            }).ToListAsync(cancellationToken);
+
+            return products;
         }
 
         public async Task<ProductDto> GetKeyProductById(int id, CancellationToken cancellationToken)
@@ -251,7 +269,7 @@ namespace DecorGearInfrastructure.Implement
             return _mapper.Map<ProductDto>(productIds);
         }
 
-        public async Task<ResponseDto<ProductDto>> UpdateProduct(int id,UpdateProductRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<ProductDto>> UpdateProduct(int id, UpdateProductRequest request, CancellationToken cancellationToken)
         {
             // Kiểm Tra Tính Hợp Lệ của Dữ Liệu
             if (request == null)
@@ -267,7 +285,7 @@ namespace DecorGearInfrastructure.Implement
             // Cập Nhật Sản Phẩm 
             try
             {
-                var product = await _appDbContext.Products.FindAsync(id,cancellationToken);
+                var product = await _appDbContext.Products.FindAsync(id, cancellationToken);
 
                 product.ProductName = request.ProductName;
                 product.Price = request.Price;

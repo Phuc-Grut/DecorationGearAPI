@@ -4,17 +4,17 @@
     {
         public int MouseDetailID { get; set; }
 
-        public int ProductID { get; set; }
+        //public int ProductID { get; set; }
 
-        public string Color { get; set; }
+        public string? Color { get; set; }
 
         public int DPI { get; set; }
 
-        public string Connectivity { get; set; }
+        public string? Connectivity { get; set; }
 
-        public string Dimensions { get; set; }
+        public string? Dimensions { get; set; }
 
-        public string Material { get; set; } 
+        public string? Material { get; set; } 
 
         public string? EyeReading { get; set; }
 
@@ -23,9 +23,5 @@
         public string? LED { get; set; }
 
         public string? SS { get; set; }
-
-        // Sửa thuộc tính ImageProduct thành List<string>
-
-        public List<string> ImageProduct { get; set; }
     }
 }

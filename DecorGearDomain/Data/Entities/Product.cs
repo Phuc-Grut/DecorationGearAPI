@@ -64,5 +64,7 @@ namespace DecorGearDomain.Data.Entities
         public virtual Brand Brand { get; set; }
 
         public virtual SubCategory SubCategory { get; set; }
+
+        public virtual ICollection<ImageList>? ImageLists { get; set; } = new List<ImageList>();
     }
 }

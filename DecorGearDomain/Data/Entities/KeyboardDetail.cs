@@ -51,6 +51,5 @@ namespace DecorGearDomain.Data.Entities
         public virtual Product Product { get; set; }
 
         // 1 - n
-        public virtual ICollection<ImageList>? ImageLists { get; set; } = new List<ImageList>();
     }
 }
