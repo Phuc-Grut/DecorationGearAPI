@@ -13,9 +13,6 @@ namespace DecorGearDomain.Data.Entities
         [StringLength(255, ErrorMessage = "Không được vượt quá 255 ký tự")]
         public string CategoryName { get; set; }
 
-        //Khóa ngoại
-
-        // 1 - n
         public virtual ICollection<SubCategory> SubCategories { get; set; }
     }
 }

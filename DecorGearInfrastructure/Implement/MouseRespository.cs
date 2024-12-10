@@ -121,11 +121,7 @@ namespace DecorGearInfrastructure.Implement
                             EyeReading = md.EyeReading,
                             Button = md.Button,
                             LED = md.LED,
-                            SS = md.SS,
-                            ImageProduct = _appDbContext.ImageLists
-                                    .Where(img => img.MouseDetailID == md.MouseDetailID)
-                                    .Select(img => img.ImagePath)
-                                    .ToList()
+                            SS = md.SS
                         };
 
             // Áp dụng các điều kiện lọc

@@ -120,18 +120,15 @@ namespace DecorGearInfrastructure.Implement
 
         public bool IsValidImageFormat(string imagePath)
         {
-            // Thư mục chứa ảnh trong server
             var rootDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images");
 
-            // Kiểm tra nếu đường dẫn nằm trong thư mục "wwwroot/images"
             var fullImagePath = Path.GetFullPath(imagePath);
 
             if (!fullImagePath.StartsWith(rootDirectory))
             {
-                return false; // Đường dẫn không hợp lệ
+                return false;
             }
 
-            // Các định dạng hợp lệ
             var validExtensions = new List<string> { ".jpg", ".jpeg" };
 
             // Lấy phần mở rộng của tệp
@@ -146,10 +143,10 @@ namespace DecorGearInfrastructure.Implement
             // Kiểm tra file có tồn tại không
             if (!File.Exists(fullImagePath))
             {
-                return false; // Tệp không tồn tại
+                return false;
             }
 
-            return true; // Tệp hợp lệ
+            return true;
         }
 
 
@@ -200,6 +197,10 @@ namespace DecorGearInfrastructure.Implement
                             //        .Where(img => img.ProductID == p.ProductID)
                             //        .Select(img => img.ImagePath)
                             //        .ToList()
+                            ImageProduct = _appDbContext.ImageLists
+                                    .Where(img => img.ProductID == p.ProductID)
+                                    .Select(img => img.ImagePath)
+                                    .ToList()
                         }).AsNoTracking().AsQueryable();
 
             // Lọc sản phẩm 
