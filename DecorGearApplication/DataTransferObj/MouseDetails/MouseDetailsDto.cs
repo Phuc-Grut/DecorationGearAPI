@@ -4,17 +4,17 @@
     {
         public int MouseDetailID { get; set; }
 
-        public int ProductID { get; set; }
+        //public int ProductID { get; set; }
 
-        public string Color { get; set; }
+        public string? Color { get; set; }
 
         public int DPI { get; set; }
 
-        public string Connectivity { get; set; }
+        public string? Connectivity { get; set; }
 
-        public string Dimensions { get; set; }
+        public string? Dimensions { get; set; }
 
-        public string Material { get; set; } 
+        public string? Material { get; set; } 
 
         public string? EyeReading { get; set; }
 

@@ -42,8 +42,8 @@ namespace DecorGearInfrastructure.Database.AppDbContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer("Data Source=PHUC-GRUNT;Database=DecorationGear;Trusted_Connection=True;TrustServerCertificate=True;");
-            optionsBuilder.UseSqlServer("Data Source=DercorGearDB.mssql.somee.com;Database=DercorGearDB;User Id=Phucnh0501_SQLLogin_1;Password=33uhc4v8lq;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Data Source=PHUC-GRUNT;Database=DecorationGear;Trusted_Connection=True;TrustServerCertificate=True;");
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
