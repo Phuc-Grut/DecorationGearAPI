@@ -112,7 +112,7 @@ namespace DecorGearInfrastructure.Implement
                         select new MouseDetailsDto
                         {
                             MouseDetailID = md.MouseDetailID,
-                            ProductID = md.ProductID,
+                            //ProductID = md.ProductID,
                             Color = md.Color,
                             DPI = md.DPI,
                             Connectivity = md.Connectivity,
@@ -129,10 +129,10 @@ namespace DecorGearInfrastructure.Implement
             {
                 query = query.Where(x => x.MouseDetailID == request.MouseDetailID);
             }
-            if (request.ProductID.HasValue)
-            {
-                query = query.Where(x => x.ProductID == request.ProductID);
-            }
+            //if (request.ProductID.HasValue)
+            //{
+            //    query = query.Where(x => x.ProductID == request.ProductID);
+            //}
             if (!string.IsNullOrEmpty(request.Color))
             {
                 query = query.Where(x => x.Color == request.Color);

@@ -4,15 +4,15 @@
     {
         public int KeyboardDetailID { get; set; }
 
-        public int ProductID { get; set; }
+        //public int ProductID { get; set; }
 
-        public string Color { get; set; }
+        public string? Color { get; set; }
 
-        public string Layout { get; set; }
+        public string? Layout { get; set; }
 
-        public string Case { get; set; }
+        public string? Case { get; set; }
 
-        public string Switch { get; set; }
+        public string? Switch { get; set; }
 
         public int? SwitchLife { get; set; }
 

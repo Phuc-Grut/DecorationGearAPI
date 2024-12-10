@@ -12,13 +12,13 @@
 
         public double Weight { get; set; }
 
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
-        public string Size { get; set; }
+        public string? Size { get; set; }
 
         public int? BatteryCapacity { get; set; } // dung lượng pin
 
-        public string AvatarProduct { get; set; }
+        public string? AvatarProduct { get; set; }
 
         public int? SaleID { get; set; }  // có thể có hoặc không
 

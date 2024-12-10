@@ -114,7 +114,6 @@ namespace DecorGearInfrastructure.Implement
                         select new KeyBoardDetailsDto
                         {
                             KeyboardDetailID = kd.KeyboardDetailID,
-                            ProductID = kd.ProductID,
                             Color = kd.Color,
                             Layout = kd.Layout,
                             Case = kd.Case,
@@ -132,10 +131,6 @@ namespace DecorGearInfrastructure.Implement
             if (request.KeyboardDetailID.HasValue)
             {
                 query = query.Where(x => x.KeyboardDetailID == request.KeyboardDetailID);
-            }
-            if (request.ProductID.HasValue)
-            {
-                query = query.Where(x => x.ProductID == request.ProductID);
             }
             if (!string.IsNullOrEmpty(request.Color))
             {
