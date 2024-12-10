@@ -65,7 +65,6 @@ namespace DecorGearInfrastructure.implement
                 _dbcontext.OrderDetails.RemoveRange(order.OrderDetails);
             }
 
-            // Xóa hóa đơn chính
             _dbcontext.Orders.Remove(order);
             await _dbcontext.SaveChangesAsync(cancellationToken);
 

@@ -23,9 +23,5 @@
         public string? LED { get; set; }
 
         public string? SS { get; set; }
-
-        // Sửa thuộc tính ImageProduct thành List<string>
-
-        public List<string> ImageProduct { get; set; }
     }
 }
