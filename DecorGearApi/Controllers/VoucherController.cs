@@ -14,7 +14,7 @@ namespace DecorGearApi.Controllers
         {
             _voucherRepo = voucherRespository;
         }
-        [HttpGet]
+        [HttpGet("get-all-voucher")]
         public async Task<ActionResult<IEnumerable<VoucherDto>>> GetAllVoucher(CancellationToken cancellationToken)
         {
             {

@@ -17,7 +17,7 @@ namespace DecorGearApi.Controllers
         }
 
         // GET: api/Orders
-        [HttpGet]
+        [HttpGet("get-all-order")]
         public async Task<ActionResult<IEnumerable<OderDto>>> GetAllOrders(CancellationToken cancellationToken)
         {
             var orders = await _orderRepo.GetAllOder(cancellationToken);
