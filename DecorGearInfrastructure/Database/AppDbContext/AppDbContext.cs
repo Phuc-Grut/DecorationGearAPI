@@ -266,6 +266,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                 {
                     ProductID = 1,
                     ProductName = "Chuột gaming Razer death adder v3",
+                    ProductCode = "SP01",
                     Price = 405.8,
                     View = 1000,
                     Quantity = 100,
@@ -280,6 +281,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                 {
                     ProductID=2,
                     ProductName="Chuột gaming không dây Razer mini pro 1",
+                    ProductCode = "SP02",
                     Price=2000000,
                     View=1000,
                     Quantity=100,
@@ -293,6 +295,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                 new Product
                 {
                     ProductID=3,
+                    ProductCode = "SP03",
                     ProductName="Bàn phím cơ AulaF75",
                     Price=1000000,
                     View=8000,

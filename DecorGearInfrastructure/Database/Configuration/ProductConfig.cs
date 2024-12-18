@@ -18,6 +18,9 @@ namespace DecorGearInfrastructure.Database.Configuration
                             .WithMany(p => p.Products)
                             .HasForeignKey(a => a.BrandID)
                             .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasIndex(p => p.ProductCode)
+           .IsUnique();
         }
     }
 }

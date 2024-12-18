@@ -30,10 +30,28 @@ namespace DecorGearInfrastructure.Implement
             _appDbContext = context;
             _mapper = mapper;
         }
+        public async Task<string> GenerateProductCodeAsync()
+        {
+            var maxProductCode = await _appDbContext.Products
+                .OrderByDescending(p => p.ProductCode)
+                .Select(p => p.ProductCode)
+                .FirstOrDefaultAsync();
+
+            int nextNumber = 1;
+            if (!string.IsNullOrEmpty(maxProductCode))
+            {
+                string numberPart = maxProductCode.Substring(2);
+                if (int.TryParse(numberPart, out int currentNumber))
+                {
+                    nextNumber = currentNumber + 1;
+                }
+            }
+            return $"SP{nextNumber:D2}";
+        }
 
         public async Task<ResponseDto<ProductDto>> CreateProduct(CreateProductRequest request, CancellationToken cancellationToken)
         {
-            // Kiểm Tra Tính Hợp Lệ của Dữ Liệu
+            // Kiểm tra tính hợp lệ của dữ liệu
             if (request == null)
             {
                 return new ResponseDto<ProductDto>
@@ -43,30 +61,33 @@ namespace DecorGearInfrastructure.Implement
                     Message = "Chưa có request."
                 };
             }
-            // Thêm Sản Phẩm Mới
+
             try
             {
+                // Kiểm tra định dạng hình ảnh
                 if (!IsValidImageFormat(request.AvatarProduct))
                 {
                     return new ResponseDto<ProductDto>
                     {
                         DataResponse = null,
                         Status = StatusCodes.Status400BadRequest,
-                        Message = "Sai định dạng."
+                        Message = "Sai định dạng hình ảnh."
                     };
                 }
-
+                var productCode = await GenerateProductCodeAsync();
                 var createProduct = _mapper.Map<Product>(request);
+                createProduct.ProductCode = productCode;
 
                 await _appDbContext.Products.AddAsync(createProduct, cancellationToken);
-
                 await _appDbContext.SaveChangesAsync(cancellationToken);
+
+                var productDto = _mapper.Map<ProductDto>(createProduct);
 
                 return new ResponseDto<ProductDto>
                 {
-                    DataResponse = null,
-                    Status = StatusCodes.Status400BadRequest,
-                    Message = "Tạo thành công."
+                    DataResponse = productDto,
+                    Status = StatusCodes.Status201Created,
+                    Message = "Tạo sản phẩm thành công."
                 };
             }
             catch (DbUpdateException)
@@ -97,6 +118,7 @@ namespace DecorGearInfrastructure.Implement
                 };
             }
         }
+
 
         public async Task<ResponseDto<bool>> DeleteProduct(int id, CancellationToken cancellationToken)
         {
@@ -221,6 +243,7 @@ namespace DecorGearInfrastructure.Implement
             {
                 ProductID = p.ProductID,
                 ProductName = p.ProductName,
+                ProductCode = p.ProductCode,
                 Price = p.Price,
                 Category = p.ProductSubCategories
                 .Select(psc => psc.SubCategory.Category.CategoryName)
@@ -276,7 +299,6 @@ namespace DecorGearInfrastructure.Implement
 
         public async Task<ResponseDto<ProductDto>> UpdateProduct(int id, UpdateProductRequest request, CancellationToken cancellationToken)
         {
-            // Kiểm tra dữ liệu đầu vào
             if (request == null)
             {
                 return new ResponseDto<ProductDto>
@@ -289,9 +311,8 @@ namespace DecorGearInfrastructure.Implement
 
             try
             {
-                // Tìm sản phẩm theo ID
                 var product = await _appDbContext.Products
-                    .Include(p => p.ProductSubCategories) // Bao gồm các mối quan hệ với bảng trung gian
+                    .Include(p => p.ProductSubCategories)
                     .FirstOrDefaultAsync(p => p.ProductID == id, cancellationToken);
 
                 if (product == null)
@@ -317,7 +338,6 @@ namespace DecorGearInfrastructure.Implement
                 product.BrandID = request.BrandID;
                 product.AvatarProduct = request.AvatarProduct;
 
-                // Kiểm tra định dạng hình ảnh
                 if (!IsValidImageFormat(request.AvatarProduct))
                 {
                     return new ResponseDto<ProductDto>

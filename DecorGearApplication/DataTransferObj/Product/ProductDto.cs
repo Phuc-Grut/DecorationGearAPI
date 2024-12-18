@@ -15,6 +15,7 @@ namespace DecorGearApplication.DataTransferObj.Product
     public class ProductDto
     {
         public int? ProductID { get; set; }
+        public string ProductCode { get; set; }
 
         public int? SaleID { get; set; }
 

@@ -8,6 +8,9 @@ namespace DecorGearDomain.Data.Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductID { get; set; }
+        [Required]
+        [StringLength(10)]
+        public string ProductCode { get; set; }
 
         public int? SaleID { get; set; }  // có thể có hoặc không
         public int BrandID { get; set; }
