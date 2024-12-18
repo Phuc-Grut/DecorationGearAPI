@@ -15,12 +15,12 @@ namespace DecorGearDomain.Data.Entities
 
         [Required(ErrorMessage = "Vui lòng không được để trống")]
         public int CategoryID { get; set; }
+
         // Khóa ngoại
 
         // n - 1
         public virtual Category Category { get; set; }
 
-        // 1 - n
-        public virtual ICollection<Product> Products { get; set; } = new List<Product>();
+        public virtual ICollection<ProductSubCategory> ProductSubCategories { get; set; } = new List<ProductSubCategory>();
     }
 }

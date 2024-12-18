@@ -15,12 +15,13 @@ namespace DecorGearApplication.DataTransferObj.Product
     public class ProductDto
     {
         public int? ProductID { get; set; }
+        public string ProductCode { get; set; }
 
         public int? SaleID { get; set; }
 
-        public int? SubCategoryID { get; set; }
+        public List<string> SubCategories { get; set; }
 
-        public string? BrandName { get; set; }
+        public int? BrandId { get; set; }
 
         public int? SaleCode { get; set; }
 

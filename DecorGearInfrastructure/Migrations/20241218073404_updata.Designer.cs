@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DecorGearInfrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241218032950_update-database")]
-    partial class updatedatabase
+    [Migration("20241218073404_updata")]
+    partial class updata
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,7 +40,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -49,7 +49,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
@@ -71,9 +71,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             BrandID = 1,
                             BrandName = "Razer",
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Description = "Thương hiệu gaming gear được tin dùng các proplayer",
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         },
@@ -81,9 +79,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             BrandID = 2,
                             BrandName = "Aula",
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Description = "Một thương hiệu bàn phím đã quá quen thuộc với một số ae",
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         },
@@ -91,9 +87,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             BrandID = 3,
                             BrandName = "Rainy",
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Description = "Thương hiệu bàn phím  với một số ae",
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         },
@@ -101,9 +95,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             BrandID = 4,
                             BrandName = "Logitech",
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Description = "Một thương gaming gear quá quen thuộc với các proplayer",
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         });
@@ -120,7 +112,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -129,7 +121,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -158,9 +150,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             CartID = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             TotalAmount = 0.0,
                             TotalQuantity = 0,
@@ -169,9 +159,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             CartID = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             TotalAmount = 0.0,
                             TotalQuantity = 0,
@@ -193,7 +181,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -202,7 +190,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -236,9 +224,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             CartDetailID = 9,
                             CartID = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ProductID = 1,
                             Quantity = 2,
@@ -249,9 +235,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             CartDetailID = 10,
                             CartID = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ProductID = 2,
                             Quantity = 3,
@@ -262,9 +246,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             CartDetailID = 11,
                             CartID = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ProductID = 2,
                             Quantity = 1,
@@ -289,7 +271,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -298,7 +280,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -316,18 +298,14 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             CategoryID = 1,
                             CategoryName = "Chuột",
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         },
                         new
                         {
                             CategoryID = 2,
                             CategoryName = "Bàn Phím",
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         });
                 });
@@ -343,7 +321,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -352,7 +330,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -379,9 +357,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             FavoriteID = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ProductID = 1,
                             UserID = 1
@@ -389,9 +365,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             FavoriteID = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ProductID = 1,
                             UserID = 2
@@ -399,9 +373,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             FavoriteID = 3,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ProductID = 2,
                             UserID = 1
@@ -424,7 +396,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -433,7 +405,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -461,9 +433,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             FeedBackID = 1,
                             Comment = "Sản phẩm rất tốt!",
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ProductID = 1,
                             UserID = 1
@@ -472,9 +442,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             FeedBackID = 2,
                             Comment = "Chất lượng bình thường.",
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ProductID = 2,
                             UserID = 1
@@ -483,9 +451,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             FeedBackID = 3,
                             Comment = "Giao hàng nhanh, sản phẩm đẹp.",
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ProductID = 3,
                             UserID = 2
@@ -503,7 +469,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -512,7 +478,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
@@ -542,9 +508,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             ImageListID = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Description = "Hình ảnh của sản phẩm aulaf75",
                             ImagePath = "/images/aulaf75_img2.jpg",
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -553,9 +517,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             ImageListID = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Description = "Hình ảnh của sản phẩm razer deadth addzer v3",
                             ImagePath = "/images/rzdav3_img2.jpg",
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
@@ -582,7 +544,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -591,7 +553,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("KeycapMaterial")
@@ -644,9 +606,7 @@ namespace DecorGearInfrastructure.Migrations
                             KeyboardDetailID = 1,
                             Case = "Nhôm",
                             Color = "Red",
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             KeycapMaterial = "PBT",
                             Layout = "80%",
                             Led = "RGB",
@@ -664,9 +624,7 @@ namespace DecorGearInfrastructure.Migrations
                             KeyboardDetailID = 2,
                             Case = "Nhựa",
                             Color = "Black",
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             KeycapMaterial = "ABS",
                             Layout = "75%",
                             Led = "Đơn sắc",
@@ -692,7 +650,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -701,7 +659,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime>("ExpiryDate")
@@ -730,9 +688,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             MemberID = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ExpiryDate = new DateTime(2024, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Points = 100,
@@ -741,9 +697,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             MemberID = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ExpiryDate = new DateTime(2025, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Points = 200,
@@ -774,7 +728,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<int>("DPI")
@@ -786,7 +740,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Dimensions")
@@ -828,10 +782,8 @@ namespace DecorGearInfrastructure.Migrations
                             Button = 6,
                             Color = "Đen",
                             Connectivity = "USB",
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             DPI = 16000,
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Dimensions = "120mm x 60mm x 40mm",
                             EyeReading = "1000Hz",
                             LED = "RGB",
@@ -846,10 +798,8 @@ namespace DecorGearInfrastructure.Migrations
                             Button = 5,
                             Color = "Trắng",
                             Connectivity = "Bluetooth",
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             DPI = 12000,
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Dimensions = "115mm x 58mm x 38mm",
                             EyeReading = "500Hz",
                             LED = "Đơn sắc",
@@ -871,7 +821,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -880,7 +830,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -930,9 +880,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             OrderID = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             OrderDate = new DateTime(2024, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 6,
@@ -947,9 +895,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             OrderID = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             OrderDate = new DateTime(2024, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Status = 6,
@@ -1038,7 +984,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -1047,7 +993,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Description")
@@ -1077,9 +1023,6 @@ namespace DecorGearInfrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SubCategoryID")
-                        .HasColumnType("int");
-
                     b.Property<int>("View")
                         .HasColumnType("int");
 
@@ -1092,8 +1035,6 @@ namespace DecorGearInfrastructure.Migrations
 
                     b.HasIndex("SaleID");
 
-                    b.HasIndex("SubCategoryID");
-
                     b.ToTable("Product", (string)null);
 
                     b.HasData(
@@ -1102,9 +1043,7 @@ namespace DecorGearInfrastructure.Migrations
                             ProductID = 1,
                             AvatarProduct = "/media/product/250-6041-1.jpg",
                             BrandID = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Description = "chiếc chuột siêu bổ rẻ ",
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Price = 405.80000000000001,
@@ -1112,7 +1051,6 @@ namespace DecorGearInfrastructure.Migrations
                             Quantity = 100,
                             SaleID = 1,
                             Size = "M",
-                            SubCategoryID = 1,
                             View = 1000,
                             Weight = 500.0
                         },
@@ -1121,16 +1059,13 @@ namespace DecorGearInfrastructure.Migrations
                             ProductID = 2,
                             AvatarProduct = "/media/product/250-58-700c523eec2d560efd44f277bf6559ac.jpg",
                             BrandID = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Description = "Chiếc chuột được nhiều tuyển thủ chuyên nghiệp tin dùng",
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Price = 2000000.0,
-                            ProductName = "Chuột gaming Razor mini pro 1",
+                            ProductName = "Chuột gaming không dây Razer mini pro 1",
                             Quantity = 100,
                             Size = "M",
-                            SubCategoryID = 1,
                             View = 1000,
                             Weight = 350.0
                         },
@@ -1139,18 +1074,95 @@ namespace DecorGearInfrastructure.Migrations
                             ProductID = 3,
                             AvatarProduct = "/media/product/250-6152-untitled-28_upscayl_2x_realesrgan-x4plus.png",
                             BrandID = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Description = "Một chiếc bàn phím cơ mỳ ăn liền với 3mode hotswap tầm giá 1 củ mà bạn không nên bỏ qua",
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Price = 1000000.0,
                             ProductName = "Bàn phím cơ AulaF75",
                             Quantity = 100,
                             Size = "M",
-                            SubCategoryID = 3,
                             View = 8000,
                             Weight = 400.0
+                        });
+                });
+
+            modelBuilder.Entity("DecorGearDomain.Data.Entities.ProductSubCategory", b =>
+                {
+                    b.Property<int>("ProductID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubCategoryID")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("CreatedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset?>("DeletedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("ModifiedTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("ProductID", "SubCategoryID");
+
+                    b.HasIndex("SubCategoryID");
+
+                    b.ToTable("ProductSubCategory", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            ProductID = 1,
+                            SubCategoryID = 1,
+                            Deleted = false,
+                            ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
+                        },
+                        new
+                        {
+                            ProductID = 1,
+                            SubCategoryID = 6,
+                            Deleted = false,
+                            ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
+                        },
+                        new
+                        {
+                            ProductID = 2,
+                            SubCategoryID = 6,
+                            Deleted = false,
+                            ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
+                        },
+                        new
+                        {
+                            ProductID = 2,
+                            SubCategoryID = 5,
+                            Deleted = false,
+                            ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
+                        },
+                        new
+                        {
+                            ProductID = 2,
+                            SubCategoryID = 1,
+                            Deleted = false,
+                            ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
+                        },
+                        new
+                        {
+                            ProductID = 3,
+                            SubCategoryID = 3,
+                            Deleted = false,
+                            ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
                         });
                 });
 
@@ -1165,7 +1177,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -1174,7 +1186,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -1195,18 +1207,14 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             RoleID = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             RoleName = "Admin"
                         },
                         new
                         {
                             RoleID = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             RoleName = "User"
                         });
@@ -1223,7 +1231,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -1232,7 +1240,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -1260,9 +1268,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             SaleID = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             SaleName = "Giảm giá mùa hè",
                             SalePercent = 100,
@@ -1271,9 +1277,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             SaleID = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             SaleName = "Giảm giá cuối năm",
                             SalePercent = 200,
@@ -1295,7 +1299,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -1304,7 +1308,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -1329,9 +1333,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             SubCategoryID = 1,
                             CategoryID = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             SubCategoryName = "Chuột Razer"
                         },
@@ -1339,9 +1341,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             SubCategoryID = 2,
                             CategoryID = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             SubCategoryName = "Chuột logitech"
                         },
@@ -1349,9 +1349,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             SubCategoryID = 3,
                             CategoryID = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             SubCategoryName = "Bàn Phím Aula"
                         },
@@ -1359,11 +1357,25 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             SubCategoryID = 4,
                             CategoryID = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             SubCategoryName = "Bàn Phím Rainy"
+                        },
+                        new
+                        {
+                            SubCategoryID = 5,
+                            CategoryID = 1,
+                            Deleted = false,
+                            ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            SubCategoryName = "Chuột không dây"
+                        },
+                        new
+                        {
+                            SubCategoryID = 6,
+                            CategoryID = 1,
+                            Deleted = false,
+                            ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            SubCategoryName = "Chuột gaming"
                         });
                 });
 
@@ -1378,7 +1390,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -1387,7 +1399,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Email")
@@ -1436,9 +1448,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             UserID = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "admin@example.com",
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Admin",
@@ -1451,9 +1461,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             UserID = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Email = "jane@example.com",
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Name = "Jane Hangminton",
@@ -1526,7 +1534,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("CreatedTime")
+                    b.Property<DateTimeOffset?>("CreatedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<bool>("Deleted")
@@ -1535,7 +1543,7 @@ namespace DecorGearInfrastructure.Migrations
                     b.Property<Guid?>("DeletedBy")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("DeletedTime")
+                    b.Property<DateTimeOffset?>("DeletedTime")
                         .HasColumnType("datetimeoffset");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -1565,9 +1573,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             VoucherID = 1,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Status = 1,
                             VoucherName = "Giảm giá 30%",
@@ -1577,9 +1583,7 @@ namespace DecorGearInfrastructure.Migrations
                         new
                         {
                             VoucherID = 2,
-                            CreatedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Deleted = false,
-                            DeletedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Status = 2,
                             VoucherName = "Giảm giá 50%",
@@ -1775,15 +1779,26 @@ namespace DecorGearInfrastructure.Migrations
                         .HasForeignKey("SaleID")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("DecorGearDomain.Data.Entities.SubCategory", "SubCategory")
-                        .WithMany("Products")
-                        .HasForeignKey("SubCategoryID")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Brand");
 
                     b.Navigation("Sale");
+                });
+
+            modelBuilder.Entity("DecorGearDomain.Data.Entities.ProductSubCategory", b =>
+                {
+                    b.HasOne("DecorGearDomain.Data.Entities.Product", "Product")
+                        .WithMany("ProductSubCategories")
+                        .HasForeignKey("ProductID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DecorGearDomain.Data.Entities.SubCategory", "SubCategory")
+                        .WithMany("ProductSubCategories")
+                        .HasForeignKey("SubCategoryID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
 
                     b.Navigation("SubCategory");
                 });
@@ -1864,6 +1879,8 @@ namespace DecorGearInfrastructure.Migrations
                     b.Navigation("MouseDetails");
 
                     b.Navigation("OrderDetails");
+
+                    b.Navigation("ProductSubCategories");
                 });
 
             modelBuilder.Entity("DecorGearDomain.Data.Entities.Role", b =>
@@ -1878,7 +1895,7 @@ namespace DecorGearInfrastructure.Migrations
 
             modelBuilder.Entity("DecorGearDomain.Data.Entities.SubCategory", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("ProductSubCategories");
                 });
 
             modelBuilder.Entity("DecorGearDomain.Data.Entities.User", b =>

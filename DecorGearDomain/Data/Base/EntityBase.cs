@@ -7,7 +7,7 @@
         public Guid? ModifiedBy { get; set; }
         public bool Deleted { get; set; }
         public Guid? DeletedBy { get; set; }
-        public DateTimeOffset DeletedTime { get; set; }
-        public DateTimeOffset CreatedTime { get; set; }
+        public DateTimeOffset? DeletedTime { get; set; }
+        public DateTimeOffset? CreatedTime { get; set; }
     }
 }

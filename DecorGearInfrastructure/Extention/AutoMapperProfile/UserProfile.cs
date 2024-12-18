@@ -12,7 +12,9 @@ namespace DecorGearInfrastructure.Extention.AutoMapperProfile
             // Ánh xạ từ UserCreateRequest sang User
             CreateMap<UserCreateRequest, User>().ReverseMap();
             CreateMap<User, UserDto>()
-                 .ForMember(dest => dest.CreatedTime, opt => opt.MapFrom(src => src.CreatedTime.DateTime));//ReverseMap();
+                 .ForMember(dest => dest.CreatedTime, opt => opt.MapFrom(src => src.CreatedTime.HasValue
+                                      ? src.CreatedTime.Value.UtcDateTime
+                                      : (DateTime?)null));//ReverseMap();
             CreateMap<UserUpdateRequest, User>();
         }
     }

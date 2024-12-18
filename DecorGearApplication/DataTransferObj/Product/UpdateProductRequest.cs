@@ -24,6 +24,6 @@
 
         public int BrandID { get; set; }
 
-        public int SubCategoryID { get; set; }
+        public List<int> SubCategoryIDs { get; set; }
     }
 }
