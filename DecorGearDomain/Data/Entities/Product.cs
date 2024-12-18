@@ -12,7 +12,7 @@ namespace DecorGearDomain.Data.Entities
         [StringLength(10)]
         public string ProductCode { get; set; }
 
-        public int? SaleID { get; set; }  // có thể có hoặc không
+        public int? SaleID { get; set; }
         public int BrandID { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập tên")]
