@@ -151,7 +151,6 @@ namespace DecorGearInfrastructure.Implement
             return true;
         }
 
-
         //public bool IsValidImageFormat(string imagePath)
         //{
         //    // Các định dạng hợp lệ
@@ -173,7 +172,8 @@ namespace DecorGearInfrastructure.Implement
         public async Task<List<ProductDto>> GetAllProduct(ViewProductRequest? request, CancellationToken cancellationToken)
         {
             var query = _appDbContext.Products
-                .Include(p => p.SubCategory)
+                .Include(p => p.ProductSubCategories)
+                    .ThenInclude(psc => psc.SubCategory)
                     .ThenInclude(sc => sc.Category)
                 .Include(p => p.MouseDetails)
                 .Include(p => p.KeyboardDetails)
@@ -222,11 +222,13 @@ namespace DecorGearInfrastructure.Implement
                 ProductID = p.ProductID,
                 ProductName = p.ProductName,
                 Price = p.Price,
-                Category = p.SubCategory.Category.CategoryName,
+                Category = p.ProductSubCategories
+                .Select(psc => psc.SubCategory.Category.CategoryName)
+                .FirstOrDefault(),
                 SaleID = p.Sale.SaleID,
                 SaleCode = p.Sale.SalePercent,
                 ImageProduct = p.ImageLists.Select(img => img.ImagePath).ToList(),
-                ProductDetail = p.SubCategory.Category.CategoryID == 1
+                ProductDetail = p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 1)
                 ? (object?)p.MouseDetails.Select(md => new MouseDetailsDto
                 {
                     MouseDetailID = md.MouseDetailID,
@@ -240,7 +242,7 @@ namespace DecorGearInfrastructure.Implement
                     LED = md.LED,
                     SS = md.SS
                 }).ToList()
-                : p.SubCategory.Category.CategoryID == 2
+                : p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 2)
                 ? (object?)p.KeyboardDetails.Select(kd => new KeyBoardDetailsDto
                 {
                     KeyboardDetailID = kd.KeyboardDetailID,
@@ -271,7 +273,7 @@ namespace DecorGearInfrastructure.Implement
 
         public async Task<ResponseDto<ProductDto>> UpdateProduct(int id, UpdateProductRequest request, CancellationToken cancellationToken)
         {
-            // Kiểm Tra Tính Hợp Lệ của Dữ Liệu
+            // Kiểm tra dữ liệu đầu vào
             if (request == null)
             {
                 return new ResponseDto<ProductDto>
@@ -282,11 +284,24 @@ namespace DecorGearInfrastructure.Implement
                 };
             }
 
-            // Cập Nhật Sản Phẩm 
             try
             {
-                var product = await _appDbContext.Products.FindAsync(id, cancellationToken);
+                // Tìm sản phẩm theo ID
+                var product = await _appDbContext.Products
+                    .Include(p => p.ProductSubCategories) // Bao gồm các mối quan hệ với bảng trung gian
+                    .FirstOrDefaultAsync(p => p.ProductID == id, cancellationToken);
 
+                if (product == null)
+                {
+                    return new ResponseDto<ProductDto>
+                    {
+                        DataResponse = null,
+                        Status = StatusCodes.Status404NotFound,
+                        Message = "Không tìm thấy sản phẩm."
+                    };
+                }
+
+                // Cập nhật thông tin của sản phẩm
                 product.ProductName = request.ProductName;
                 product.Price = request.Price;
                 product.View = request.View;
@@ -297,28 +312,52 @@ namespace DecorGearInfrastructure.Implement
                 product.BatteryCapacity = request.BatteryCapacity;
                 product.SaleID = request.SaleID;
                 product.BrandID = request.BrandID;
-                product.SubCategoryID = request.SubCategoryID;
                 product.AvatarProduct = request.AvatarProduct;
 
+                // Kiểm tra định dạng hình ảnh
                 if (!IsValidImageFormat(request.AvatarProduct))
                 {
                     return new ResponseDto<ProductDto>
                     {
                         DataResponse = null,
                         Status = StatusCodes.Status400BadRequest,
-                        Message = "Sai định dạng."
+                        Message = "Sai định dạng hình ảnh."
                     };
                 }
 
+                if (request.SubCategoryIDs != null && request.SubCategoryIDs.Any())
+                {
+                    foreach (var subCategoryId in request.SubCategoryIDs)
+                    {
+                        product.ProductSubCategories.Add(new ProductSubCategory
+                        {
+                            ProductID = product.ProductID,
+                            SubCategoryID = subCategoryId
+                        });
+                    }
+                }
+
+                // Cập nhật thông tin sản phẩm
                 _appDbContext.Products.Update(product);
 
+                // Lưu các thay đổi vào cơ sở dữ liệu
                 await _appDbContext.SaveChangesAsync(cancellationToken);
 
+                // Trả về kết quả thành công
                 return new ResponseDto<ProductDto>
                 {
-                    DataResponse = null,
-                    Status = StatusCodes.Status400BadRequest,
-                    Message = "Chưa có request."
+                    DataResponse = new ProductDto
+                    {
+                        ProductID = product.ProductID,
+                        ProductName = product.ProductName,
+                        Price = product.Price,
+                        Category = string.Join(", ", product.ProductSubCategories.Select(psc => psc.SubCategory.SubCategoryName).ToList()),
+                        SaleID = product.SaleID,
+                        BrandId = product.BrandID,
+                        AvatarProduct = product.AvatarProduct
+                    },
+                    Status = StatusCodes.Status200OK,
+                    Message = "Cập nhật sản phẩm thành công."
                 };
             }
             catch (DbUpdateException)
@@ -349,5 +388,6 @@ namespace DecorGearInfrastructure.Implement
                 };
             }
         }
+
     }
 }

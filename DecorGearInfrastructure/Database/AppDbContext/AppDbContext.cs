@@ -8,7 +8,8 @@ namespace DecorGearInfrastructure.Database.AppDbContext
 {
     public class AppDbContext : DbContext
     {
-        #region Db Set 
+        #region Db Set
+
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<CartDetail> CartDetails { get; set; }
@@ -29,21 +30,21 @@ namespace DecorGearInfrastructure.Database.AppDbContext
         public virtual DbSet<VerificationCode> VerificationCodes { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<VerificationCodePw> VerificationCodePws { get; set; }
-        #endregion
+        public virtual DbSet<ProductSubCategory> ProductSubCategories { get; set; }
+
+        #endregion Db Set
 
         public AppDbContext()
         {
-
         }
+
         public AppDbContext(DbContextOptions options) : base(options)
         {
-
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=PHUC-GRUNT;Database=DecorationGear;Trusted_Connection=True;TrustServerCertificate=True;");
-            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -51,6 +52,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             SeedingData(modelBuilder);
         }
+
         public void SeedingData(ModelBuilder modelBuilder)
         {
             // Seed Brand data
@@ -98,8 +100,6 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                 }
             };
             modelBuilder.Entity<Role>().HasData(roleData);
-
-
 
             // Seed users
             var userData = new List<User>
@@ -210,9 +210,48 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                 {
                    SubCategoryID = 4, SubCategoryName = "Bàn Phím Rainy", CategoryID = 2
                 },
+                  new SubCategory
+                {
+                   SubCategoryID = 5, SubCategoryName = "Chuột không dây", CategoryID = 1
+                },
+                    new SubCategory
+                {
+                   SubCategoryID = 6, SubCategoryName = "Chuột gaming", CategoryID = 1
+                },
+            };
+            modelBuilder.Entity<SubCategory>().HasData(subCategoryData);
+
+
+            var productSubCategoryData = new List<ProductSubCategory>
+            {
+                new ProductSubCategory
+                {
+                    ProductID = 1,
+                    SubCategoryID = 1
+                },
+                new ProductSubCategory
+                {
+                    ProductID = 1,
+                    SubCategoryID = 6
+                },
+                new ProductSubCategory
+                {
+                    ProductID = 2,
+                    SubCategoryID = 6
+                },
+                new ProductSubCategory
+                {
+                    ProductID = 2,
+                    SubCategoryID = 5
+                },
+                new ProductSubCategory
+                {
+                    ProductID = 2,
+                    SubCategoryID = 1
+                },
             };
 
-            modelBuilder.Entity<SubCategory>().HasData(subCategoryData);
+            modelBuilder.Entity<ProductSubCategory>().HasData(productSubCategoryData);
 
             // Seed Product
             var ProductData = new List<Product>
@@ -229,13 +268,12 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     AvatarProduct = "/media/product/250-6041-1.jpg",
                     Size = "M",
                     SaleID = 1,
-                    BrandID = 1,
-                    SubCategoryID = 1
+                    BrandID = 1
                 },
                 new Product
                 {
                     ProductID=2,
-                    ProductName="Chuột gaming Razor mini pro 1",
+                    ProductName="Chuột gaming không dây Razer mini pro 1",
                     Price=2000000,
                     View=1000,
                     Quantity=100,
@@ -244,8 +282,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     AvatarProduct = "/media/product/250-58-700c523eec2d560efd44f277bf6559ac.jpg",
                     Size="M",
                     SaleID=null,
-                    BrandID=1,
-                    SubCategoryID=1
+                    BrandID=1
                 },
                 new Product
                 {
@@ -254,13 +291,12 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     Price=1000000,
                     View=8000,
                     Quantity=100,
-                    Weight=400, 
+                    Weight=400,
                     Description="Một chiếc bàn phím cơ mỳ ăn liền với 3mode hotswap tầm giá 1 củ mà bạn không nên bỏ qua",
                     AvatarProduct = "/media/product/250-6152-untitled-28_upscayl_2x_realesrgan-x4plus.png",
-                    Size="M", 
-                    SaleID=null, 
-                    BrandID=2,
-                    SubCategoryID=3
+                    Size="M",
+                    SaleID=null,
+                    BrandID=2
                 }
             };
 
@@ -319,7 +355,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
 
             modelBuilder.Entity<FeedBack>().HasData(feedbackData);
 
-            //Seed Keyboard Detail 
+            //Seed Keyboard Detail
             var keyboardData = new List<KeyboardDetail>
             {
                 new KeyboardDetail
@@ -399,15 +435,15 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                 new ImageList
                 {
                     ImageListID = 1,
-                    ProductID = 2, 
+                    ProductID = 2,
                     ImagePath= "/images/aulaf75_img2.jpg",
                     Description = "Hình ảnh của sản phẩm aulaf75"
                 },
                 new ImageList
                 {
-                    ImageListID= 2, 
+                    ImageListID= 2,
                     ProductID = 2,
-                    ImagePath= "/images/rzdav3_img2.jpg", 
+                    ImagePath= "/images/rzdav3_img2.jpg",
                     Description="Hình ảnh của sản phẩm razer deadth addzer v3"
                 }
             };
@@ -543,10 +579,5 @@ namespace DecorGearInfrastructure.Database.AppDbContext
 
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }
-
-
-
-

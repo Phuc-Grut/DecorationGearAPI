@@ -11,7 +11,6 @@ namespace DecorGearDomain.Data.Entities
 
         public int? SaleID { get; set; }  // có thể có hoặc không
         public int BrandID { get; set; }
-        public int SubCategoryID { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập tên")]
         [StringLength(255, ErrorMessage = "Không vượt quá 255 ký tự")]
@@ -47,8 +46,7 @@ namespace DecorGearDomain.Data.Entities
 
         public virtual Brand Brand { get; set; }
 
-        public virtual SubCategory SubCategory { get; set; }
-
         public virtual ICollection<ImageList>? ImageLists { get; set; } = new List<ImageList>();
+        public virtual ICollection<ProductSubCategory> ProductSubCategories { get; set; } = new List<ProductSubCategory>();
     }
 }
