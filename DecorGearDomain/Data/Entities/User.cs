@@ -1,6 +1,7 @@
 ﻿using DecorGearDomain.Data.Base;
 using DecorGearDomain.Enum;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 
 
@@ -8,9 +9,8 @@ namespace DecorGearDomain.Data.Entities
 {
     public class User : EntityBase
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserID { get; set; }
-
-        [Required(ErrorMessage = "Vui lòng không được để trống")]
         public int RoleID { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập tên")]
@@ -30,8 +30,6 @@ namespace DecorGearDomain.Data.Entities
         public string Password { get; set; }
 
         public string? RefreshToken { get; set; }
-
-        [Range(1, 3, ErrorMessage = "Vui lòng lựa chọn từ 1 - 3 <(Hoạt động:1) (Không hoạt động:2) (Khóa:3)> ")]
         public UserStatus Status { get; set; }
 
         // Khóa ngoại

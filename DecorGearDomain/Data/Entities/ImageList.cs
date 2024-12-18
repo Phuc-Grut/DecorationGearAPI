@@ -13,8 +13,6 @@ namespace DecorGearDomain.Data.Entities
 
         //public int? KeyboardDetailID { get; set; }
         public int? ProductID { get; set; }
-
-        [Required(ErrorMessage = "Không được để trống")]
         public string ImagePath { get; set; }
 
         [StringLength(500, ErrorMessage = "Không được vượt quá 500 ký tự")]
