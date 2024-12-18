@@ -50,7 +50,6 @@ namespace DecorGearInfrastructure.Database.AppDbContext
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
             SeedingData(modelBuilder);
-
         }
         public void SeedingData(ModelBuilder modelBuilder)
         {

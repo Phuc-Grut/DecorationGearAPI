@@ -1,11 +1,12 @@
 ﻿using DecorGearDomain.Data.Base;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DecorGearDomain.Data.Entities
 {
     public class SubCategory : EntityBase
     {
-        [Required(ErrorMessage = "Vui lòng không được để trống")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SubCategoryID { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập tên")]
