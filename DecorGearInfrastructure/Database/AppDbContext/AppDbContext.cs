@@ -249,6 +249,12 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     ProductID = 2,
                     SubCategoryID = 1
                 },
+                new ProductSubCategory
+                {
+                    ProductID = 3,
+                    SubCategoryID = 3
+                }
+
             };
 
             modelBuilder.Entity<ProductSubCategory>().HasData(productSubCategoryData);

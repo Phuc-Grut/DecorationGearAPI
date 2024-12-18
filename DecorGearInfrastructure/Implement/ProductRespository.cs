@@ -225,6 +225,9 @@ namespace DecorGearInfrastructure.Implement
                 Category = p.ProductSubCategories
                 .Select(psc => psc.SubCategory.Category.CategoryName)
                 .FirstOrDefault(),
+                SubCategories = p.ProductSubCategories
+                 .Select(psc => psc.SubCategory.SubCategoryName)
+                 .ToList(),
                 SaleID = p.Sale.SaleID,
                 SaleCode = p.Sale.SalePercent,
                 ImageProduct = p.ImageLists.Select(img => img.ImagePath).ToList(),

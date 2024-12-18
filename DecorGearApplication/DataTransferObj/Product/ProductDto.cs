@@ -18,7 +18,7 @@ namespace DecorGearApplication.DataTransferObj.Product
 
         public int? SaleID { get; set; }
 
-        public int? SubCategoryID { get; set; }
+        public List<string> SubCategories { get; set; }
 
         public int? BrandId { get; set; }
 
