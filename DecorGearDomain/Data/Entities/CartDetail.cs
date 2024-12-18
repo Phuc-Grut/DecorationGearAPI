@@ -22,9 +22,6 @@ namespace DecorGearDomain.Data.Entities
         [Required]
         [Range(0.1, double.MaxValue, ErrorMessage = "Đơn giá phải là giá trị dương > 0")]
         public double UnitPrice { get; set; }
-
-        [Required]
-        [Range(0.1, double.MaxValue, ErrorMessage = "Phải là giá trị dương > 0")]
         public double TotalPrice { get; set; }
 
         // Khóa ngoại
