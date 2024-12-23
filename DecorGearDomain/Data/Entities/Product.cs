@@ -20,16 +20,10 @@ namespace DecorGearDomain.Data.Entities
         public string ProductName { get; set; }
 
         [Required(ErrorMessage = "Giá phải lớn hơn 0 ")]
-        public double Price { get; set; }
 
         public int View { get; set; }
-
-        [Required(ErrorMessage = "Vui lòng nhập số lượng.")]
-        public int Quantity { get; set; }
-        public double Weight { get; set; }
         public string? Description { get; set; }
-        public string AvatarProduct { get; set; }
-        public string Size { get; set; }
+        public string? AvatarProduct { get; set; }
 
         [Range(0, int.MaxValue, ErrorMessage = "Đơn vị dung lượng pin được dung ở đây là Miliample/Hour")]
         public int? BatteryCapacity { get; set; } // dung lượng pin

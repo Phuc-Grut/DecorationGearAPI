@@ -7,6 +7,9 @@
         //public int ProductID { get; set; }
 
         public string? Color { get; set; }
+        public double? Price { get; set; }
+        public string? Switch { get; set; }
+        public int? Quantity { get; set; }
 
         public int DPI { get; set; }
 
@@ -23,5 +26,7 @@
         public string? LED { get; set; }
 
         public string? SS { get; set; }
+        public int? BatteryCapacity { get; set; } // dung lượng pin
+        public double? Weight { get; set; }
     }
 }

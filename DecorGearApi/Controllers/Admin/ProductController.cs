@@ -28,6 +28,11 @@ namespace DecorGearApi.Controllers
         public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
         {
             var result = await _res.GetKeyProductById(id, cancellationToken);
+
+            if (result == null )
+            {
+                return NotFound($"Product with ID {id} not found.");
+            }
             return Ok(result);
         }
 

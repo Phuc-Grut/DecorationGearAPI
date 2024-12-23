@@ -10,13 +10,6 @@ using DecorGearDomain.Enum;
 using DecorGearInfrastructure.Database.AppDbContext;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DecorGearInfrastructure.Implement
 {
@@ -119,7 +112,6 @@ namespace DecorGearInfrastructure.Implement
             }
         }
 
-
         public async Task<ResponseDto<bool>> DeleteProduct(int id, CancellationToken cancellationToken)
         {
             var deleteProducts = await _appDbContext.Products.FindAsync(id, cancellationToken);
@@ -178,14 +170,10 @@ namespace DecorGearInfrastructure.Implement
         //    // Các định dạng hợp lệ
         //    var validExtensions = new List<string> { ".jpg", ".jpeg" };
 
-        //    // Lấy phần mở rộng của tệp
-        //    var extension = Path.GetExtension(imagePath)?.ToLower();
+        // // Lấy phần mở rộng của tệp var extension = Path.GetExtension(imagePath)?.ToLower();
 
-        //    // Nếu phần mở rộng không hợp lệ, trả về false
-        //    if (!validExtensions.Contains(extension))
-        //    {
-        //        return false;
-        //    }
+        // // Nếu phần mở rộng không hợp lệ, trả về false if (!validExtensions.Contains(extension))
+        // { return false; }
 
         //    // Tất cả các tệp đều hợp lệ
         //    return true;
@@ -210,29 +198,13 @@ namespace DecorGearInfrastructure.Implement
             {
                 query = query.Where(p => p.ProductName.Contains(request.ProductName));
             }
-            if (request.Price.HasValue)
-            {
-                query = query.Where(p => p.Price == request.Price);
-            }
             if (request.View.HasValue)
             {
                 query = query.Where(p => p.View == request.View);
             }
-            if (request.Quantity.HasValue)
-            {
-                query = query.Where(p => p.Quantity == request.Quantity);
-            }
-            if (request.Weight.HasValue)
-            {
-                query = query.Where(p => p.Weight == request.Weight);
-            }
             if (!string.IsNullOrEmpty(request.Description))
             {
                 query = query.Where(p => p.Description.Contains(request.Description));
-            }
-            if (!string.IsNullOrEmpty(request.Size))
-            {
-                query = query.Where(p => p.Size == request.Size);
             }
             if (request.BatteryCapacity.HasValue)
             {
@@ -244,34 +216,64 @@ namespace DecorGearInfrastructure.Implement
                 ProductID = p.ProductID,
                 ProductName = p.ProductName,
                 ProductCode = p.ProductCode,
-                Price = p.Price,
-                Category = p.ProductSubCategories
-                .Select(psc => psc.SubCategory.Category.CategoryName)
-                .FirstOrDefault(),
+                CategoryID = p.ProductSubCategories
+                    .Select(psc => psc.SubCategory.Category.CategoryID)
+                    .FirstOrDefault(),
+                CategoryName = p.ProductSubCategories
+                    .Select(psc => psc.SubCategory.Category.CategoryName)
+                    .FirstOrDefault(),
                 SubCategories = p.ProductSubCategories
-                 .Select(psc => psc.SubCategory.SubCategoryName)
-                 .ToList(),
+                    .Select(psc => psc.SubCategory.SubCategoryName)
+                    .ToList(),
                 SaleID = p.Sale.SaleID,
                 SaleCode = p.Sale.SalePercent,
-                ImageProduct = p.ImageLists.Select(img => img.ImagePath).ToList(),
-                ProductDetail = p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 1)
+                AvatarProduct = p.AvatarProduct,
+                Description = p.Description,
+                ImageProduct = p.ImageLists
+                    .Select(img => img.ImagePath)
+                    .ToList(),
+
+                Price = p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 1)
+                    ? p.MouseDetails.FirstOrDefault() != null
+                    ? p.MouseDetails.FirstOrDefault()!.Price
+                    : (double?)null
+                    : p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 2)
+                    ? p.KeyboardDetails.FirstOrDefault() != null
+                    ? p.KeyboardDetails.FirstOrDefault()!.Price
+                    : (double?)null
+                    : null,
+
+                Quantity = p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 1)
+                            ? p.MouseDetails.Sum(md => md.Quantity)
+                            :p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 2)
+                            ? p.KeyboardDetails.Sum(kd => kd.Quantity)
+                            :0,
+
+               ProductDetail = p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 1)
                 ? (object?)p.MouseDetails.Select(md => new MouseDetailsDto
                 {
                     MouseDetailID = md.MouseDetailID,
+                    Switch = md.Switch,
+                    Price = md.Price,
+                    Quantity = md.Quantity,
                     Color = md.Color,
-                    DPI = md.DPI,
+                    DPI = md.DPI ?? 0,
                     Connectivity = md.Connectivity,
                     Dimensions = md.Dimensions,
                     Material = md.Material,
                     EyeReading = md.EyeReading,
                     Button = md.Button,
                     LED = md.LED,
-                    SS = md.SS
+                    SS = md.SS,
+                    BatteryCapacity = md.BatteryCapacity,
+                    Weight = md.Weight
                 }).ToList()
-                : p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 2)
+                :p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 2)
                 ? (object?)p.KeyboardDetails.Select(kd => new KeyBoardDetailsDto
                 {
                     KeyboardDetailID = kd.KeyboardDetailID,
+                    Price = kd.Price,
+                    Quantity = kd.Quantity,
                     Color = kd.Color,
                     Layout = kd.Layout,
                     Case = kd.Case,
@@ -283,18 +285,83 @@ namespace DecorGearInfrastructure.Implement
                     SS = kd.SS,
                     Stabilizes = kd.Stabilizes,
                     PCB = kd.PCB,
+                    BatteryCapacity = kd.BatteryCapacity,
+                    Size = kd.Size,
+                    Weight= kd.Weight
                 }).ToList()
                 : null
             }).ToListAsync(cancellationToken);
-
             return products;
         }
 
         public async Task<ProductDto> GetKeyProductById(int id, CancellationToken cancellationToken)
         {
-            var productIds = await _appDbContext.Products.FindAsync(id, cancellationToken);
+            var product = await _appDbContext.Products
+                .Include(p => p.ProductSubCategories)
+                    .ThenInclude(psc => psc.SubCategory)
+                    .ThenInclude(sc => sc.Category)
+                .Include(p => p.MouseDetails)
+                .Include(p => p.KeyboardDetails)
+                .Include(p => p.ImageLists)
+                .Include(p => p.Sale)
+                .Include(p => p.Brand)
+                .FirstOrDefaultAsync(p => p.ProductID == id, cancellationToken);
+            if (product == null)
+            {
+                return null;
+            }
 
-            return _mapper.Map<ProductDto>(productIds);
+            return new ProductDto
+            {
+                ProductID = product.ProductID,
+                ProductName = product.ProductName,
+                ProductCode = product.ProductCode,
+                SalePercent = product.Sale?.SalePercent ?? 0,
+                BrandName = product.Brand?.BrandName ?? "Unknown Brand",
+                AvatarProduct = product.AvatarProduct,
+                ImageProduct = product.ImageLists?.Select(img => img.ImagePath).ToList() ?? new List<string>(),
+                CategoryID = product.ProductSubCategories
+                    .Select(psc => psc.SubCategory.Category.CategoryID)
+                    .FirstOrDefault(),
+                CategoryName = product.ProductSubCategories?
+                    .Select(psc => psc.SubCategory?.Category?.CategoryName)
+                    .FirstOrDefault() ?? "Unknown Category",
+                ProductDetail = product.ProductSubCategories?.Any(psc => psc.SubCategory?.Category?.CategoryID == 1) == true
+                    ? (object?)product.MouseDetails?.Select(md => new MouseDetailsDto
+                    {
+                        MouseDetailID = md.MouseDetailID,
+                        Color = md.Color,
+                        Price = md.Price,
+                        Quantity = md.Quantity,
+                        DPI = md.DPI ?? 0,
+                        Connectivity = md.Connectivity,
+                        Dimensions = md.Dimensions,
+                        Material = md.Material,
+                        EyeReading = md.EyeReading,
+                        Button = md.Button,
+                        LED = md.LED,
+                        SS = md.SS
+                    }).ToList()
+                    : product.ProductSubCategories?.Any(psc => psc.SubCategory?.Category?.CategoryID == 2) == true
+                    ? (object?)product.KeyboardDetails?.Select(kd => new KeyBoardDetailsDto
+                    {
+                        KeyboardDetailID = kd.KeyboardDetailID,
+                        Color = kd.Color,
+                        Price = kd.Price,
+                        Quantity = kd.Quantity,
+                        Layout = kd.Layout,
+                        Case = kd.Case,
+                        Switch = kd.Switch,
+                        SwitchLife = kd.SwitchLife,
+                        Led = kd.Led,
+                        KeycapMaterial = kd.KeycapMaterial,
+                        SwitchMaterial = kd.SwitchMaterial,
+                        SS = kd.SS,
+                        Stabilizes = kd.Stabilizes,
+                        PCB = kd.PCB,
+                    }).ToList()
+                    : null
+            };
         }
 
         public async Task<ResponseDto<ProductDto>> UpdateProduct(int id, UpdateProductRequest request, CancellationToken cancellationToken)
@@ -327,12 +394,8 @@ namespace DecorGearInfrastructure.Implement
 
                 // Cập nhật thông tin của sản phẩm
                 product.ProductName = request.ProductName;
-                product.Price = request.Price;
                 product.View = request.View;
-                product.Quantity = request.Quantity;
-                product.Weight = request.Weight;
                 product.Description = request.Description;
-                product.Size = request.Size;
                 product.BatteryCapacity = request.BatteryCapacity;
                 product.SaleID = request.SaleID;
                 product.BrandID = request.BrandID;
@@ -373,8 +436,7 @@ namespace DecorGearInfrastructure.Implement
                     {
                         ProductID = product.ProductID,
                         ProductName = product.ProductName,
-                        Price = product.Price,
-                        Category = string.Join(", ", product.ProductSubCategories.Select(psc => psc.SubCategory.SubCategoryName).ToList()),
+                        CategoryName = string.Join(", ", product.ProductSubCategories.Select(psc => psc.SubCategory.SubCategoryName).ToList()),
                         SaleID = product.SaleID,
                         BrandId = product.BrandID,
                         AvatarProduct = product.AvatarProduct
