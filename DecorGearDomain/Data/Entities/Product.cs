@@ -26,7 +26,6 @@ namespace DecorGearDomain.Data.Entities
         public string? AvatarProduct { get; set; }
 
         [Range(0, int.MaxValue, ErrorMessage = "Đơn vị dung lượng pin được dung ở đây là Miliample/Hour")]
-        public int? BatteryCapacity { get; set; } // dung lượng pin
 
         // Khóa ngoại 
 

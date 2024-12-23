@@ -206,10 +206,6 @@ namespace DecorGearInfrastructure.Implement
             {
                 query = query.Where(p => p.Description.Contains(request.Description));
             }
-            if (request.BatteryCapacity.HasValue)
-            {
-                query = query.Where(p => p.BatteryCapacity == request.BatteryCapacity);
-            }
 
             var products = await query.Select(p => new ProductDto
             {
@@ -396,7 +392,6 @@ namespace DecorGearInfrastructure.Implement
                 product.ProductName = request.ProductName;
                 product.View = request.View;
                 product.Description = request.Description;
-                product.BatteryCapacity = request.BatteryCapacity;
                 product.SaleID = request.SaleID;
                 product.BrandID = request.BrandID;
                 product.AvatarProduct = request.AvatarProduct;
