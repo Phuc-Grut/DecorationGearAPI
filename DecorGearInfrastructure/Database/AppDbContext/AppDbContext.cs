@@ -44,7 +44,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=PHUC-GRUNT;Database=DecorationGear;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Data Source=LAP-CN-192;Database=DecorationGear;Trusted_Connection=True;TrustServerCertificate=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -125,7 +125,9 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     Password = Hash.HashPassword("UserPassword123"),  // Băm mật khẩu một cách an toàn
                     RoleID = 2,  // Vai trò User
                     Status = UserStatus.Active
-                }
+                },
+             
+
             };
 
             modelBuilder.Entity<User>().HasData(userData);

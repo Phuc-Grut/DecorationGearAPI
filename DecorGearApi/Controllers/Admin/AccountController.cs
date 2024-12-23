@@ -9,7 +9,7 @@ namespace DecorGearApi.Controllers.Admin
 {
     [ApiController]
     [Route("api/admin/[controller]")]
-    [Authorize(Roles = "Admin")]
+   // [Authorize(Roles = "Admin")]
     public class AccountController : ControllerBase
     {
         private readonly IUserServices _userServices;
