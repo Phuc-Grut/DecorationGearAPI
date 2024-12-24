@@ -8,7 +8,6 @@ namespace DecorGearDomain.Data.Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductID { get; set; }
-        [Required]
         [StringLength(10)]
         public string ProductCode { get; set; }
 
