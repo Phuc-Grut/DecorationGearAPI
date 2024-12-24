@@ -316,12 +316,23 @@ namespace DecorGearInfrastructure.Implement
                 BrandName = product.Brand?.BrandName ?? "Unknown Brand",
                 AvatarProduct = product.AvatarProduct,
                 ImageProduct = product.ImageLists?.Select(img => img.ImagePath).ToList() ?? new List<string>(),
+                Description =product.Description,
+                SubCategories = product.ProductSubCategories
+                    .Select(psc => psc.SubCategory.SubCategoryName)
+                    .ToList(),
                 CategoryID = product.ProductSubCategories
                     .Select(psc => psc.SubCategory.Category.CategoryID)
                     .FirstOrDefault(),
                 CategoryName = product.ProductSubCategories?
                     .Select(psc => psc.SubCategory?.Category?.CategoryName)
                     .FirstOrDefault() ?? "Unknown Category",
+
+                Quantity = product.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 1)
+                            ? product.MouseDetails.Sum(md => md.Quantity)
+                            : product.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 2)
+                            ? product.KeyboardDetails.Sum(kd => kd.Quantity)
+                            : 0,
+
                 ProductDetail = product.ProductSubCategories?.Any(psc => psc.SubCategory?.Category?.CategoryID == 1) == true
                     ? (object?)product.MouseDetails?.Select(md => new MouseDetailsDto
                     {
@@ -329,11 +340,15 @@ namespace DecorGearInfrastructure.Implement
                         Color = md.Color,
                         Price = md.Price,
                         Quantity = md.Quantity,
+                        Switch = md.Switch,
+                        Weight = md.Weight,
+                        Size = md.Size,
                         DPI = md.DPI ?? 0,
                         Connectivity = md.Connectivity,
                         Dimensions = md.Dimensions,
                         Material = md.Material,
                         EyeReading = md.EyeReading,
+                        BatteryCapacity = md.BatteryCapacity,
                         Button = md.Button,
                         LED = md.LED,
                         SS = md.SS
