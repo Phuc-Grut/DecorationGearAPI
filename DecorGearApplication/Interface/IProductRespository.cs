@@ -15,6 +15,8 @@ namespace DecorGearApplication.Interface
         Task<ProductDto> GetKeyProductById(int id, CancellationToken cancellationToken);
         Task<ResponseDto<ProductDto>> CreateProduct(CreateProductRequest request, CancellationToken cancellationToken);
         Task<ResponseDto<ProductDto>> UpdateProduct(int id,UpdateProductRequest request, CancellationToken cancellationToken);
+        Task<bool> AreSubCategoriesValid(int categoryId, List<int> subCategoryIds, CancellationToken cancellationToken);
+        Task<ResponseDto<bool>> UpdateCategoryProduct(int productId, UpdateProductCategoryRequest request, CancellationToken cancellationToken);
         Task<ResponseDto<bool>> DeleteProduct(int id, CancellationToken cancellationToken);
         public bool IsValidImageFormat(string imagePaths);
     }
