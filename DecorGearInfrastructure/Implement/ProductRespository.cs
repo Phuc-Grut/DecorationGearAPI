@@ -188,6 +188,8 @@ namespace DecorGearInfrastructure.Implement
                 .Include(p => p.MouseDetails)
                 .Include(p => p.KeyboardDetails)
                 .Include(p => p.ImageLists)
+                .Include(p => p.Sale)
+                .Include(p => p.Brand)
                 .AsQueryable();
 
             if (request.ProductID.HasValue)
@@ -212,6 +214,8 @@ namespace DecorGearInfrastructure.Implement
                 ProductID = p.ProductID,
                 ProductName = p.ProductName,
                 ProductCode = p.ProductCode,
+                SalePercent = p.Sale.SalePercent,
+                BrandName = p.Brand.BrandName,
                 CategoryID = p.ProductSubCategories
                     .Select(psc => psc.SubCategory.Category.CategoryID)
                     .FirstOrDefault(),
@@ -357,9 +361,9 @@ namespace DecorGearInfrastructure.Implement
                     ? (object?)product.KeyboardDetails?.Select(kd => new KeyBoardDetailsDto
                     {
                         KeyboardDetailID = kd.KeyboardDetailID,
-                        Color = kd.Color,
                         Price = kd.Price,
                         Quantity = kd.Quantity,
+                        Color = kd.Color,
                         Layout = kd.Layout,
                         Case = kd.Case,
                         Switch = kd.Switch,
@@ -370,6 +374,9 @@ namespace DecorGearInfrastructure.Implement
                         SS = kd.SS,
                         Stabilizes = kd.Stabilizes,
                         PCB = kd.PCB,
+                        BatteryCapacity = kd.BatteryCapacity,
+                        Size = kd.Size,
+                        Weight = kd.Weight
                     }).ToList()
                     : null
             };
@@ -484,5 +491,69 @@ namespace DecorGearInfrastructure.Implement
             }
         }
 
+        public async Task<bool> AreSubCategoriesValid(int categoryId, List<int> subCategoryIds, CancellationToken cancellationToken)
+        {
+            var validSubCategoryIds = await _appDbContext.SubCategories
+                .Where(sc => sc.CategoryID == categoryId)
+                .Select(sc => sc.SubCategoryID)
+                .ToListAsync(cancellationToken);
+            return subCategoryIds.All(id => validSubCategoryIds.Contains(id));
+        }
+
+        public async Task<ResponseDto<bool>> UpdateCategoryProduct(int productId, UpdateProductCategoryRequest request, CancellationToken cancellationToken)
+        {
+            var product = await _appDbContext.Products
+                .Include(p => p.ProductSubCategories)
+                .ThenInclude(psc => psc.SubCategory)
+                .ThenInclude(sc => sc.Category)
+                .FirstOrDefaultAsync(p => p.ProductID == productId, cancellationToken);
+
+            if (product == null)
+            {
+                return new ResponseDto<bool>
+                {
+                    DataResponse = false,
+                    Message = "Sản phẩm không tồn tại",
+                    Status = StatusCodes.Status404NotFound,
+                };
+            }
+
+            bool isValid = await AreSubCategoriesValid(request.CategoryID, request.SubCategoryIDs, cancellationToken);
+            if (!isValid)
+            {
+                return new ResponseDto<bool>
+                {
+                    DataResponse = false,
+                    Status = 400,
+                    Message = "Một hoặc nhiều SubCategory không hợp lệ với Category đã chọn."
+                };
+            }
+
+            _appDbContext.ProductSubCategories.RemoveRange(product.ProductSubCategories);
+
+            foreach (var subCategoryId in request.SubCategoryIDs)
+            {
+                var subCategory = await _appDbContext.SubCategories
+                    .Include(sc => sc.Category)
+                    .FirstOrDefaultAsync(sc => sc.SubCategoryID == subCategoryId, cancellationToken);
+
+                if (subCategory == null) continue;
+
+                _appDbContext.ProductSubCategories.Add(new ProductSubCategory
+                {
+                    ProductID = productId,
+                    SubCategoryID = subCategoryId
+                });
+            }
+
+            await _appDbContext.SaveChangesAsync(cancellationToken);
+
+            return new ResponseDto<bool>
+            {
+                DataResponse = true,
+                Status = StatusCodes.Status200OK,
+                Message = "Cập nhật danh mục và danh mục con thành công."
+            };
+        }
     }
 }
