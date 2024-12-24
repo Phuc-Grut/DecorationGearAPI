@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DecorGearApplication.DataTransferObj.Category;
 using DecorGearApplication.DataTransferObj.ImageList;
 using DecorGearApplication.DataTransferObj.KeyBoardDetails;
 using DecorGearApplication.DataTransferObj.MouseDetails;
@@ -483,6 +484,5 @@ namespace DecorGearInfrastructure.Implement
                 };
             }
         }
-
     }
 }

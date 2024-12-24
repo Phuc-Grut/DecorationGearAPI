@@ -12,19 +12,19 @@ namespace DecorGearDomain.Data.Entities
         public string ProductCode { get; set; }
 
         public int? SaleID { get; set; }
+
         public int BrandID { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập tên")]
         [StringLength(255, ErrorMessage = "Không vượt quá 255 ký tự")]
         public string ProductName { get; set; }
 
-        [Required(ErrorMessage = "Giá phải lớn hơn 0 ")]
-
+        [Required(ErrorMessage = "Không để trống")]
         public int View { get; set; }
-        public string? Description { get; set; }
-        public string? AvatarProduct { get; set; }
 
-        [Range(0, int.MaxValue, ErrorMessage = "Đơn vị dung lượng pin được dung ở đây là Miliample/Hour")]
+        public string? Description { get; set; }
+
+        public string? AvatarProduct { get; set; }
 
         // Khóa ngoại 
 

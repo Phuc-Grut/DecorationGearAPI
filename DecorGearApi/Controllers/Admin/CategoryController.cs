@@ -24,10 +24,10 @@ namespace DecorGearApi.Controllers
             return Ok(resultValue);
         }
 
-        [HttpGet("get-by-id")]
-        public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
+        [HttpGet("get-all-product-by-category-id")]
+        public async Task<IActionResult> GetCategoryProductById(int id, CancellationToken cancellationToken)
         {
-            var keyResultValue = await _res.GetCategoryById(id, cancellationToken);
+            var keyResultValue = await _res.GetCategoryProductById(id, cancellationToken);
             return Ok(keyResultValue);
         }
 
@@ -46,7 +46,7 @@ namespace DecorGearApi.Controllers
                 return BadRequest(ModelState);
             }
 
-            var valueID = await GetById(id, cancellationToken);
+            var valueID = await GetCategoryProductById(id, cancellationToken);
             if (valueID == null)
             {
                 return NotFound("Không tìm thấy giá trị id");
@@ -60,7 +60,7 @@ namespace DecorGearApi.Controllers
         [HttpDelete("delete")]
         public async Task<IActionResult> DeleteCategory(int id, CancellationToken cancellationToken)
         {
-            var valueID = await _res.GetCategoryById(id, cancellationToken);
+            var valueID = await _res.DeleteCategory(id, cancellationToken);
             if (valueID == null)
             {
                 return NotFound("Không tìm thấy giá trị id");

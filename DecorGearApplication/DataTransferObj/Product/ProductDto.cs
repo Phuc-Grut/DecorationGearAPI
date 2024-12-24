@@ -15,6 +15,7 @@ namespace DecorGearApplication.DataTransferObj.Product
     public class ProductDto
     {
         public int? ProductID { get; set; }
+
         public string ProductCode { get; set; }
 
         public int? SaleID { get; set; }
@@ -35,16 +36,16 @@ namespace DecorGearApplication.DataTransferObj.Product
 
         public int? Quantity { get; set; }
 
-        public double? Weight { get; set; }
-
         public string? Description { get; set; }
 
-        public string? Size { get; set; }
         public string? CategoryName { get; set; }
+
         public int? CategoryID { get; set; }
 
         public string? AvatarProduct { get; set; }
+
         public List<string>? ImageProduct { get; set; }
+
         public object? ProductDetail { get; set; }
     }
 }
