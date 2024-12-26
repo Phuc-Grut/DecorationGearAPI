@@ -166,7 +166,7 @@ namespace DecorGearInfrastructure.Implement
             }
         }
 
-        public async Task<CategoryProductDto> GetCategoryProductById(int id , CancellationToken cancellationToken)
+        public async Task<List<CategoryProductDto>> GetCategoryProductById(int id , CancellationToken cancellationToken)
         {
              var category = await _appDbContext.Categories
                 .Include(c => c.SubCategories)
@@ -194,7 +194,7 @@ namespace DecorGearInfrastructure.Implement
                 return null; 
             }
 
-            return new CategoryProductDto
+            var CategoryProductDtos = products.Select(firstProduct => new CategoryProductDto
             {
                 ProductID = firstProduct.ProductID,
                 ProductName = firstProduct.ProductName,
@@ -257,7 +257,9 @@ namespace DecorGearInfrastructure.Implement
                         PCB = kd.PCB,
                     }).ToList()
                     : null
-            };
+            }).ToList();
+
+            return CategoryProductDtos;
         }
     }
 }
