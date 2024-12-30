@@ -1,6 +1,7 @@
 ﻿using DecorGearApplication.DataTransferObj.Category;
 using DecorGearApplication.DataTransferObj.Product;
 using DecorGearApplication.ValueObj.Response;
+using DecorGearDomain.Data.Entities;
 using DecorGearDomain.Enum;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace DecorGearApplication.Interface
     {
         Task<List<ProductDto>> GetAllProduct(ViewProductRequest? request,CancellationToken cancellationToken);
         Task<ProductDto> GetKeyProductById(int id, CancellationToken cancellationToken);
+        Task<List<ProductDto>> GetSoftProducts(string sortBy, bool isAscending, CancellationToken cancellationToken);
         Task<ResponseDto<ProductDto>> CreateProduct(CreateProductRequest request, CancellationToken cancellationToken);
         Task<ResponseDto<ProductDto>> UpdateProduct(int id,UpdateProductRequest request, CancellationToken cancellationToken);
         Task<ResponseDto<bool>> DeleteProduct(int id, CancellationToken cancellationToken);

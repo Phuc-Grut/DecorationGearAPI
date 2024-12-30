@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DecorGearApplication.DataTransferObj.Category
+namespace DecorGearApplication.DataTransferObj.SubCategory
 {
-    public class CategoryProductDto
+    public class SubCategoryProductDto
     {
         public int? ProductID { get; set; }
 
@@ -21,13 +20,13 @@ namespace DecorGearApplication.DataTransferObj.Category
 
         public string? AvatarProduct { get; set; }
 
-        public int? CategoryID { get; set; }
+        public int? SubCategoryID { get; set; }
 
-        public string? CategoryName { get; set; }
+        public int CategoryID { get; set; }
+
+        public string? SubCategoryName { get; set; }
 
         public List<string>? ImageProduct { get; set; }
-
-        public List<string> SubCategories { get; set; }
 
         public object? ProductDetail { get; set; }
     }

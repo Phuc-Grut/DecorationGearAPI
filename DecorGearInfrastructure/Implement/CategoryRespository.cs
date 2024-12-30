@@ -190,7 +190,7 @@ namespace DecorGearInfrastructure.Implement
             var products = category.SubCategories.SelectMany(sc => sc.ProductSubCategories).Select(psc => psc.Product).ToList();
             var firstProduct = products.FirstOrDefault(); 
             if (firstProduct == null) 
-            { 
+            {  
                 return null; 
             }
 
@@ -200,6 +200,7 @@ namespace DecorGearInfrastructure.Implement
                 ProductName = firstProduct.ProductName,
                 ProductCode = firstProduct.ProductCode,
                 AvatarProduct = firstProduct.AvatarProduct,
+                View = firstProduct.View,
                 ImageProduct = firstProduct.ImageLists?.Select(img => img.ImagePath).ToList() ?? new List<string>(),
                 Description = firstProduct.Description,
                 SubCategories = firstProduct.ProductSubCategories
@@ -211,13 +212,6 @@ namespace DecorGearInfrastructure.Implement
                 CategoryName = firstProduct.ProductSubCategories?
                     .Select(psc => psc.SubCategory?.Category?.CategoryName)
                     .FirstOrDefault() ?? "Unknown Category",
-
-                Quantity = firstProduct.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 1)
-                            ? firstProduct.MouseDetails.Sum(md => md.Quantity)
-                            : firstProduct.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 2)
-                            ? firstProduct.KeyboardDetails.Sum(kd => kd.Quantity)
-                            : 0,
-
                 ProductDetail = firstProduct.ProductSubCategories?.Any(psc => psc.SubCategory?.Category?.CategoryID == 1) == true
                     ? (object?)firstProduct.MouseDetails?.Select(md => new MouseDetailsDto
                     {

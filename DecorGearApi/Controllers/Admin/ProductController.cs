@@ -24,6 +24,13 @@ namespace DecorGearApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("soft-product")]
+        public async Task<IActionResult> SoftProduct([FromQuery] string sortBy, [FromQuery] bool isAscending, CancellationToken cancellationToken)
+        {
+            var result = await _res.GetSoftProducts(sortBy, isAscending, cancellationToken);
+            return Ok(result);
+        }
+
         [HttpGet("get-by-id")]
         public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
         {
