@@ -36,6 +36,13 @@ namespace DecorGearApi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("soft-product")]
+        public async Task<IActionResult> SoftProduct([FromQuery] string sortBy, [FromQuery] bool isAscending, CancellationToken cancellationToken)
+        {
+            var result = await _res.GetSoftProducts(sortBy, isAscending, cancellationToken);
+            return Ok(result);
+        }
+
         // POST api/<ProductController>
         [HttpPost("create")]
         public async Task<IActionResult> CreateProduct([FromQuery]CreateProductRequest request, CancellationToken cancellationToken)

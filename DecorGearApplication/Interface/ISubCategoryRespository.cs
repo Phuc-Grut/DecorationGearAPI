@@ -14,6 +14,7 @@ namespace DecorGearApplication.Interface
     {
         Task<List<SubCategoryDto>> GetAllSubCategory(CancellationToken cancellationToken);
         Task<SubCategoryDto> GetSubCategoryeById(int id, CancellationToken cancellationToken);
+        Task<List<SubCategoryProductDto>> GetSubCategoryProductById(int id, CancellationToken cancellationToken);
         Task<ResponseDto<SubCategoryDto>> CreateSubCategory(CreateSubCategoryRequest request, CancellationToken cancellationToken);
         Task<ResponseDto<SubCategoryDto>> UpdateSubCategory(int id, UpdateSubCategoryRequest request, CancellationToken cancellationToken);
         Task<ResponseDto<bool>> DeleteSubCategory(int id, CancellationToken cancellationToken);

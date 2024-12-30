@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using DecorGearApplication.DataTransferObj.Brand;
 using DecorGearApplication.DataTransferObj.Category;
+using DecorGearApplication.DataTransferObj.KeyBoardDetails;
+using DecorGearApplication.DataTransferObj.MouseDetails;
 using DecorGearApplication.Interface;
 using DecorGearApplication.ValueObj.Response;
 using DecorGearDomain.Data.Entities;
@@ -169,6 +171,96 @@ namespace DecorGearInfrastructure.Implement
                     Message = "Lỗi không xác định: " + ex.Message + "."
                 };
             }
+        }
+
+        public async Task<List<CategoryProductDto>> GetCategoryProductById(int id, CancellationToken cancellationToken)
+        {
+            var category = await _appDbContext.Categories
+               .Include(c => c.SubCategories)
+                   .ThenInclude(sc => sc.ProductSubCategories)
+                       .ThenInclude(psc => psc.Product)
+                           .ThenInclude(p => p.MouseDetails)
+               .Include(c => c.SubCategories)
+                   .ThenInclude(sc => sc.ProductSubCategories)
+                       .ThenInclude(psc => psc.Product)
+                           .ThenInclude(p => p.KeyboardDetails)
+               .Include(c => c.SubCategories)
+                   .ThenInclude(sc => sc.ProductSubCategories)
+                       .ThenInclude(psc => psc.Product)
+                           .ThenInclude(p => p.ImageLists)
+               .FirstOrDefaultAsync(c => c.CategoryID == id, cancellationToken);
+            if (category == null)
+            {
+                return null;
+            }
+
+            var products = category.SubCategories.SelectMany(sc => sc.ProductSubCategories).Select(psc => psc.Product).ToList();
+            var firstProduct = products.FirstOrDefault();
+            if (firstProduct == null)
+            {
+                return null;
+            }
+
+            var CategoryProductDtos = products.Select(firstProduct => new CategoryProductDto
+            {
+                ProductID = firstProduct.ProductID,
+                ProductName = firstProduct.ProductName,
+                ProductCode = firstProduct.ProductCode,
+                AvatarProduct = firstProduct.AvatarProduct,
+                View = firstProduct.View,
+                ImageProduct = firstProduct.ImageLists?.Select(img => img.ImagePath).ToList() ?? new List<string>(),
+                Description = firstProduct.Description,
+                SubCategories = firstProduct.ProductSubCategories
+                    .Select(psc => psc.SubCategory.SubCategoryName)
+                    .ToList(),
+                CategoryID = firstProduct.ProductSubCategories
+                    .Select(psc => psc.SubCategory.Category.CategoryID)
+                    .FirstOrDefault(),
+                CategoryName = firstProduct.ProductSubCategories?
+                    .Select(psc => psc.SubCategory?.Category?.CategoryName)
+                    .FirstOrDefault() ?? "Unknown Category",
+                ProductDetail = firstProduct.ProductSubCategories?.Any(psc => psc.SubCategory?.Category?.CategoryID == 1) == true
+                    ? (object?)firstProduct.MouseDetails?.Select(md => new MouseDetailsDto
+                    {
+                        MouseDetailID = md.MouseDetailID,
+                        Color = md.Color,
+                        Price = md.Price,
+                        Quantity = md.Quantity,
+                        Switch = md.Switch,
+                        Weight = md.Weight,
+                        Size = md.Size,
+                        DPI = md.DPI ?? 0,
+                        Connectivity = md.Connectivity,
+                        Dimensions = md.Dimensions,
+                        Material = md.Material,
+                        EyeReading = md.EyeReading,
+                        BatteryCapacity = md.BatteryCapacity,
+                        Button = md.Button,
+                        LED = md.LED,
+                        SS = md.SS
+                    }).ToList()
+                    : firstProduct.ProductSubCategories?.Any(psc => psc.SubCategory?.Category?.CategoryID == 2) == true
+                    ? (object?)firstProduct.KeyboardDetails?.Select(kd => new KeyBoardDetailsDto
+                    {
+                        KeyboardDetailID = kd.KeyboardDetailID,
+                        Color = kd.Color,
+                        Price = kd.Price,
+                        Quantity = kd.Quantity,
+                        Layout = kd.Layout,
+                        Case = kd.Case,
+                        Switch = kd.Switch,
+                        SwitchLife = kd.SwitchLife,
+                        Led = kd.Led,
+                        KeycapMaterial = kd.KeycapMaterial,
+                        SwitchMaterial = kd.SwitchMaterial,
+                        SS = kd.SS,
+                        Stabilizes = kd.Stabilizes,
+                        PCB = kd.PCB,
+                    }).ToList()
+                    : null
+            }).ToList();
+
+            return CategoryProductDtos;
         }
     }
 }
