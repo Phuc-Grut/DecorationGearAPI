@@ -3,6 +3,7 @@
     public class CartDetailDto
     {
         public int CartDetailID { get; set; }
+        public string ProductName {  get; set; }
 
         public int ProductID { get; set; }
 

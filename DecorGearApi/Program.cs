@@ -63,6 +63,7 @@ public class Program
         builder.Services.AddScoped<IVoucherRespository, VoucherRepository>();
         builder.Services.AddEventBus(builder.Configuration);
         builder.Services.AddAutoMapper(typeof(UserProfile), typeof(FeedBackProfile));
+        builder.Services.AddScoped<ICartRespository, CartRepository>();
 
         builder.Services.AddStackExchangeRedisCache(options =>
         {

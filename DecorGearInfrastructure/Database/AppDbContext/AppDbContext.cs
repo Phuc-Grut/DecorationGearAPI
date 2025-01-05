@@ -118,7 +118,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                 new User
                 {
                     UserID = 2,
-                    Name = "Jane Hangminton",
+                    Name = "Jane Hangminton", 
                     PhoneNumber = "0987654321",
                     Email = "jane@example.com",
                     UserName = "user2",

@@ -108,7 +108,56 @@ namespace DecorGearApi.Controllers.User
             return StatusCode(result.Status, result.Message);
         }
 
+        //[HttpPut("update/{id}")]
+        //public async Task<IActionResult> UpdateUser(int id, [FromBody] UserUpdateRequest request, CancellationToken cancellationToken)
+        //{
+        //    // Kiểm tra dữ liệu từ client
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(new
+        //        {
+        //            status = 400,
+        //            message = "Dữ liệu không hợp lệ.",
+        //            errors = ModelState
+        //        });
+        //    }
 
+        //    // Gọi dịch vụ cập nhật
+        //    var result = await _userServices.UpdateUser(id, request, cancellationToken);
+
+        //    if (result.Status == StatusCodes.Status404NotFound)
+        //    {
+        //        return NotFound(new
+        //        {
+        //            status = 404,
+        //            message = result.Message
+        //        });
+        //    }
+
+        //    if (result.Status == StatusCodes.Status200OK)
+        //    {
+        //        return Ok(new
+        //        {
+        //            status = 200,
+        //            message = result.Message,
+        //            data = new
+        //            {
+        //                id = id,
+        //                name = request.Name,
+        //                phoneNumber = request.PhoneNumber,
+        //                email = request.Email,
+        //                userName = request.UserName
+        //            }
+        //        });
+        //    }
+
+        //    return StatusCode(result.Status, new
+        //    {
+        //        status = result.Status,
+        //        message = result.Message
+        //    });
+        //}
+    
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteUser(UserDeleteRequest request, CancellationToken cancellationToken)

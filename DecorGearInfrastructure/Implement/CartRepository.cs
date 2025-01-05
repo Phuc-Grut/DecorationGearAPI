@@ -7,27 +7,43 @@ using DecorGearDomain.Enum;
 using DecorGearInfrastructure.Database.AppDbContext;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace DecorGearInfrastructure.Implement
 {
     public class CartRepository : ICartRespository
     {
         private readonly AppDbContext _dbcontext;
+
         public CartRepository(AppDbContext appDbContext)
         {
             _dbcontext = appDbContext;
         }
         public async Task<ErrorMessage> AddProductToCart(CreateCartDetailRequest request, CancellationToken cancellationToken)
         {
-            var cart = await _dbcontext.Carts.Include(c => c.CartDetails).FirstOrDefaultAsync(c => c.UserID == request.UserID, cancellationToken);
+            // Kiểm tra dữ liệu đầu vào
+            if (request.Quantity <= 0 || request.UnitPrice <= 0)
+            {
+                return ErrorMessage.Null; // Trả về lỗi dữ liệu không hợp lệ
+            }
+
+            var cart = await _dbcontext.Carts
+                .Include(c => c.CartDetails)
+                .FirstOrDefaultAsync(c => c.UserID == request.UserID, cancellationToken);
+
             if (cart == null)
             {
-                cart = new Cart { UserID = request.UserID, CartDetails = new List<CartDetail>() };
+                cart = new Cart
+                {
+                    UserID = request.UserID,
+                    CartDetails = new List<CartDetail>()
+                };
                 _dbcontext.Carts.Add(cart);
             }
-            var existingCart = cart.CartDetails.FirstOrDefault(item => item.ProductID == request.ProductID);
-            if (existingCart != null)
+
+            var existingCartDetail = cart.CartDetails.FirstOrDefault(item => item.ProductID == request.ProductID);
+            if (existingCartDetail != null)
             {
-                existingCart.Quantity += request.Quantity;
+                existingCartDetail.Quantity += request.Quantity;
             }
             else
             {
@@ -39,8 +55,16 @@ namespace DecorGearInfrastructure.Implement
                 };
                 cart.CartDetails.Add(newCartDetail);
             }
-            await _dbcontext.SaveChangesAsync(cancellationToken);
-            return ErrorMessage.Successfull;
+
+            try
+            {
+                await _dbcontext.SaveChangesAsync(cancellationToken);
+                return ErrorMessage.Successfull;
+            }
+            catch (Exception)
+            {
+                return ErrorMessage.DatabaseError; // Lỗi khi lưu vào cơ sở dữ liệu
+            }
         }
 
         public Task<bool> DeleteCart(DeleteCartRequest request, CancellationToken cancellationToken)
@@ -52,6 +76,11 @@ namespace DecorGearInfrastructure.Implement
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Lấy giỏ hàng theo UserID
+        /// </summary>
+
 
         public Task<CartDto> GetCartById(int id, CancellationToken cancellationToken)
         {

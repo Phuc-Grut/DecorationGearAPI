@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DecorGearInfrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241222091633_newdb")]
+    [Migration("20250102074105_newdb")]
     partial class newdb
     {
         /// <inheritdoc />

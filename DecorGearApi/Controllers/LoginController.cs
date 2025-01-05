@@ -24,7 +24,6 @@ namespace DecorGearApi.Controllers
             _userRepository = iuserRepository;
 
         }
-
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
@@ -45,7 +44,6 @@ namespace DecorGearApi.Controllers
                 return Unauthorized("Mật khẩu không đúng.");
             }
 
-
             var loginDto = new LoginDTO
             {
                 UserId = user.UserID,
@@ -56,12 +54,57 @@ namespace DecorGearApi.Controllers
             var token = _tokenServices.GenerateToken(loginDto);
             var refreshToken = _tokenServices.GenerateRefreshToken();
 
-
-
             await _userRepository.SaveRefreshTokenAsync(user.UserID, refreshToken);
 
-            return Ok(new { Token = token, RefreshToken = refreshToken });
+            var response = new
+            {
+                Token = token,
+                RefreshToken = refreshToken,
+                Role = user.Role?.RoleName,
+                RedirectUrl = user.Role?.RoleName == "Admin" ? "/dashboard" : "/app-user-home"  // Điều hướng tùy vào vai trò
+            };
+
+            return Ok(response);
         }
+
+
+        //[HttpPost("login")]
+        //public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        //{
+        //    if (request == null || string.IsNullOrWhiteSpace(request.UserName) || string.IsNullOrWhiteSpace(request.Password))
+        //    {
+        //        return BadRequest("Yêu cầu đăng nhập không hợp lệ.");
+        //    }
+
+        //    var user = await _userRepository.GetUserByUsernameAsync(request.UserName, HttpContext.RequestAborted);
+        //    if (user == null)
+        //    {
+        //        return NotFound("Người dùng không tồn tại.");
+        //    }
+
+        //    // Xác thực mật khẩu người dùng nhập vào
+        //    if (!Hash.VerifyPassword(request.Password, user.Password))
+        //    {
+        //        return Unauthorized("Mật khẩu không đúng.");
+        //    }
+
+
+        //    var loginDto = new LoginDTO
+        //    {
+        //        UserId = user.UserID,
+        //        Username = user.UserName,
+        //        RoleName = user.Role?.RoleName
+        //    };
+
+        //    var token = _tokenServices.GenerateToken(loginDto);
+        //    var refreshToken = _tokenServices.GenerateRefreshToken();
+
+
+
+        //    await _userRepository.SaveRefreshTokenAsync(user.UserID, refreshToken);
+
+        //    return Ok(new { Token = token, RefreshToken = refreshToken });
+        //}
 
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
