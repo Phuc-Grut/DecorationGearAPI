@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DecorGearInfrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class updatedatabase : Migration
+    public partial class newdb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -216,6 +216,7 @@ namespace DecorGearInfrastructure.Migrations
                 {
                     ProductID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductCode = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     SaleID = table.Column<int>(type: "int", nullable: true),
                     BrandID = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
@@ -686,12 +687,12 @@ namespace DecorGearInfrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Product",
-                columns: new[] { "ProductID", "AvatarProduct", "BatteryCapacity", "BrandID", "CreatedBy", "CreatedTime", "Deleted", "DeletedBy", "DeletedTime", "Description", "ModifiedBy", "ModifiedTime", "Price", "ProductName", "Quantity", "SaleID", "Size", "View", "Weight" },
+                columns: new[] { "ProductID", "AvatarProduct", "BatteryCapacity", "BrandID", "CreatedBy", "CreatedTime", "Deleted", "DeletedBy", "DeletedTime", "Description", "ModifiedBy", "ModifiedTime", "Price", "ProductCode", "ProductName", "Quantity", "SaleID", "Size", "View", "Weight" },
                 values: new object[,]
                 {
-                    { 1, "/media/product/250-6041-1.jpg", null, 1, null, null, false, null, null, "chiếc chuột siêu bổ rẻ ", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 405.80000000000001, "Chuột gaming Razer death adder v3", 100, 1, "M", 1000, 500.0 },
-                    { 2, "/media/product/250-58-700c523eec2d560efd44f277bf6559ac.jpg", null, 1, null, null, false, null, null, "Chiếc chuột được nhiều tuyển thủ chuyên nghiệp tin dùng", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 2000000.0, "Chuột gaming không dây Razer mini pro 1", 100, null, "M", 1000, 350.0 },
-                    { 3, "/media/product/250-6152-untitled-28_upscayl_2x_realesrgan-x4plus.png", null, 2, null, null, false, null, null, "Một chiếc bàn phím cơ mỳ ăn liền với 3mode hotswap tầm giá 1 củ mà bạn không nên bỏ qua", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 1000000.0, "Bàn phím cơ AulaF75", 100, null, "M", 8000, 400.0 }
+                    { 1, "/media/product/250-6041-1.jpg", null, 1, null, null, false, null, null, "chiếc chuột siêu bổ rẻ ", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 405.80000000000001, "SP01", "Chuột gaming Razer death adder v3", 100, 1, "M", 1000, 500.0 },
+                    { 2, "/media/product/250-58-700c523eec2d560efd44f277bf6559ac.jpg", null, 1, null, null, false, null, null, "Chiếc chuột được nhiều tuyển thủ chuyên nghiệp tin dùng", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 2000000.0, "SP02", "Chuột gaming không dây Razer mini pro 1", 100, null, "M", 1000, 350.0 },
+                    { 3, "/media/product/250-6152-untitled-28_upscayl_2x_realesrgan-x4plus.png", null, 2, null, null, false, null, null, "Một chiếc bàn phím cơ mỳ ăn liền với 3mode hotswap tầm giá 1 củ mà bạn không nên bỏ qua", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 1000000.0, "SP03", "Bàn phím cơ AulaF75", 100, null, "M", 8000, 400.0 }
                 });
 
             migrationBuilder.InsertData(
@@ -768,8 +769,8 @@ namespace DecorGearInfrastructure.Migrations
                 columns: new[] { "MemberID", "CreatedBy", "CreatedTime", "Deleted", "DeletedBy", "DeletedTime", "ExpiryDate", "ModifiedBy", "ModifiedTime", "Points", "UserID" },
                 values: new object[,]
                 {
-                    { 1, null, null, false, null, null, new DateTime(2024, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 100, 1 },
-                    { 2, null, null, false, null, null, new DateTime(2025, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 200, 2 }
+                    { 1, null, null, false, null, null, new DateTime(2024, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 100, 1 },
+                    { 2, null, null, false, null, null, new DateTime(2025, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 200, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -799,7 +800,8 @@ namespace DecorGearInfrastructure.Migrations
                     { 1, 6, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
                     { 2, 1, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
                     { 2, 5, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
-                    { 2, 6, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) }
+                    { 2, 6, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
+                    { 3, 3, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) }
                 });
 
             migrationBuilder.InsertData(
@@ -903,6 +905,12 @@ namespace DecorGearInfrastructure.Migrations
                 name: "IX_Product_BrandID",
                 table: "Product",
                 column: "BrandID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Product_ProductCode",
+                table: "Product",
+                column: "ProductCode",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Product_SaleID",

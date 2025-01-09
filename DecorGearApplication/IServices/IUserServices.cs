@@ -1,6 +1,7 @@
 ﻿using Application.DataTransferObj.User.Request;
 using DecorGearApplication.DataTransferObj.User;
 using DecorGearApplication.DataTransferObj.User.Request;
+using DecorGearDomain.Data.Entities;
 using Ecommerce.Application.DataTransferObj.User.Request;
 
 namespace DecorGearApplication.IServices
@@ -12,6 +13,7 @@ namespace DecorGearApplication.IServices
         Task<UserDto> GetUserById(int id, CancellationToken cancellationToken);
         Task<ResponseDto<UserDto>> UpdateUser(int id, UserUpdateRequest request, CancellationToken cancellationToken);
         Task<ResponseDto<bool>> DeleteUser(UserDeleteRequest request, CancellationToken cancellationToken);
+        Task UpdateUserAsync(User user, CancellationToken cancellationToken);
 
     }
 }
