@@ -58,6 +58,7 @@ namespace DecorGearApi.Controllers
 
             var response = new
             {
+                User = loginDto,
                 Token = token,
                 RefreshToken = refreshToken,
                 Role = user.Role?.RoleName,

@@ -17,7 +17,7 @@ namespace DecorGearApi.Controllers.User
         {
             _cartRepository = cartRepository;
         }
-
+         
         [HttpPost("add")]
         public async Task<IActionResult> AddProductToCart([FromBody] CreateCartDetailRequest request, CancellationToken cancellationToken)
         {
@@ -28,5 +28,16 @@ namespace DecorGearApi.Controllers.User
             }
             return BadRequest(new { message = "Failed to add product to cart" });
         }
+
+        /// <summary>
+        /// Get by user id
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("user/{id}")]
+        public IActionResult GetByUserId([FromRoute] int id, CancellationToken cancellationToken)
+        {
+            return Ok(_cartRepository.GetCartById(id, cancellationToken));
+        }
+
     }
 }

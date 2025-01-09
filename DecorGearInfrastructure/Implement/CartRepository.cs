@@ -40,7 +40,7 @@ namespace DecorGearInfrastructure.Implement
                 _dbcontext.Carts.Add(cart);
             }
 
-            var existingCartDetail = cart.CartDetails.FirstOrDefault(item => item.ProductID == request.ProductID);
+            var existingCartDetail = cart.CartDetails.FirstOrDefault(item => item.ProductID == request.ProductID && item.CartID == cart.CartID);
             if (existingCartDetail != null)
             {
                 existingCartDetail.Quantity += request.Quantity;
@@ -82,9 +82,65 @@ namespace DecorGearInfrastructure.Implement
         /// </summary>
 
 
+        //public Task<CartDto> GetCartById(int id, CancellationToken cancellationToken)
+        //{
+        //    var cart = _dbcontext.Carts
+        //            .Include(c => c.CartDetails)
+        //        .Where(c => c.UserID == id)
+        //           .Select(c => new CartDto
+        //           {
+        //               UserID = c.UserID,
+        //               CartDetails = c.CartDetails.Select(cd => new CartDetailDto
+        //               {
+        //                   ProductName = cd.Product.ProductName,
+        //                   Quantity = cd.Quantity,
+        //                   UnitPrice = cd.UnitPrice,
+        //                   CartDetailID = cd.CartDetailID,
+        //                   ProductID = cd.ProductID,
+        //                   ProductCode = cd.Product.ProductCode
+        //               }).ToList()
+        //           })
+        //        .FirstOrDefault();
+
+        //    if (cart == null)
+        //    {
+        //        return Task.FromResult(new CartDto());
+        //    }
+
+        //    return Task.FromResult(cart);
+        //}
         public Task<CartDto> GetCartById(int id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var cart = _dbcontext.Carts
+                .Include(c => c.CartDetails)
+                .Where(c => c.UserID == id)
+                .Select(c => new CartDto
+                {
+                    UserID = c.UserID,
+                    CartDetails = c.CartDetails.Select(cd => new CartDetailDto
+                    {
+                        ProductName = cd.Product.ProductName,
+                        Quantity = cd.Quantity,
+                        UnitPrice = cd.UnitPrice,
+                        CartDetailID = cd.CartDetailID,
+                        ProductID = cd.ProductID,
+                        ProductCode = cd.Product.ProductCode,
+                        TotalPrice = cd.Quantity * cd.UnitPrice  // Tính tổng giá trị cho từng sản phẩm
+                    }).ToList(),
+                    // Tính tổng số lượng và tổng tiền cho giỏ hàng
+                    TotalQuantity = c.CartDetails.Sum(cd => cd.Quantity),
+                    TotalAmount = c.CartDetails.Sum(cd => cd.Quantity * cd.UnitPrice)
+                })
+                .FirstOrDefault();
+
+            if (cart == null)
+            {
+                return Task.FromResult(new CartDto());
+            }
+
+            return Task.FromResult(cart);
         }
+
+
     }
 }
