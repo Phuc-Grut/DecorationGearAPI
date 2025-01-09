@@ -28,6 +28,11 @@ namespace DecorGearApi.Controllers
         public async Task<IActionResult> GetById(int id, CancellationToken cancellationToken)
         {
             var result = await _res.GetKeyProductById(id, cancellationToken);
+
+            if (result == null )
+            {
+                return NotFound($"Product with ID {id} not found.");
+            }
             return Ok(result);
         }
 
@@ -86,5 +91,33 @@ namespace DecorGearApi.Controllers
             // Trả về kết quả thành công với thông báo xác nhận        
             return Ok(valueId);
         }
+
+        // PUT api/<ProductController>/update-category-product
+        [HttpPut("update-category-product")]
+        public async Task<IActionResult> UpdateCategoryProduct(int productId, [FromBody] UpdateProductCategoryRequest request, CancellationToken cancellationToken)
+        {
+            if (request == null || request.CategoryID <= 0 || request.SubCategoryIDs == null || !request.SubCategoryIDs.Any())
+            {
+                return BadRequest("Thông tin không hợp lệ.");
+            }
+            var result = await _res.UpdateCategoryProduct(productId, request, cancellationToken);
+
+            if (result == null)
+            {
+                return NotFound($"Sản phẩm với ID {productId} không tồn tại.");
+            }
+
+            if (!result.DataResponse)
+            {
+                return StatusCode(result.Status, result.Message);
+            }
+
+            return Ok(new
+            {
+                Message = "Cập nhật danh mục và danh mục con thành công.",
+                Data = result.DataResponse
+            });
+        }
+
     }
 }

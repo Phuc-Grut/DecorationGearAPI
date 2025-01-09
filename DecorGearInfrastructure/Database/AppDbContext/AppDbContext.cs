@@ -2,7 +2,10 @@
 using DecorGearDomain.Enum;
 using DecorGearInfrastructure.Extention;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+using System.Drawing;
 using System.Reflection;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DecorGearInfrastructure.Database.AppDbContext
 {
@@ -202,21 +205,25 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                 },
                 new SubCategory
                 {
+                   SubCategoryID = 7, SubCategoryName = "Chuột DAREU", CategoryID = 1
+                },
+                new SubCategory
+                {
                    SubCategoryID = 2, SubCategoryName = "Chuột logitech", CategoryID = 1
                 },
-                 new SubCategory
+                new SubCategory
                 {
-                   SubCategoryID = 3, SubCategoryName = "Bàn Phím Aula", CategoryID = 2
+                   SubCategoryID = 3, SubCategoryName = "Bàn Phím Cơ", CategoryID = 2
                 },
-                 new SubCategory
+                new SubCategory
                 {
-                   SubCategoryID = 4, SubCategoryName = "Bàn Phím Rainy", CategoryID = 2
+                   SubCategoryID = 4, SubCategoryName = "Bàn Không Phím Dây", CategoryID = 2
                 },
-                  new SubCategory
+                new SubCategory
                 {
                    SubCategoryID = 5, SubCategoryName = "Chuột không dây", CategoryID = 1
                 },
-                    new SubCategory
+                new SubCategory
                 {
                    SubCategoryID = 6, SubCategoryName = "Chuột gaming", CategoryID = 1
                 },
@@ -239,7 +246,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                 new ProductSubCategory
                 {
                     ProductID = 2,
-                    SubCategoryID = 6
+                    SubCategoryID = 7
                 },
                 new ProductSubCategory
                 {
@@ -249,7 +256,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                 new ProductSubCategory
                 {
                     ProductID = 2,
-                    SubCategoryID = 1
+                    SubCategoryID = 6
                 },
                 new ProductSubCategory
                 {
@@ -267,30 +274,22 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                 new Product
                 {
                     ProductID = 1,
-                    ProductName = "Chuột gaming Razer death adder v3",
+                    ProductName = "CHUỘT RAZER DEATHADDER ESSENTIAL",
                     ProductCode = "SP01",
-                    Price = 405.8,
                     View = 1000,
-                    Quantity = 100,
-                    Weight = 500,
                     Description = "chiếc chuột siêu bổ rẻ ",
-                    AvatarProduct = "/media/product/250-6041-1.jpg",
-                    Size = "M",
                     SaleID = 1,
-                    BrandID = 1
+                    BrandID = 1,
+                    AvatarProduct = "/media/product/250-73-vien-.jpg",
                 },
                 new Product
                 {
                     ProductID=2,
-                    ProductName="Chuột gaming không dây Razer mini pro 1",
+                    ProductName="CHUỘT KHÔNG DÂY DAREU EM901",
                     ProductCode = "SP02",
-                    Price=2000000,
                     View=1000,
-                    Quantity=100,
-                    Weight=350,
                     Description="Chiếc chuột được nhiều tuyển thủ chuyên nghiệp tin dùng",
-                    AvatarProduct = "/media/product/250-58-700c523eec2d560efd44f277bf6559ac.jpg",
-                    Size="M",
+                    AvatarProduct = "/media/product/250-90-b865462f9328e9130f5c420e14e492c5.jpg",
                     SaleID=null,
                     BrandID=1
                 },
@@ -298,20 +297,278 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                 {
                     ProductID=3,
                     ProductCode = "SP03",
-                    ProductName="Bàn phím cơ AulaF75",
-                    Price=1000000,
+                    ProductName="BÀN PHÍM CƠ ESONNE K98",
                     View=8000,
-                    Quantity=100,
-                    Weight=400,
                     Description="Một chiếc bàn phím cơ mỳ ăn liền với 3mode hotswap tầm giá 1 củ mà bạn không nên bỏ qua",
-                    AvatarProduct = "/media/product/250-6152-untitled-28_upscayl_2x_realesrgan-x4plus.png",
-                    Size="M",
+                    AvatarProduct = "/media/product/250-4027-vien1.jpg",
                     SaleID=null,
                     BrandID=2
                 }
             };
 
             modelBuilder.Entity<Product>().HasData(ProductData);
+
+            //Seed Keyboard Detail
+            var keyboardData = new List<KeyboardDetail>
+            {
+                new KeyboardDetail
+                {
+                    KeyboardDetailID = 1,
+                    ProductID = 3,
+                    Color = "WHITE",
+                    Layout = "98 Phím",
+                    Case = "Nhôm",
+                    Switch = "BLUE SWITCH",
+                    SwitchLife = 50000000,
+                    Led = "LED RAINBOW nhiều chế độ",
+                    KeycapMaterial = "PBT",
+                    SwitchMaterial = "Kim loại",
+                    SS = "QMK",
+                    Stabilizes = "Stabilizer",
+                    PCB = "PCB Hot-swap",
+                    Price = 100000,
+                    Quantity = 10,
+                    BatteryCapacity= 0,
+                    Weight  = 500,
+                    Size = "Kích thước bàn phím : 388*139*37 (mm)"
+                },
+                new KeyboardDetail
+                {
+                    KeyboardDetailID = 2,
+                    ProductID = 3,
+                    Color = "RED",
+                    Layout = "98 phím",
+                    Case = "Nhựa",
+                    Switch = "RED SWITCH",
+                    SwitchLife = 60000000,
+                    Led = "LED RAINBOW nhiều chế độ",
+                    KeycapMaterial = "ABS",
+                    SwitchMaterial = "Nhựa",
+                    SS = "VIA",
+                    Stabilizes = "Không",
+                    PCB = "PCB tiêu chuẩn",
+                    Price = 80000,
+                    Quantity = 10,
+                },
+                new KeyboardDetail
+                {
+                    KeyboardDetailID = 3,
+                    ProductID = 3,
+                    Color = "GRAY",
+                    Layout = "108 phím",
+                    Case = "Nhựa",
+                    Switch = "RED SWITCH",
+                    SwitchLife = 60000000,
+                    Led = "LED RAINBOW nhiều chế độ",
+                    KeycapMaterial = "ABS",
+                    SwitchMaterial = "Nhựa",
+                    SS = "VIA",
+                    Stabilizes = "Không",
+                    PCB = "PCB tiêu chuẩn",
+                    Price = 100000,
+                    Quantity = 10,
+                }
+            };
+
+            modelBuilder.Entity<KeyboardDetail>().HasData(keyboardData);
+
+            //Seed MouseData
+            var mice = new List<MouseDetail>
+            {
+                new MouseDetail
+                {
+                    MouseDetailID = 1,
+                    ProductID = 1,
+                    Color = "Đen",
+                    DPI = 16000,
+                    Connectivity = "USB",
+                    Dimensions = "120mm x 60mm x 40mm",
+                    Material = "Nhựa",
+                    EyeReading = "1000Hz",
+                    Button = 6,
+                    LED = "Đèn LED 1 màu WHITE Hỗ trợ Razer Synapse",
+                    SS = "Razer Synapse",
+                    Price = 520000,
+                    Quantity = 10,
+                    BatteryCapacity = 0,
+                    Weight = 105
+                },
+                new MouseDetail
+                {
+                    MouseDetailID = 2,
+                    ProductID = 1,
+                    Color = "Trắng",
+                    DPI = 12000,
+                    Connectivity = "USB",
+                    Dimensions = "115mm x 58mm x 38mm",
+                    Material = "Kim loại",
+                    EyeReading = "500Hz",
+                    Button = 5,
+                    LED = "Đèn LED 1 màu WHITE Hỗ trợ Razer Synapse",
+                    SS = "Razer Synapse",
+                    BatteryCapacity = 0,
+                    Weight = 105,
+                    Price = 520000,
+                    Quantity = 10,
+                },
+                new MouseDetail
+                {
+                    MouseDetailID = 3,
+                    ProductID = 1,
+                    Color = "Đen",
+                    DPI = 12000,
+                    Connectivity = "USB",
+                    Dimensions = "115mm x 58mm x 38mm",
+                    Material = "Kim loại",
+                    EyeReading = "500Hz",
+                    Button = 5,
+                    LED = null,
+                    SS = "Razer Synapse REP",
+                    BatteryCapacity = 0,
+                    Weight = 105,
+                    Price = 190000,
+                    Quantity = 10,
+                },
+                 new MouseDetail
+                {
+                    MouseDetailID = 4,
+                    ProductID = 2,
+                    Color = "Đen",
+                    DPI = 6000,
+                    Connectivity = "USB, 2.4G",
+                    Dimensions = "115mm x 58mm x 38mm",
+                    Material = "Nhựa",
+                    EyeReading = "500Hz",
+                    Button = 5,
+                    LED = null,
+                    SS = "Razer Synapse REP",
+                    Switch = "DareU (10 triệu lần click)",
+                    Size = "125.5*68.6*39.6mm",
+                    BatteryCapacity = 930,
+                    Weight = 105,
+                    Price = 790000,
+                    Quantity = 10,
+                },
+                 new MouseDetail
+                {
+                    MouseDetailID = 5,
+                    ProductID = 2,
+                    Color = "Trắng Xanh",
+                    DPI = 6000,
+                    Connectivity = "USB, 2.4G",
+                    Dimensions = "115mm x 58mm x 38mm",
+                    Material = "Nhựa",
+                    EyeReading = "500Hz",
+                    Button = 5,
+                    LED = "LED RGB",
+                    SS = "Chuột DareU EM901X RGB Superlight Wireless",
+                    Switch = "DareU (10 triệu lần click)",
+                    Size = "125.5*68.6*39.6mm",
+                    BatteryCapacity = 930,
+                    Weight = 105,
+                    Price = 790000,
+                    Quantity = 10,
+                },
+                  new MouseDetail
+                {
+                    MouseDetailID = 6,
+                    ProductID = 2,
+                    Color = "Trắng",
+                    DPI = 6000,
+                    Connectivity = "USB, 2.4G",
+                    Dimensions = "115mm x 58mm x 38mm",
+                    Material = "Nhựa",
+                    EyeReading = "500Hz",
+                    Button = 5,
+                    LED = null,
+                    SS = "Chuột DareU EM901X RGB Superlight Wireless",
+                    Switch = "DareU (10 triệu lần click)",
+                    Size = "125.5*68.6*39.6mm",
+                    BatteryCapacity = 930,
+                    Weight = 105,
+                    Price = 590000,
+                    Quantity = 10,
+                }
+            };
+
+            modelBuilder.Entity<MouseDetail>().HasData(mice);
+
+            //Seed ImgData
+            var ImgList = new List<ImageList>
+            {
+                new ImageList
+                {
+                    ImageListID = 1,
+                    ProductID = 1,
+                    ImagePath= "/media/product/250-73-vien-.jpg",
+                    Description = ""
+                },
+                new ImageList
+                {
+                    ImageListID= 2,
+                    ProductID = 1,
+                    ImagePath= "/media/product/250-73-1089_chu___t_ch__i_game_razer_deathaddder_essential_2_min.jpg",
+                    Description=""
+                },
+                new ImageList
+                {
+                    ImageListID= 3,
+                    ProductID = 1,
+                    ImagePath= "/media/product/250-73-untitled-3.jpg",
+                    Description=""
+                },
+                new ImageList
+                {
+                    ImageListID= 4,
+                    ProductID = 2,
+                    ImagePath= "/media/product/250-88-d1470721f92bc58866c35b39f7e83f5f.jpg",
+                    Description=""
+                },
+                new ImageList
+                {
+                    ImageListID= 5,
+                    ProductID = 2,
+                    ImagePath= "/media/product/250-89-69a7ff353e943ca00e99246f76d3222c.jpg",
+                    Description=""
+                },
+                new ImageList
+                {
+                    ImageListID= 6,
+                    ProductID = 2,
+                    ImagePath= "/media/product/250-90-b865462f9328e9130f5c420e14e492c5.jpg",
+                    Description=""
+                },
+                new ImageList
+                {
+                    ImageListID= 7,
+                    ProductID = 3,
+                    ImagePath= "/media/product/250-4027-vien1.jpg",
+                    Description=""
+                },
+                new ImageList
+                {
+                    ImageListID= 8,
+                    ProductID = 3,
+                    ImagePath= "/media/product/250-4027-xanh-la-6.jpg",
+                    Description=""
+                },
+                new ImageList
+                {
+                    ImageListID= 9,
+                    ProductID = 3,
+                    ImagePath= "/media/product/250-4026-vein3.jpg",
+                    Description=""
+                },
+                new ImageList
+                {
+                    ImageListID= 10,
+                    ProductID = 3,
+                    ImagePath= "/media/product/250-4029-vien4.jpg",
+                    Description=""
+                }
+            };
+
+            modelBuilder.Entity<ImageList>().HasData(ImgList);
 
             // Seed Favorite
             var favoriteData = new List<Favorite>
@@ -365,101 +622,6 @@ namespace DecorGearInfrastructure.Database.AppDbContext
             };
 
             modelBuilder.Entity<FeedBack>().HasData(feedbackData);
-
-            //Seed Keyboard Detail
-            var keyboardData = new List<KeyboardDetail>
-            {
-                new KeyboardDetail
-                {
-                    KeyboardDetailID = 1,
-                    ProductID = 3,
-                    Color = "Red",
-                    Layout = "80%",
-                    Case = "Nhôm",
-                    Switch = "Cherry MX Red",
-                    SwitchLife = 50000000,
-                    Led = "RGB",
-                    KeycapMaterial = "PBT",
-                    SwitchMaterial = "Kim loại",
-                    SS = "QMK",
-                    Stabilizes = "Stabilizer",
-                    PCB = "PCB Hot-swap"
-                },
-                new KeyboardDetail
-                {
-                    KeyboardDetailID = 2,
-                    ProductID = 3,
-                    Color = "Black",
-                    Layout = "75%",
-                    Case = "Nhựa",
-                    Switch = "Gateron Brown",
-                    SwitchLife = 60000000,
-                    Led = "Đơn sắc",
-                    KeycapMaterial = "ABS",
-                    SwitchMaterial = "Nhựa",
-                    SS = "VIA",
-                    Stabilizes = "Không",
-                    PCB = "PCB tiêu chuẩn"
-                }
-            };
-
-            modelBuilder.Entity<KeyboardDetail>().HasData(keyboardData);
-
-            //Seed MouseData
-            var mice = new List<MouseDetail>
-            {
-                new MouseDetail
-                {
-                    MouseDetailID = 1,
-                    ProductID = 1,
-                    Color = "Đen",
-                    DPI = 16000,
-                    Connectivity = "USB",
-                    Dimensions = "120mm x 60mm x 40mm",
-                    Material = "Nhựa",
-                    EyeReading = "1000Hz",
-                    Button = 6,
-                    LED = "RGB",
-                    SS = "Razer Synapse"
-                },
-                new MouseDetail
-                {
-                    MouseDetailID = 2,
-                    ProductID = 2,
-                    Color = "Trắng",
-                    DPI = 12000,
-                    Connectivity = "Bluetooth",
-                    Dimensions = "115mm x 58mm x 38mm",
-                    Material = "Kim loại",
-                    EyeReading = "500Hz",
-                    Button = 5,
-                    LED = "Đơn sắc",
-                    SS = "Logitech G HUB"
-                }
-            };
-
-            modelBuilder.Entity<MouseDetail>().HasData(mice);
-
-            //Seed ImgData
-            var ImgList = new List<ImageList>
-            {
-                new ImageList
-                {
-                    ImageListID = 1,
-                    ProductID = 2,
-                    ImagePath= "/images/aulaf75_img2.jpg",
-                    Description = "Hình ảnh của sản phẩm aulaf75"
-                },
-                new ImageList
-                {
-                    ImageListID= 2,
-                    ProductID = 2,
-                    ImagePath= "/images/rzdav3_img2.jpg",
-                    Description="Hình ảnh của sản phẩm razer deadth addzer v3"
-                }
-            };
-
-            modelBuilder.Entity<ImageList>().HasData(ImgList);
 
             //Seed Member
             var MemData = new List<Member>

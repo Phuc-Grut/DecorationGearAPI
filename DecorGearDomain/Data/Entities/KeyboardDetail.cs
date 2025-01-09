@@ -1,18 +1,18 @@
 ﻿using DecorGearDomain.Data.Base;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DecorGearDomain.Data.Entities
 {
     public class KeyboardDetail : EntityBase
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int KeyboardDetailID { get; set; }
-
-        [Required(ErrorMessage = "Không được để trống")]
         public int ProductID { get; set; }
-        public string Color { get; set; } // Màu sắc
-        public string Layout { get; set; } // bố cục phím 
-        public string Case { get; set; }   // vỏ ngoài 
-        public string Switch { get; set; } // trục phím
+        public string? Color { get; set; } // Màu sắc
+        public string? Layout { get; set; } // bố cục phím 
+        public string? Case { get; set; }   // vỏ ngoài 
+        public string? Switch { get; set; } // trục phím
         public int? SwitchLife { get; set; } // tuổi thọ trục (số lần nhấn)
         public string? Led { get; set; }
         public string? KeycapMaterial { get; set; } // chất liệu keycap
@@ -20,10 +20,13 @@ namespace DecorGearDomain.Data.Entities
         public string? SS { get; set; } // (software support) phần mềm hỗ trợ
         public string? Stabilizes { get; set; } // Phụ kiện cân bằng keycap
         public string? PCB { get; set; } // bảng mạch
+        public int? BatteryCapacity { get; set; } // dung lượng pin
+        public int? Quantity { get; set; }
+        public double? Weight { get; set; }
+        public double? Price { get; set; }
+        public string? Size { get; set; }
 
-        //Khóa ngoại 
-
-        // 1 - 1
+        //Khóa ngoại
         public virtual Product Product { get; set; }
 
         // 1 - n
