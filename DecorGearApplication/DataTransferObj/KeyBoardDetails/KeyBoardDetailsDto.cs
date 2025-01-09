@@ -8,6 +8,9 @@
 
         public string? Color { get; set; }
 
+        public double? Price { get; set; }
+        public int? Quantity { get; set; }
+
         public string? Layout { get; set; }
 
         public string? Case { get; set; }
@@ -27,7 +30,8 @@
         public string? Stabilizes { get; set; }
 
         public string? PCB { get; set; }
-
-        // Sửa thuộc tính ImageProduct thành List<string>
+        public int? BatteryCapacity { get; set; } // dung lượng pin
+        public string? Size { get; set; }
+        public double? Weight { get; set; }
     }
 }
