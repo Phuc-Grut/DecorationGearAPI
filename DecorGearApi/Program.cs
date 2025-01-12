@@ -1,6 +1,7 @@
 ﻿using DecorGearApplication.Interface;
 using DecorGearApplication.IServices;
 using DecorGearApplication.Services;
+using DecorGearApplication.Services.VnPay;
 using DecorGearDomain.Data.Entities;
 using DecorGearInfrastructure.Database.AppDbContext;
 using DecorGearInfrastructure.Extention;
@@ -64,7 +65,7 @@ public class Program
         builder.Services.AddEventBus(builder.Configuration);
         builder.Services.AddAutoMapper(typeof(UserProfile), typeof(FeedBackProfile));
         builder.Services.AddScoped<ICartRespository, CartRepository>();
-
+        builder.Services.AddScoped<IVnPayService,VnPayService>();
         builder.Services.AddStackExchangeRedisCache(options =>
         {
             options.Configuration = "localhost:6379"; // Cấu hình Redis

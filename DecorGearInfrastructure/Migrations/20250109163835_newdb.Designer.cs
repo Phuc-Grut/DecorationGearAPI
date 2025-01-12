@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DecorGearInfrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241224061924_fixProductCode")]
-    partial class fixProductCode
+    [Migration("20250109163835_newdb")]
+    partial class newdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -799,7 +799,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             MemberID = 1,
                             Deleted = false,
-                            ExpiryDate = new DateTime(2024, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpiryDate = new DateTime(2024, 12, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Points = 100,
                             UserID = 1
@@ -808,7 +808,7 @@ namespace DecorGearInfrastructure.Migrations
                         {
                             MemberID = 2,
                             Deleted = false,
-                            ExpiryDate = new DateTime(2025, 10, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ExpiryDate = new DateTime(2025, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ModifiedTime = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             Points = 200,
                             UserID = 2

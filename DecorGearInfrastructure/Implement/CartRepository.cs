@@ -67,48 +67,76 @@ namespace DecorGearInfrastructure.Implement
             }
         }
 
-        public Task<bool> DeleteCart(DeleteCartRequest request, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+     
 
         public Task<List<CartDto>> GetAllCart(CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Lấy giỏ hàng theo UserID
-        /// </summary>
+        public async Task<ErrorMessage> DeleteProductFromCart(int userId, int productId, CancellationToken cancellationToken)
+        {
+            var cart = await _dbcontext.Carts
+                .Include(c => c.CartDetails)
+                .FirstOrDefaultAsync(c => c.UserID == userId, cancellationToken);
+
+            if (cart == null)
+            {
+                return ErrorMessage.NotFound; // Giỏ hàng không tồn tại
+            }
+
+            var cartDetail = cart.CartDetails.FirstOrDefault(cd => cd.ProductID == productId);
+            if (cartDetail == null)
+            {
+                return ErrorMessage.NotFound; // Sản phẩm không tồn tại trong giỏ hàng
+            }
+
+            // Xóa sản phẩm khỏi giỏ hàng
+            _dbcontext.CartDetails.Remove(cartDetail);
+
+            try
+            {
+                await _dbcontext.SaveChangesAsync(cancellationToken);
+                return ErrorMessage.Successfull;
+            }
+            catch (Exception)
+            {
+                return ErrorMessage.DatabaseError; // Lỗi khi lưu vào cơ sở dữ liệu
+            }
+        }
 
 
-        //public Task<CartDto> GetCartById(int id, CancellationToken cancellationToken)
-        //{
-        //    var cart = _dbcontext.Carts
-        //            .Include(c => c.CartDetails)
-        //        .Where(c => c.UserID == id)
-        //           .Select(c => new CartDto
-        //           {
-        //               UserID = c.UserID,
-        //               CartDetails = c.CartDetails.Select(cd => new CartDetailDto
-        //               {
-        //                   ProductName = cd.Product.ProductName,
-        //                   Quantity = cd.Quantity,
-        //                   UnitPrice = cd.UnitPrice,
-        //                   CartDetailID = cd.CartDetailID,
-        //                   ProductID = cd.ProductID,
-        //                   ProductCode = cd.Product.ProductCode
-        //               }).ToList()
-        //           })
-        //        .FirstOrDefault();
+        public async Task<ErrorMessage> ClearCart(int userId, CancellationToken cancellationToken)
+        {
+            var cart = await _dbcontext.Carts
+                .Include(c => c.CartDetails)
+                .FirstOrDefaultAsync(c => c.UserID == userId, cancellationToken);
 
-        //    if (cart == null)
-        //    {
-        //        return Task.FromResult(new CartDto());
-        //    }
+            if (cart == null)
+            {
+                return ErrorMessage.NotFound; // Giỏ hàng không tồn tại
+            }
 
-        //    return Task.FromResult(cart);
-        //}
+            // Xóa toàn bộ sản phẩm trong giỏ hàng
+            _dbcontext.CartDetails.RemoveRange(cart.CartDetails);
+
+            // Xóa giỏ hàng sau khi đã xóa chi tiết
+            _dbcontext.Carts.Remove(cart);
+
+            try
+            {
+                await _dbcontext.SaveChangesAsync(cancellationToken);
+                return ErrorMessage.Successfull;
+            }
+            catch (Exception)
+            {
+                return ErrorMessage.DatabaseError; // Lỗi khi lưu vào cơ sở dữ liệu
+            }
+        }
+
+
+
+
         public Task<CartDto> GetCartById(int id, CancellationToken cancellationToken)
         {
             var cart = _dbcontext.Carts
@@ -141,6 +169,9 @@ namespace DecorGearInfrastructure.Implement
             return Task.FromResult(cart);
         }
 
-
+        public Task<bool> DeleteCart(DeleteCartRequest request, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

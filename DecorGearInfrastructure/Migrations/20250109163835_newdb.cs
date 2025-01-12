@@ -220,14 +220,9 @@ namespace DecorGearInfrastructure.Migrations
                     SaleID = table.Column<int>(type: "int", nullable: true),
                     BrandID = table.Column<int>(type: "int", nullable: false),
                     ProductName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    Price = table.Column<double>(type: "float", nullable: false),
                     View = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    Weight = table.Column<double>(type: "float", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AvatarProduct = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Size = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BatteryCapacity = table.Column<int>(type: "int", nullable: true),
+                    AvatarProduct = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ModifiedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -478,10 +473,10 @@ namespace DecorGearInfrastructure.Migrations
                     KeyboardDetailID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductID = table.Column<int>(type: "int", nullable: false),
-                    Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Layout = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Case = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Switch = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Layout = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Case = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Switch = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SwitchLife = table.Column<int>(type: "int", nullable: true),
                     Led = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     KeycapMaterial = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -489,6 +484,11 @@ namespace DecorGearInfrastructure.Migrations
                     SS = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Stabilizes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PCB = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BatteryCapacity = table.Column<int>(type: "int", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: true),
+                    Weight = table.Column<double>(type: "float", nullable: true),
+                    Price = table.Column<double>(type: "float", nullable: true),
+                    Size = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ModifiedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -515,15 +515,21 @@ namespace DecorGearInfrastructure.Migrations
                     MouseDetailID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductID = table.Column<int>(type: "int", nullable: false),
-                    Color = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    DPI = table.Column<int>(type: "int", nullable: false),
-                    Connectivity = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Dimensions = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Material = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DPI = table.Column<int>(type: "int", nullable: true),
+                    Connectivity = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Dimensions = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EyeReading = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Button = table.Column<int>(type: "int", nullable: true),
                     LED = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SS = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    BatteryCapacity = table.Column<int>(type: "int", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: true),
+                    Weight = table.Column<double>(type: "float", nullable: true),
+                    Price = table.Column<double>(type: "float", nullable: true),
+                    Switch = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Size = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     ModifiedTime = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     ModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -687,12 +693,12 @@ namespace DecorGearInfrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Product",
-                columns: new[] { "ProductID", "AvatarProduct", "BatteryCapacity", "BrandID", "CreatedBy", "CreatedTime", "Deleted", "DeletedBy", "DeletedTime", "Description", "ModifiedBy", "ModifiedTime", "Price", "ProductCode", "ProductName", "Quantity", "SaleID", "Size", "View", "Weight" },
+                columns: new[] { "ProductID", "AvatarProduct", "BrandID", "CreatedBy", "CreatedTime", "Deleted", "DeletedBy", "DeletedTime", "Description", "ModifiedBy", "ModifiedTime", "ProductCode", "ProductName", "SaleID", "View" },
                 values: new object[,]
                 {
-                    { 1, "/media/product/250-6041-1.jpg", null, 1, null, null, false, null, null, "chiếc chuột siêu bổ rẻ ", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 405.80000000000001, "SP01", "Chuột gaming Razer death adder v3", 100, 1, "M", 1000, 500.0 },
-                    { 2, "/media/product/250-58-700c523eec2d560efd44f277bf6559ac.jpg", null, 1, null, null, false, null, null, "Chiếc chuột được nhiều tuyển thủ chuyên nghiệp tin dùng", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 2000000.0, "SP02", "Chuột gaming không dây Razer mini pro 1", 100, null, "M", 1000, 350.0 },
-                    { 3, "/media/product/250-6152-untitled-28_upscayl_2x_realesrgan-x4plus.png", null, 2, null, null, false, null, null, "Một chiếc bàn phím cơ mỳ ăn liền với 3mode hotswap tầm giá 1 củ mà bạn không nên bỏ qua", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 1000000.0, "SP03", "Bàn phím cơ AulaF75", 100, null, "M", 8000, 400.0 }
+                    { 1, "/media/product/250-73-vien-.jpg", 1, null, null, false, null, null, "chiếc chuột siêu bổ rẻ ", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "SP01", "CHUỘT RAZER DEATHADDER ESSENTIAL", 1, 1000 },
+                    { 2, "/media/product/250-90-b865462f9328e9130f5c420e14e492c5.jpg", 1, null, null, false, null, null, "Chiếc chuột được nhiều tuyển thủ chuyên nghiệp tin dùng", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "SP02", "CHUỘT KHÔNG DÂY DAREU EM901", null, 1000 },
+                    { 3, "/media/product/250-4027-vien1.jpg", 2, null, null, false, null, null, "Một chiếc bàn phím cơ mỳ ăn liền với 3mode hotswap tầm giá 1 củ mà bạn không nên bỏ qua", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "SP03", "BÀN PHÍM CƠ ESONNE K98", null, 8000 }
                 });
 
             migrationBuilder.InsertData(
@@ -702,10 +708,11 @@ namespace DecorGearInfrastructure.Migrations
                 {
                     { 1, 1, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Chuột Razer" },
                     { 2, 1, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Chuột logitech" },
-                    { 3, 2, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Bàn Phím Aula" },
-                    { 4, 2, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Bàn Phím Rainy" },
+                    { 3, 2, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Bàn Phím Cơ" },
+                    { 4, 2, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Bàn Không Phím Dây" },
                     { 5, 1, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Chuột không dây" },
-                    { 6, 1, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Chuột gaming" }
+                    { 6, 1, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Chuột gaming" },
+                    { 7, 1, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "Chuột DAREU" }
                 });
 
             migrationBuilder.InsertData(
@@ -751,17 +758,26 @@ namespace DecorGearInfrastructure.Migrations
                 columns: new[] { "ImageListID", "CreatedBy", "CreatedTime", "Deleted", "DeletedBy", "DeletedTime", "Description", "ImagePath", "ModifiedBy", "ModifiedTime", "ProductID" },
                 values: new object[,]
                 {
-                    { 1, null, null, false, null, null, "Hình ảnh của sản phẩm aulaf75", "/images/aulaf75_img2.jpg", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 2 },
-                    { 2, null, null, false, null, null, "Hình ảnh của sản phẩm razer deadth addzer v3", "/images/rzdav3_img2.jpg", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 2 }
+                    { 1, null, null, false, null, null, "", "/media/product/250-73-vien-.jpg", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 1 },
+                    { 2, null, null, false, null, null, "", "/media/product/250-73-1089_chu___t_ch__i_game_razer_deathaddder_essential_2_min.jpg", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 1 },
+                    { 3, null, null, false, null, null, "", "/media/product/250-73-untitled-3.jpg", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 1 },
+                    { 4, null, null, false, null, null, "", "/media/product/250-88-d1470721f92bc58866c35b39f7e83f5f.jpg", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 2 },
+                    { 5, null, null, false, null, null, "", "/media/product/250-89-69a7ff353e943ca00e99246f76d3222c.jpg", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 2 },
+                    { 6, null, null, false, null, null, "", "/media/product/250-90-b865462f9328e9130f5c420e14e492c5.jpg", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 2 },
+                    { 7, null, null, false, null, null, "", "/media/product/250-4027-vien1.jpg", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 3 },
+                    { 8, null, null, false, null, null, "", "/media/product/250-4027-xanh-la-6.jpg", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 3 },
+                    { 9, null, null, false, null, null, "", "/media/product/250-4026-vein3.jpg", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 3 },
+                    { 10, null, null, false, null, null, "", "/media/product/250-4029-vien4.jpg", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 3 }
                 });
 
             migrationBuilder.InsertData(
                 table: "KeyboardDetail",
-                columns: new[] { "KeyboardDetailID", "Case", "Color", "CreatedBy", "CreatedTime", "Deleted", "DeletedBy", "DeletedTime", "KeycapMaterial", "Layout", "Led", "ModifiedBy", "ModifiedTime", "PCB", "ProductID", "SS", "Stabilizes", "Switch", "SwitchLife", "SwitchMaterial" },
+                columns: new[] { "KeyboardDetailID", "BatteryCapacity", "Case", "Color", "CreatedBy", "CreatedTime", "Deleted", "DeletedBy", "DeletedTime", "KeycapMaterial", "Layout", "Led", "ModifiedBy", "ModifiedTime", "PCB", "Price", "ProductID", "Quantity", "SS", "Size", "Stabilizes", "Switch", "SwitchLife", "SwitchMaterial", "Weight" },
                 values: new object[,]
                 {
-                    { 1, "Nhôm", "Red", null, null, false, null, null, "PBT", "80%", "RGB", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "PCB Hot-swap", 3, "QMK", "Stabilizer", "Cherry MX Red", 50000000, "Kim loại" },
-                    { 2, "Nhựa", "Black", null, null, false, null, null, "ABS", "75%", "Đơn sắc", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "PCB tiêu chuẩn", 3, "VIA", "Không", "Gateron Brown", 60000000, "Nhựa" }
+                    { 1, 0, "Nhôm", "WHITE", null, null, false, null, null, "PBT", "98 Phím", "LED RAINBOW nhiều chế độ", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "PCB Hot-swap", 100000.0, 3, 10, "QMK", "Kích thước bàn phím : 388*139*37 (mm)", "Stabilizer", "BLUE SWITCH", 50000000, "Kim loại", 500.0 },
+                    { 2, null, "Nhựa", "RED", null, null, false, null, null, "ABS", "98 phím", "LED RAINBOW nhiều chế độ", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "PCB tiêu chuẩn", 80000.0, 3, 10, "VIA", null, "Không", "RED SWITCH", 60000000, "Nhựa", null },
+                    { 3, null, "Nhựa", "GRAY", null, null, false, null, null, "ABS", "108 phím", "LED RAINBOW nhiều chế độ", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "PCB tiêu chuẩn", 100000.0, 3, 10, "VIA", null, "Không", "RED SWITCH", 60000000, "Nhựa", null }
                 });
 
             migrationBuilder.InsertData(
@@ -775,11 +791,15 @@ namespace DecorGearInfrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "MouseDetail",
-                columns: new[] { "MouseDetailID", "Button", "Color", "Connectivity", "CreatedBy", "CreatedTime", "DPI", "Deleted", "DeletedBy", "DeletedTime", "Dimensions", "EyeReading", "LED", "Material", "ModifiedBy", "ModifiedTime", "ProductID", "SS" },
+                columns: new[] { "MouseDetailID", "BatteryCapacity", "Button", "Color", "Connectivity", "CreatedBy", "CreatedTime", "DPI", "Deleted", "DeletedBy", "DeletedTime", "Dimensions", "EyeReading", "LED", "Material", "ModifiedBy", "ModifiedTime", "Price", "ProductID", "Quantity", "SS", "Size", "Switch", "Weight" },
                 values: new object[,]
                 {
-                    { 1, 6, "Đen", "USB", null, null, 16000, false, null, null, "120mm x 60mm x 40mm", "1000Hz", "RGB", "Nhựa", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 1, "Razer Synapse" },
-                    { 2, 5, "Trắng", "Bluetooth", null, null, 12000, false, null, null, "115mm x 58mm x 38mm", "500Hz", "Đơn sắc", "Kim loại", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 2, "Logitech G HUB" }
+                    { 1, 0, 6, "Đen", "USB", null, null, 16000, false, null, null, "120mm x 60mm x 40mm", "1000Hz", "Đèn LED 1 màu WHITE Hỗ trợ Razer Synapse", "Nhựa", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 520000.0, 1, 10, "Razer Synapse", null, null, 105.0 },
+                    { 2, 0, 5, "Trắng", "USB", null, null, 12000, false, null, null, "115mm x 58mm x 38mm", "500Hz", "Đèn LED 1 màu WHITE Hỗ trợ Razer Synapse", "Kim loại", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 520000.0, 1, 10, "Razer Synapse", null, null, 105.0 },
+                    { 3, 0, 5, "Đen", "USB", null, null, 12000, false, null, null, "115mm x 58mm x 38mm", "500Hz", null, "Kim loại", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 190000.0, 1, 10, "Razer Synapse REP", null, null, 105.0 },
+                    { 4, 930, 5, "Đen", "USB, 2.4G", null, null, 6000, false, null, null, "115mm x 58mm x 38mm", "500Hz", null, "Nhựa", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 790000.0, 2, 10, "Razer Synapse REP", "125.5*68.6*39.6mm", "DareU (10 triệu lần click)", 105.0 },
+                    { 5, 930, 5, "Trắng Xanh", "USB, 2.4G", null, null, 6000, false, null, null, "115mm x 58mm x 38mm", "500Hz", "LED RGB", "Nhựa", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 790000.0, 2, 10, "Chuột DareU EM901X RGB Superlight Wireless", "125.5*68.6*39.6mm", "DareU (10 triệu lần click)", 105.0 },
+                    { 6, 930, 5, "Trắng", "USB, 2.4G", null, null, 6000, false, null, null, "115mm x 58mm x 38mm", "500Hz", null, "Nhựa", null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 590000.0, 2, 10, "Chuột DareU EM901X RGB Superlight Wireless", "125.5*68.6*39.6mm", "DareU (10 triệu lần click)", 105.0 }
                 });
 
             migrationBuilder.InsertData(
@@ -798,9 +818,9 @@ namespace DecorGearInfrastructure.Migrations
                 {
                     { 1, 1, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
                     { 1, 6, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
-                    { 2, 1, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
                     { 2, 5, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
                     { 2, 6, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
+                    { 2, 7, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) },
                     { 3, 3, null, null, false, null, null, null, new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) }
                 });
 
