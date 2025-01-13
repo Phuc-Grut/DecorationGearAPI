@@ -51,9 +51,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer("Data Source=PHUC-GRUNT;Database=DecorationGear;Trusted_Connection=True;TrustServerCertificate=True;");
-
-            optionsBuilder.UseSqlServer("Data Source=DESKTOPD-DELLIN\\SQLEXPRESS;Database=DecorationGear11;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Data Source=PHUC-GRUNT;Database=DecorationGear;Trusted_Connection=True;TrustServerCertificate=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
