@@ -31,6 +31,13 @@ namespace DecorGearApi.Controllers
             return Ok(keyResultValue);
         }
 
+        [HttpGet("get-all-product-by-subcategory-id")]
+        public async Task<IActionResult> GetSubcategoryProductById(int id, CancellationToken cancellationToken)
+        {
+            var keyResultValue = await _res.GetSubCategoryProductById(id, cancellationToken);
+            return Ok(keyResultValue);
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> CreateSubCategory(CreateSubCategoryRequest request, CancellationToken cancellationToken)
         {

@@ -13,6 +13,7 @@ namespace DecorGearApplication.Interface
     {
         Task<List<ProductDto>> GetAllProduct(ViewProductRequest? request,CancellationToken cancellationToken);
         Task<ProductDto> GetKeyProductById(int id, CancellationToken cancellationToken);
+        Task<List<ProductDto>> GetSoftProducts(string sortBy, bool isAscending, CancellationToken cancellationToken);
         Task<ResponseDto<ProductDto>> CreateProduct(CreateProductRequest request, CancellationToken cancellationToken);
         Task<ResponseDto<ProductDto>> UpdateProduct(int id,UpdateProductRequest request, CancellationToken cancellationToken);
         Task<bool> AreSubCategoriesValid(int categoryId, List<int> subCategoryIds, CancellationToken cancellationToken);
