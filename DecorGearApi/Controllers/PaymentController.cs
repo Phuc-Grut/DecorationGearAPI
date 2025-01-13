@@ -9,45 +9,38 @@ namespace DecorGearApi.Controllers
     [ApiController]
     public class PaymentController : ControllerBase
     {
-
         private readonly IVnPayService _vnPayService;
 
         public PaymentController(IVnPayService vnPayService)
         {
-
             _vnPayService = vnPayService;
         }
-        [HttpPost]
-        public IActionResult CreatePaymentUrlVnpay(PaymentInformationModel model)
+
+        [HttpPost("create-payment-url")]
+        public IActionResult CreatePaymentUrl([FromBody] PaymentInformationModel model)
         {
+            if (model == null || model.Amount <= 0)
+            {
+                return BadRequest(new { message = "Invalid payment information." });
+            }
+
             var url = _vnPayService.CreatePaymentUrl(model, HttpContext);
 
-            return Redirect(url);
+            return Ok(new { paymentUrl = url });
         }
-        [HttpGet]
-        public IActionResult PaymentCallbackVnpay()
+
+        [HttpGet("payment-callback")]
+        public IActionResult PaymentCallback()
         {
-            try
+            var response = _vnPayService.PaymentExecute(Request.Query);
+
+            // Tùy thuộc vào logic xử lý, bạn có thể lưu thông tin giao dịch hoặc gửi trạng thái giao dịch
+            if (!response.Success)
             {
-                // Kiểm tra nếu Request.Query không có dữ liệu
-                if (!Request.Query.Any())
-                {
-                    return BadRequest(new { message = "Không có dữ liệu trong callback từ VNPay." });
-                }
-
-                // Xử lý callback từ VNPay
-                var response = _vnPayService.PaymentExecute(Request.Query);
-
-                // Trả về kết quả xử lý
-                return Ok(response);
+                return BadRequest(new { message = "Payment failed.", response });
             }
-            catch (Exception ex)
-            {            
-            // Trả về lỗi
-                return StatusCode(500, new { message = "Đã xảy ra lỗi khi xử lý callback từ VNPay." });
-            }
+
+            return Ok(new { message = "Payment successful.", response });
         }
-
-
     }
 }

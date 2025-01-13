@@ -125,17 +125,15 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     PhoneNumber = "0987654321",
                     Email = "jane@example.com",
                     UserName = "user2",
-                    Password = Hash.HashPassword("UserPassword123"),  // Băm mật khẩu một cách an toàn
-                    RoleID = 2,  // Vai trò User
+                    Password = Hash.HashPassword("UserPassword123"), 
+                    RoleID = 2,  
                     Status = UserStatus.Active
                 },
-             
-
             };
 
             modelBuilder.Entity<User>().HasData(userData);
 
-            // Seed cart
+
             var cartData = new List<Cart>
             {
                 new Cart
@@ -150,7 +148,6 @@ namespace DecorGearInfrastructure.Database.AppDbContext
 
             modelBuilder.Entity<Cart>().HasData(cartData);
 
-            // Seed cartDetail
             var cartDetailData = new List<CartDetail>
             {
                 new CartDetail
