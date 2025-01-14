@@ -1,9 +1,14 @@
-﻿using DecorGearApplication.DataTransferObj.Order;
+﻿using AutoMapper;
+using DecorGearApplication.DataTransferObj.ImageList;
+using DecorGearApplication.DataTransferObj.Order;
 using DecorGearApplication.DataTransferObj.OrderDetail;
+using DecorGearApplication.DataTransferObj.Product;
 using DecorGearApplication.Interface;
+using DecorGearApplication.ValueObj.Response;
 using DecorGearDomain.Data.Entities;
 using DecorGearDomain.Enum;
 using DecorGearInfrastructure.Database.AppDbContext;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace DecorGearInfrastructure.implement
@@ -11,83 +16,116 @@ namespace DecorGearInfrastructure.implement
     public class OrderRepository : IOderRespository
     {
         private readonly AppDbContext _dbcontext;
-        public OrderRepository(AppDbContext dbContext)
+        private readonly IMapper _mapper;
+
+        public OrderRepository(AppDbContext dbContext, IMapper mapper)
         {
             _dbcontext = dbContext;
+            _mapper = mapper;
         }
-        public async Task<ErrorMessage> CreateOder(CreateOrderRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<OrderDto>> CreateOder(CreateOrderRequest request, CancellationToken cancellationToken)
         {
             if (request == null)
             {
-                return ErrorMessage.Null;
+                return new ResponseDto<OrderDto>
+                {
+                    DataResponse = null,
+                    Status = StatusCodes.Status400BadRequest,
+                    Message = "Chưa có request."
+                };
             }
-
-            var newOder = new Order
+            if (request.completeDate < DateTime.Now)
             {
-                UserID = request.UserID,
-                VoucherID = request.VoucherID,
-                totalQuantity = request.totalQuantity,
-                totalPrice = ((double)request.totalPrice),
-                paymentMethod = request.paymentMethod,
-                size = request.size.ToString(),
-                weight = request.weight,
-                OrderDate = request.OrderDate
-            };
-
-            await _dbcontext.Orders.AddAsync(newOder, cancellationToken);
+                return new ResponseDto<OrderDto>
+                {
+                    DataResponse = null,
+                    Status = StatusCodes.Status400BadRequest,
+                    Message = "ngày hoàn thành phải sau hoặc cùng thời gian tạo hóa đơn."
+                };
+            }
 
             try
             {
+                var createOrder = _mapper.Map<Order>(request);
+
+                await _dbcontext.Orders.AddAsync(createOrder, cancellationToken);
                 await _dbcontext.SaveChangesAsync(cancellationToken);
-                return ErrorMessage.Successfull;
+
+                var orderDto = _mapper.Map<OrderDto>(createOrder);
+
+                return new ResponseDto<OrderDto>
+                {
+                    DataResponse = orderDto,
+                    Status = StatusCodes.Status201Created,
+                    Message = "Tạo sản phẩm thành công."
+                };
+            }
+            catch (DbUpdateException)
+            {
+                return new ResponseDto<OrderDto>
+                {
+                    DataResponse = null,
+                    Status = StatusCodes.Status500InternalServerError,
+                    Message = "Lỗi khi tạo cơ sở dữ liệu."
+                };
+            }
+            catch (ArgumentException)
+            {
+                return new ResponseDto<OrderDto>
+                {
+                    DataResponse = null,
+                    Status = StatusCodes.Status400BadRequest,
+                    Message = "Tham số không hợp lệ."
+                };
             }
             catch (Exception ex)
             {
-                return ErrorMessage.Failed;
+                return new ResponseDto<OrderDto>
+                {
+                    DataResponse = null,
+                    Status = StatusCodes.Status400BadRequest,
+                    Message = "Lỗi không xác định: " + ex.Message + "."
+                };
             }
         }
 
-
-        public async Task<bool> DeleteOder(DeleteOrderRequest request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<bool>> DeleteOder(int id, CancellationToken cancellationToken)
         {
-            // Tìm hóa đơn cần xóa
+            var deleteOrder = await _dbcontext.Orders.FindAsync(id, cancellationToken);
+            if (deleteOrder != null)
+            {
+                _dbcontext.Orders.Remove(deleteOrder);
+                _dbcontext.SaveChanges();
+                return new ResponseDto<bool>
+                {
+                    DataResponse = true,
+                    Status = StatusCodes.Status200OK,
+                    Message = "Xóa thành công."
+                };
+            }
+            return new ResponseDto<bool>
+            {
+                DataResponse = false,
+                Status = StatusCodes.Status400BadRequest,
+                Message = "Sửa thất bại."
+            };
+        }
+
+        public async Task<List<OrderDto>> GetAllOder(CancellationToken cancellationToken)
+        {
             var order = await _dbcontext.Orders
                 .Include(o => o.OrderDetails)
-                .FirstOrDefaultAsync(o => o.OrderID == request.OderID, cancellationToken);
-
-            if (order == null)
+                .ToListAsync(cancellationToken);
+            return order.Select(o => new OrderDto
             {
-                return false;
-            }
-
-            if (order.OrderDetails != null && order.OrderDetails.Any())
-            {
-                _dbcontext.OrderDetails.RemoveRange(order.OrderDetails);
-            }
-
-            _dbcontext.Orders.Remove(order);
-            await _dbcontext.SaveChangesAsync(cancellationToken);
-
-            return true;
-        }
-
-        public async Task<IEnumerable<OderDto>> GetAllOder(CancellationToken cancellationToken)
-        {
-            var order = await _dbcontext.Orders.Include(o => o.OrderDetails).Include(x => x.User).ToListAsync(cancellationToken);
-            return order.Select(o => new OderDto
-            {
-                OderID = o.OrderID,
-
+                OrderID = o.OrderID,
                 UserID = o.UserID,
-                UserName = o.User.Name,
                 VoucherID = o.VoucherID,
                 totalQuantity = o.OrderDetails.Sum(od => od.Quantity),
-                totalPrice = (decimal)o.OrderDetails.Sum(od => od.UnitPrice * od.Quantity),
+                totalPrice = o.OrderDetails.Sum(od => od.UnitPrice * od.Quantity),
                 paymentMethod = o.paymentMethod,
-                size = o.size,
-                weight = (float)o.weight,
-                OrderDate = o.OrderDate,
-                Status = o.Status,
+                completeDate = o.OrderDate,
+                OrderStatus = o.OrderStatus,
 
                 orderDetailDTOs = o.OrderDetails.Select(od => new OrderDetailDTO
                 {
@@ -100,58 +138,114 @@ namespace DecorGearInfrastructure.implement
             }).ToList();
         }
 
-        public async Task<OderDto> GetKeyOderById(ViewOrderRequest request, CancellationToken cancellationToken)
+        public async Task<OrderDto> GetKeyOderById(int id, CancellationToken cancellationToken)
         {
-            var order = await _dbcontext.Orders.Include(o => o.OrderDetails).FirstOrDefaultAsync(o => o.OrderID == request.OderID, cancellationToken);
+            var order = await _dbcontext.Orders
+                .Include(o => o.OrderDetails)
+                .FirstOrDefaultAsync(o => o.OrderID == id, cancellationToken);
 
             if (order == null)
             {
                 return null;
             }
 
-            return new OderDto
+            return new OrderDto
             {
-                OderID = order.OrderID,
+                OrderID = order.OrderID,
                 UserID = order.UserID,
-                totalQuantity = order.totalQuantity,
-                totalPrice = (decimal)order.totalPrice,
+                totalQuantity = order.OrderDetails.Sum(od => od.Quantity),
+                totalPrice = order.OrderDetails.Sum(od => od.UnitPrice * od.Quantity),
                 paymentMethod = order.paymentMethod,
-                size = order.size,
-                weight = (float)order.weight,
-                OrderDate = order.OrderDate,
-                Status = order.Status,
+                completeDate = order.OrderDate,
+                OrderStatus = order.OrderStatus,
 
                 orderDetailDTOs = order.OrderDetails.Select(od => new OrderDetailDTO
                 {
                     OrderDetailId = od.OrderDetailId,
                     ProductID = od.ProductID,
                     UnitPrice = od.UnitPrice,
-                    Quantity = od.Quantity
+                    Quantity = od.Quantity,
+                    size = od.size, // Nếu có trường Size, bạn có thể thêm
+                    weight = od.weight // Nếu có trường Weight, bạn có thể thêm
                 }).ToList(),
             };
         }
 
-        public async Task<ErrorMessage> UpdateOder(OderDto request, CancellationToken cancellationToken)
+        public async Task<ResponseDto<OrderDto>> UpdateOder(int id, UpdateOrderRequest request, CancellationToken cancellationToken)
         {
-            var updateOrder = await _dbcontext.Orders.FirstOrDefaultAsync(o => o.OrderID == request.OderID, cancellationToken);
-            if (updateOrder == null)
+            if (request == null)
             {
-                return ErrorMessage.Failed;
+                return new ResponseDto<OrderDto>
+                {
+                    DataResponse = null,
+                    Status = StatusCodes.Status400BadRequest,
+                    Message = "Chưa có request."
+                };
             }
-            else
+
+            try
             {
-                updateOrder.UserID = request.UserID;
-                updateOrder.VoucherID = request.VoucherID;
-                updateOrder.totalQuantity = request.totalQuantity;
-                updateOrder.totalPrice = (double)request.totalPrice;
-                updateOrder.paymentMethod = request.paymentMethod;
-                updateOrder.size = request.size.ToString();
-                updateOrder.weight = request.weight;
-                updateOrder.OrderDate = request.OrderDate;
-                updateOrder.Status = request.Status;
-                await _dbcontext.SaveChangesAsync(cancellationToken);
-                return ErrorMessage.Successfull;
+                var updateOrder = await _dbcontext.Orders.FindAsync(id, cancellationToken);
+                if (updateOrder == null)
+                {
+                    return new ResponseDto<OrderDto>
+                    {
+                        DataResponse = null,
+                        Status = StatusCodes.Status400BadRequest,
+                        Message = "Chưa có request."
+                    };
+                }
+                else
+                {
+                    updateOrder.UserID = request.UserID;
+                    updateOrder.VoucherID = request.VoucherID;
+                    updateOrder.paymentMethod = request.paymentMethod;
+                    updateOrder.OrderDate = request.OrderDate;
+                    updateOrder.OrderStatus = request.OrderStatus;
+
+                    // Cập nhật thông tin sản phẩm
+                    _dbcontext.Orders.Update(updateOrder);
+
+                    // Lưu các thay đổi vào cơ sở dữ liệu
+                    await _dbcontext.SaveChangesAsync(cancellationToken);
+
+                    // Trả về kết quả thành công
+                    return new ResponseDto<OrderDto>
+                    {
+                        DataResponse = null,
+                        Status = StatusCodes.Status200OK,
+                        Message = "Cập nhật sản phẩm thành công."
+                    };
+                }
             }
+            catch (DbUpdateException)
+            {
+                return new ResponseDto<OrderDto>
+                {
+                    DataResponse = null,
+                    Status = StatusCodes.Status500InternalServerError,
+                    Message = "Lỗi khi cập nhật cơ sở dữ liệu."
+                };
+            }
+            catch (ArgumentException)
+            {
+                return new ResponseDto<OrderDto>
+                {
+                    DataResponse = null,
+                    Status = StatusCodes.Status400BadRequest,
+                    Message = "Tham số không hợp lệ."
+                };
+            }
+            catch (Exception ex)
+            {
+                return new ResponseDto<OrderDto>
+                {
+                    DataResponse = null,
+                    Status = StatusCodes.Status400BadRequest,
+                    Message = "Lỗi không xác định: " + ex.Message + "."
+                };
+            }
+
         }
     }
 }

@@ -30,6 +30,7 @@ namespace DecorGearDomain.Data.Entities
         public string Password { get; set; }
 
         public string? RefreshToken { get; set; }
+
         public UserStatus Status { get; set; }
 
         // Khóa ngoại

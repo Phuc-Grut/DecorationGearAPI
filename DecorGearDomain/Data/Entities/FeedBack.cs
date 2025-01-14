@@ -8,13 +8,13 @@ namespace DecorGearDomain.Data.Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int FeedBackID { get; set; }
+
         public int UserID { get; set; }
+
         public int ProductID { get; set; }
 
-        [StringLength(500, ErrorMessage = "Bình luận không được vượt quá 500 ký tự")]
         public string Comment { get; set; }
-
-
+        
         //Khóa ngoại
         public virtual Product Product { get; set; }
 

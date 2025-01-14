@@ -9,8 +9,9 @@ namespace DecorGearApplication.DataTransferObj
         public int UserID { get; set; }
 
         public List<CartDetailDto> cartDetails { get; set; } = new List<CartDetailDto> { };
+
         public int TotalQuantity => cartDetails.Sum(x => x.Quantity);
 
-        public decimal TotalPrice => cartDetails.Sum(x => x.UnitPrice * x.TotalPrice);
+        public double TotalPrice => cartDetails.Sum(x => x.CartDetailPrice);
     }
 }

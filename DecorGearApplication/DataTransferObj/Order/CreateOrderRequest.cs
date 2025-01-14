@@ -1,21 +1,24 @@
-﻿namespace DecorGearApplication.DataTransferObj.Order
+﻿using DecorGearDomain.Enum;
+using System.ComponentModel.DataAnnotations;
+
+namespace DecorGearApplication.DataTransferObj.Order
 {
     public class CreateOrderRequest
     {
         public int UserID { get; set; }
 
-        public int? VoucherID { get; set; }
+        [StringLength(100, ErrorMessage = "Không được vượt quá 100 ký tự")]
+        public int? VoucherID { get; set; } // 1 oder có tối đa 1 voucher ( có thể có hoặc không nên đẻ ? )
 
-        public int totalQuantity { get; set; }
+        [Range(1, 9, ErrorMessage = "Vui lòng lựa chọn từ chọn trạng thái> ")]
+        public OrderStatus OrderStatus { get; set; }
 
-        public decimal totalPrice { get; set; }
-
+        [Required(ErrorMessage = "Không được để trống")]
+        [StringLength(100, ErrorMessage = "Không được vượt quá 100 ký tự")]
         public string paymentMethod { get; set; }
 
-        public float size { get; set; }
+        public DateTimeOffset? CreatedTime { get; set; }
 
-        public float weight { get; set; }
-
-        public DateTime OrderDate { get; set; }
+        public DateTime? completeDate { get; set; }
     }
 }

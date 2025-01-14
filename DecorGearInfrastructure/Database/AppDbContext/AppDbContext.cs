@@ -47,7 +47,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=PHUC-GRUNT;Database=DecorationGear;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOPD-DELLIN\\SQLEXPRESS;Database=DecorationGear123;Trusted_Connection=True;TrustServerCertificate=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -274,7 +274,6 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     ProductID = 1,
                     ProductName = "CHUỘT RAZER DEATHADDER ESSENTIAL",
                     ProductCode = "SP01",
-                    View = 1000,
                     Description = "chiếc chuột siêu bổ rẻ ",
                     SaleID = 1,
                     BrandID = 1,
@@ -285,7 +284,6 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     ProductID=2,
                     ProductName="CHUỘT KHÔNG DÂY DAREU EM901",
                     ProductCode = "SP02",
-                    View=1000,
                     Description="Chiếc chuột được nhiều tuyển thủ chuyên nghiệp tin dùng",
                     AvatarProduct = "/media/product/250-90-b865462f9328e9130f5c420e14e492c5.jpg",
                     SaleID=null,
@@ -296,7 +294,6 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     ProductID=3,
                     ProductCode = "SP03",
                     ProductName="BÀN PHÍM CƠ ESONNE K98",
-                    View=8000,
                     Description="Một chiếc bàn phím cơ mỳ ăn liền với 3mode hotswap tầm giá 1 củ mà bạn không nên bỏ qua",
                     AvatarProduct = "/media/product/250-4027-vien1.jpg",
                     SaleID=null,
@@ -440,7 +437,6 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     Button = 5,
                     LED = null,
                     SS = "Razer Synapse REP",
-                    Switch = "DareU (10 triệu lần click)",
                     Size = "125.5*68.6*39.6mm",
                     BatteryCapacity = 930,
                     Weight = 105,
@@ -460,7 +456,6 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     Button = 5,
                     LED = "LED RGB",
                     SS = "Chuột DareU EM901X RGB Superlight Wireless",
-                    Switch = "DareU (10 triệu lần click)",
                     Size = "125.5*68.6*39.6mm",
                     BatteryCapacity = 930,
                     Weight = 105,
@@ -480,7 +475,6 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     Button = 5,
                     LED = null,
                     SS = "Chuột DareU EM901X RGB Superlight Wireless",
-                    Switch = "DareU (10 triệu lần click)",
                     Size = "125.5*68.6*39.6mm",
                     BatteryCapacity = 930,
                     Weight = 105,
@@ -499,70 +493,60 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     ImageListID = 1,
                     ProductID = 1,
                     ImagePath= "/media/product/250-73-vien-.jpg",
-                    Description = ""
                 },
                 new ImageList
                 {
                     ImageListID= 2,
                     ProductID = 1,
                     ImagePath= "/media/product/250-73-1089_chu___t_ch__i_game_razer_deathaddder_essential_2_min.jpg",
-                    Description=""
                 },
                 new ImageList
                 {
                     ImageListID= 3,
                     ProductID = 1,
                     ImagePath= "/media/product/250-73-untitled-3.jpg",
-                    Description=""
                 },
                 new ImageList
                 {
                     ImageListID= 4,
                     ProductID = 2,
                     ImagePath= "/media/product/250-88-d1470721f92bc58866c35b39f7e83f5f.jpg",
-                    Description=""
                 },
                 new ImageList
                 {
                     ImageListID= 5,
                     ProductID = 2,
                     ImagePath= "/media/product/250-89-69a7ff353e943ca00e99246f76d3222c.jpg",
-                    Description=""
                 },
                 new ImageList
                 {
                     ImageListID= 6,
                     ProductID = 2,
                     ImagePath= "/media/product/250-90-b865462f9328e9130f5c420e14e492c5.jpg",
-                    Description=""
                 },
                 new ImageList
                 {
                     ImageListID= 7,
                     ProductID = 3,
                     ImagePath= "/media/product/250-4027-vien1.jpg",
-                    Description=""
                 },
                 new ImageList
                 {
                     ImageListID= 8,
                     ProductID = 3,
                     ImagePath= "/media/product/250-4027-xanh-la-6.jpg",
-                    Description=""
                 },
                 new ImageList
                 {
                     ImageListID= 9,
                     ProductID = 3,
                     ImagePath= "/media/product/250-4026-vein3.jpg",
-                    Description=""
                 },
                 new ImageList
                 {
                     ImageListID= 10,
                     ProductID = 3,
                     ImagePath= "/media/product/250-4029-vien4.jpg",
-                    Description=""
                 }
             };
 
@@ -694,10 +678,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     OrderID=1,
                     UserID=1,
                     VoucherID=1,
-                    totalQuantity=5,
-                    size="L",
-                    weight= (float)1.5,
-                    Status=OrderStatus.Delivered,
+                    OrderStatus=OrderStatus.Delivered,
                     paymentMethod="Credit Card",
                     OrderDate=DateTime.Parse("09/09/2024")
                 },
@@ -706,10 +687,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     OrderID=2,
                     UserID=2,
                     VoucherID=null,
-                    totalQuantity=3,
-                    size="LF",
-                    weight=(float)2.0,
-                    Status=OrderStatus.Delivered,
+                    OrderStatus=OrderStatus.Delivered,
                     paymentMethod="Cash",
                     OrderDate=DateTime.Parse("09/09/2024")
                 }

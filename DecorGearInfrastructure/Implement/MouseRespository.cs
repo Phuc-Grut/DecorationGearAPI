@@ -114,7 +114,7 @@ namespace DecorGearInfrastructure.Implement
                             MouseDetailID = md.MouseDetailID,
                             //ProductID = md.ProductID,
                             Color = md.Color,
-                            DPI = md.DPI ?? 0,
+                            DPI = md.DPI,
                             Connectivity = md.Connectivity,
                             Dimensions = md.Dimensions,
                             Material = md.Material,

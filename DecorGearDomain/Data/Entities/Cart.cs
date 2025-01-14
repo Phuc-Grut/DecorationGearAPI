@@ -9,12 +9,7 @@ namespace DecorGearDomain.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CartID { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng không được để trống")]
         public int UserID { get; set; }
-
-        public int TotalQuantity { get; set; }
-
-        public double TotalAmount { get; set; }
 
         // Khóa ngoại
 

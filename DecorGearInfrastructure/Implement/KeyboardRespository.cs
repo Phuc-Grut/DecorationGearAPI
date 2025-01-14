@@ -128,10 +128,6 @@ namespace DecorGearInfrastructure.Implement
                         };
 
             // Áp dụng các điều kiện lọc
-            if (request.KeyboardDetailID.HasValue)
-            {
-                query = query.Where(x => x.KeyboardDetailID == request.KeyboardDetailID);
-            }
             if (!string.IsNullOrEmpty(request.Color))
             {
                 query = query.Where(x => x.Color == request.Color);

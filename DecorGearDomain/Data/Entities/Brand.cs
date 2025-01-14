@@ -8,9 +8,9 @@ namespace DecorGearDomain.Data.Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BrandID { get; set; }
-
-        [Required(ErrorMessage = " Vui lòng nhập tên")]
+    
         public string BrandName { get; set; }
+
         public string Description { get; set; }
 
         // Khóa ngoại
@@ -18,3 +18,4 @@ namespace DecorGearDomain.Data.Entities
         public virtual ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }
+    
