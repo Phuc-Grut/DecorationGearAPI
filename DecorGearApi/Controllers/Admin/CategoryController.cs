@@ -31,6 +31,13 @@ namespace DecorGearApi.Controllers
             return Ok(keyResultValue);
         }
 
+        [HttpGet("get-all-product-by-category-id")]
+        public async Task<IActionResult> GetCategoryProductById(int id, CancellationToken cancellationToken)
+        {
+            var keyResultValue = await _res.GetCategoryProductById(id, cancellationToken);
+            return Ok(keyResultValue);
+        }
+
         [HttpPost("create")]
         public async Task<IActionResult> CreateCategory(CreateCategoryRequest request, CancellationToken cancellationToken)
         {

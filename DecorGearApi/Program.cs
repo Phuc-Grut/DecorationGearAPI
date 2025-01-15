@@ -59,6 +59,7 @@ public class Program
         builder.Services.AddScoped<IMemberRespository, MemberRepository>();
         builder.Services.AddScoped<IMemberServices, MemberServices>();
         builder.Services.AddScoped<IOderRespository, OrderRepository>();
+        builder.Services.AddHttpClient<IShippingRespository, ShippingRepository>();
         //builder.Services.AddScoped<ICartDetailRespository, CartRepository>();
         builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
         builder.Services.AddScoped<IVoucherRespository, VoucherRepository>();
@@ -66,6 +67,7 @@ public class Program
         builder.Services.AddAutoMapper(typeof(UserProfile), typeof(FeedBackProfile));
         builder.Services.AddScoped<ICartRespository, CartRepository>();
         builder.Services.AddScoped<IVnPayService,VnPayService>();
+       
         builder.Services.AddStackExchangeRedisCache(options =>
         {
             options.Configuration = "localhost:6379"; // Cấu hình Redis

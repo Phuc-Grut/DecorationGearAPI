@@ -21,7 +21,9 @@ namespace DecorGearDomain.Data.Entities
         [Required(ErrorMessage = "Giá phải lớn hơn 0 ")]
 
         public int View { get; set; }
+
         public string? Description { get; set; }
+
         public string? AvatarProduct { get; set; }
 
         [Range(0, int.MaxValue, ErrorMessage = "Đơn vị dung lượng pin được dung ở đây là Miliample/Hour")]

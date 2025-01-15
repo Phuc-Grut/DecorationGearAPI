@@ -29,6 +29,10 @@ namespace DecorGearInfrastructure.Database.AppDbContext
         public virtual DbSet<Sale> Sales { get; set; }
         public virtual DbSet<SubCategory> SubCategories { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<CustomerAddresses> CustomerAddresses { get; set; }
+        public virtual DbSet<Districts> Districts { get; set; }
+        public virtual DbSet<Provinces> Provinces { get; set; }
+        public virtual DbSet<Wards> Wards { get; set; }
         public virtual DbSet<Voucher> Vouchers { get; set; }
         public virtual DbSet<VerificationCode> VerificationCodes { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }

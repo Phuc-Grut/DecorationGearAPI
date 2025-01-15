@@ -35,7 +35,9 @@ namespace DecorGearInfrastructure.Implement
                 cart = new Cart
                 {
                     UserID = request.UserID,
-                    CartDetails = new List<CartDetail>()
+                    CartDetails = new List<CartDetail>(),
+                    CartStatus = CartStatus.Empty,
+                    
                 };
                 _dbcontext.Carts.Add(cart);
             }
@@ -93,6 +95,7 @@ namespace DecorGearInfrastructure.Implement
 
             // Xóa sản phẩm khỏi giỏ hàng
             _dbcontext.CartDetails.Remove(cartDetail);
+            cart.CartStatus = cart.CartDetails.Count == 0 ? CartStatus.Empty : CartStatus.AddedToCart;
 
             try
             {
@@ -122,6 +125,8 @@ namespace DecorGearInfrastructure.Implement
 
             // Xóa giỏ hàng sau khi đã xóa chi tiết
             _dbcontext.Carts.Remove(cart);
+            cart.CartStatus = CartStatus.Empty;
+
 
             try
             {
@@ -174,4 +179,6 @@ namespace DecorGearInfrastructure.Implement
             throw new NotImplementedException();
         }
     }
+
+   
 }

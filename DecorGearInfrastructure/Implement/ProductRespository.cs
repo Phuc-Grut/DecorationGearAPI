@@ -555,5 +555,111 @@ namespace DecorGearInfrastructure.Implement
                 Message = "Cập nhật danh mục và danh mục con thành công."
             };
         }
+
+        public async Task<List<ProductDto>> GetSoftProducts(string sortBy, bool isAscending, CancellationToken cancellationToken)
+        {
+            var query = _appDbContext.Products
+                 .Include(p => p.ProductSubCategories)
+                     .ThenInclude(psc => psc.SubCategory)
+                     .ThenInclude(sc => sc.Category)
+                 .Include(p => p.MouseDetails)
+                 .Include(p => p.KeyboardDetails)
+                 .Include(p => p.ImageLists)
+                 .AsQueryable();
+
+            var products = await query.Select(p => new ProductDto
+            {
+                ProductID = p.ProductID,
+                ProductName = p.ProductName,
+                ProductCode = p.ProductCode,
+                CategoryID = p.ProductSubCategories
+                    .Select(psc => psc.SubCategory.Category.CategoryID)
+                    .FirstOrDefault(),
+                CategoryName = p.ProductSubCategories
+                    .Select(psc => psc.SubCategory.Category.CategoryName)
+                    .FirstOrDefault(),
+                SubCategories = p.ProductSubCategories
+                    .Select(psc => psc.SubCategory.SubCategoryName)
+                    .ToList(),
+                SaleID = p.Sale.SaleID,
+                SaleCode = p.Sale.SalePercent,
+                AvatarProduct = p.AvatarProduct,
+                Description = p.Description,
+                ImageProduct = p.ImageLists
+                    .Select(img => img.ImagePath)
+                    .ToList(),
+
+                Price = p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 1)
+                    ? p.MouseDetails.FirstOrDefault() != null
+                    ? p.MouseDetails.FirstOrDefault()!.Price
+                    : (double?)null
+                    : p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 2)
+                    ? p.KeyboardDetails.FirstOrDefault() != null
+                    ? p.KeyboardDetails.FirstOrDefault()!.Price
+                    : (double?)null
+                    : null,
+
+                Quantity = p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 1)
+                            ? p.MouseDetails.Sum(md => md.Quantity)
+                            : p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 2)
+                            ? p.KeyboardDetails.Sum(kd => kd.Quantity)
+                            : 0,
+
+                ProductDetail = p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 1)
+                ? (object?)p.MouseDetails.Select(md => new MouseDetailsDto
+                {
+                    MouseDetailID = md.MouseDetailID,
+                    Switch = md.Switch,
+                    Price = md.Price,
+                    Quantity = md.Quantity,
+                    Color = md.Color,
+                    DPI = md.DPI ?? 0,
+                    Connectivity = md.Connectivity,
+                    Dimensions = md.Dimensions,
+                    Material = md.Material,
+                    EyeReading = md.EyeReading,
+                    Button = md.Button,
+                    LED = md.LED,
+                    SS = md.SS,
+                    BatteryCapacity = md.BatteryCapacity,
+                    Weight = md.Weight
+                }).ToList()
+                : p.ProductSubCategories.Any(psc => psc.SubCategory.Category.CategoryID == 2)
+                ? (object?)p.KeyboardDetails.Select(kd => new KeyBoardDetailsDto
+                {
+                    KeyboardDetailID = kd.KeyboardDetailID,
+                    Price = kd.Price,
+                    Quantity = kd.Quantity,
+                    Color = kd.Color,
+                    Layout = kd.Layout,
+                    Case = kd.Case,
+                    Switch = kd.Switch,
+                    SwitchLife = kd.SwitchLife,
+                    Led = kd.Led,
+                    KeycapMaterial = kd.KeycapMaterial,
+                    SwitchMaterial = kd.SwitchMaterial,
+                    SS = kd.SS,
+                    Stabilizes = kd.Stabilizes,
+                    PCB = kd.PCB,
+                    BatteryCapacity = kd.BatteryCapacity,
+                    Size = kd.Size,
+                    Weight = kd.Weight
+                }).ToList()
+                : null
+            }).ToListAsync(cancellationToken);
+
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                products = sortBy switch
+                {
+                    "price" => isAscending ? products.OrderBy(p => p.Price).ToList() : products.OrderByDescending(p => p.Price).ToList(),
+                    "view" => isAscending ? products.OrderBy(p => p.View).ToList() : products.OrderByDescending(p => p.View).ToList(),
+                    "name" => isAscending ? products.OrderBy(p => p.ProductName).ToList() : products.OrderByDescending(p => p.ProductName).ToList(),
+                    "quantity" => isAscending ? products.OrderBy(p => p.Quantity).ToList() : products.OrderByDescending(p => p.Quantity).ToList(),
+                    _ => isAscending ? products.OrderBy(p => p.ProductCode).ToList() : products.OrderByDescending(p => p.ProductCode).ToList(),
+                };
+            }
+            return products;
+        }
     }
 }
