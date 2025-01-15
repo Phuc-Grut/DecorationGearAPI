@@ -3,7 +3,9 @@ using DecorGearApplication.DataTransferObj.User;
 using DecorGearApplication.DataTransferObj.User.Request;
 using DecorGearApplication.Interface;
 using DecorGearApplication.IServices;
+using DecorGearDomain.Data.Entities;
 using Ecommerce.Application.DataTransferObj.User.Request;
+using Microsoft.AspNetCore.Http;
 
 
 
@@ -43,6 +45,10 @@ namespace DecorGearApplication.Services
             return await _userRepository.DeleteUser(request, cancellationToken);
         }
 
-
+        public async Task UpdateUserAsync(User user, CancellationToken cancellationToken)
+        {
+            await _userRepository.UpdateUserAsync(user, cancellationToken);
+        }
     }
 }
+

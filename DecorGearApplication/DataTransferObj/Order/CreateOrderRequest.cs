@@ -10,9 +10,9 @@
 
         public decimal totalPrice { get; set; }
 
-        public string paymentMethod { get; set; }
+        public string? paymentMethod { get; set; }
 
-        public float size { get; set; }
+        public float? size { get; set; }
 
         public float weight { get; set; }
 

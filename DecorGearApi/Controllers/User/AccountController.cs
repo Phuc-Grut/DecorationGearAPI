@@ -67,7 +67,7 @@ namespace DecorGearApi.Controllers.User
         }
 
         [HttpPut("update/{id}")]
-        public async Task<IActionResult> UpdateUser(int id, UserUpdateRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> UpdateUser(int id, UserUpdateRequest ?request, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
             {
@@ -108,7 +108,8 @@ namespace DecorGearApi.Controllers.User
             return StatusCode(result.Status, result.Message);
         }
 
-
+        
+    
 
         [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteUser(UserDeleteRequest request, CancellationToken cancellationToken)

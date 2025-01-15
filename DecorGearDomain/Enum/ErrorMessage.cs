@@ -11,6 +11,7 @@
         UnknownError = 7,
         UsernameExists = 8,
         EmailExists = 9,
-        QuantityExceedsStock
+        QuantityExceedsStock,
+        NotFound
     }
 }
