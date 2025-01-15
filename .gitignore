@@ -385,3 +385,7 @@ FodyWeavers.xsd
 /DecorGearInfrastructure/Migrations/20241108102817_migar.cs
 /DecorGearInfrastructure/Migrations/20241108102817_migar.Designer.cs
 /DecorGearInfrastructure/Migrations/20241218072424_update-database.c
+/DecorGearInfrastructure/Migrations/20250114222323_newdb.cs
+/DecorGearInfrastructure/Migrations/20250114222323_newdb.Designer.cs
+/DecorGearInfrastructure/Migrations/20250115101953_hjjh.cs
+/DecorGearInfrastructure/Migrations/20250115101953_hjjh.Designer.cs

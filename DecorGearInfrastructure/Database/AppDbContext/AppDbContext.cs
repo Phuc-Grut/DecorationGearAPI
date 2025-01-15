@@ -54,7 +54,6 @@ namespace DecorGearInfrastructure.Database.AppDbContext
             //optionsBuilder.UseSqlServer("Data Source=LAP-CN-192;Database=DecorationGear;Trusted_Connection=True;TrustServerCertificate=True;");
 
             //optionsBuilder.UseSqlServer("Data Source=DESKTOPD-DELLIN\\SQLEXPRESS;Database=DecorationGear123;Trusted_Connection=True;TrustServerCertificate=True;");
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

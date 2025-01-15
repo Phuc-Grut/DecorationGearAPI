@@ -555,7 +555,6 @@ namespace DecorGearInfrastructure.Implement
                     .Select(psc => psc.SubCategory.SubCategoryName)
                     .ToList(),
                 SaleID = p.Sale.SaleID,
-                SaleCode = p.Sale.SalePercent,
                 AvatarProduct = p.AvatarProduct,
                 Description = p.Description,
                 ImageProduct = p.ImageLists
@@ -582,11 +581,10 @@ namespace DecorGearInfrastructure.Implement
                 ? (object?)p.MouseDetails.Select(md => new MouseDetailsDto
                 {
                     MouseDetailID = md.MouseDetailID,
-                    Switch = md.Switch,
                     Price = md.Price,
                     Quantity = md.Quantity,
                     Color = md.Color,
-                    DPI = md.DPI ?? 0,
+                    DPI = md.DPI,
                     Connectivity = md.Connectivity,
                     Dimensions = md.Dimensions,
                     Material = md.Material,

@@ -49,7 +49,7 @@ namespace DecorGearApi.Controllers.User
             }
             return BadRequest(new { message = "Failed to clear cart" });
         }
-
+         
         [HttpDelete("user/{userId}/product/{productId}")]
         public async Task<IActionResult> DeleteProductFromCart([FromRoute] int userId, [FromRoute] int productId, CancellationToken cancellationToken)
         {
