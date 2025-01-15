@@ -59,6 +59,7 @@ public class Program
         builder.Services.AddScoped<IMemberRespository, MemberRepository>();
         builder.Services.AddScoped<IMemberServices, MemberServices>();
         builder.Services.AddScoped<IOderRespository, OrderRepository>();
+        builder.Services.AddScoped<IRoleRepository, RoleRepository>();
         builder.Services.AddHttpClient<IShippingRespository, ShippingRepository>();
         //builder.Services.AddScoped<ICartDetailRespository, CartRepository>();
         builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();

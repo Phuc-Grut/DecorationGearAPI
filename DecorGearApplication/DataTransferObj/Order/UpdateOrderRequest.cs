@@ -19,8 +19,6 @@ namespace DecorGearApplication.DataTransferObj.Order
         [StringLength(100, ErrorMessage = "Không được vượt quá 100 ký tự")]
         public string paymentMethod { get; set; }
 
-        public DateTimeOffset ModifiedTime { get; set; }
-
         public DateTime OrderDate { get; set; }
     }
 }

@@ -38,6 +38,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<VerificationCodePw> VerificationCodePws { get; set; }
         public virtual DbSet<ProductSubCategory> ProductSubCategories { get; set; }
+       
 
         #endregion Db Set
 
@@ -51,7 +52,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer("Data Source=LAP-CN-192;Database=DecorationGear;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Data Source=LAP-CN-192;Database=DecorationGear;Trusted_Connection=True;TrustServerCertificate=True;");
 
             //optionsBuilder.UseSqlServer("Data Source=DESKTOPD-DELLIN\\SQLEXPRESS;Database=DecorationGear123;Trusted_Connection=True;TrustServerCertificate=True;");
         }

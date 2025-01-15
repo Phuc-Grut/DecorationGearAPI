@@ -24,6 +24,7 @@ namespace DecorGearInfrastructure.Extention
             services.AddScoped<IFeedbackServices, FeedbackServices>();
             services.AddTransient<IMemberRespository, MemberRepository>();
             services.AddTransient<IMemberServices, MemberServices>();
+            services.AddTransient<IRoleRepository, RoleRepository>();
             services.AddHttpContextAccessor();
 
             services.AddScoped<IImageListRespository, ImageListRespository>();
@@ -33,6 +34,7 @@ namespace DecorGearInfrastructure.Extention
             services.AddScoped<IBrandRespository, BrandRespository>();
             services.AddScoped<IKeyboardRespository, KeyboardRespository>();
             services.AddScoped<IMouseRespository, MouseRespository>();
+
 
             services.AddTransient<AppDbContext>();
 
