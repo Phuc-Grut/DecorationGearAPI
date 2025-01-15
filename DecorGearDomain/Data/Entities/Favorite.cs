@@ -8,8 +8,10 @@ namespace DecorGearDomain.Data.Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int FavoriteID { get; set; }
+
         public int UserID { get; set; }
-        public int ProductID { get; set; }
+
+        public int ProductID { get; set; }  
 
         // Khóa ngoại
         public virtual Product Product { get; set; }
@@ -17,3 +19,4 @@ namespace DecorGearDomain.Data.Entities
         public virtual User User { get; set; }
     }
 }
+                                

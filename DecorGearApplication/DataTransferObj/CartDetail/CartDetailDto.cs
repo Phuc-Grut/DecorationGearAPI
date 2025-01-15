@@ -19,5 +19,6 @@
         public double TotalPrice { get; set; }
         public int TotalQuantity { get; set; }
         public double TotalPrices { get; set; }
+
     }
 }

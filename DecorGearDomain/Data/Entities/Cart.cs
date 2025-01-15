@@ -1,4 +1,5 @@
 ﻿using DecorGearDomain.Data.Base;
+using DecorGearDomain.Enum;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -9,12 +10,13 @@ namespace DecorGearDomain.Data.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CartID { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng không được để trống")]
         public int UserID { get; set; }
 
         public int TotalQuantity { get; set; }
 
         public double TotalAmount { get; set; }
+        
+        public CartStatus CartStatus { get; set; }
 
         // Khóa ngoại
 

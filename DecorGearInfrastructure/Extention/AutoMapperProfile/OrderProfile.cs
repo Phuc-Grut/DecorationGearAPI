@@ -8,11 +8,8 @@ namespace DecorGearInfrastructure.Extention.AutoMapperProfile
     {
         public OrderProfile()
         {
-            CreateMap<OderDto, Order>().ReverseMap();
+            CreateMap<OrderDto, Order>().ReverseMap();
             CreateMap<CreateOrderRequest, Order>();
-            CreateMap<UpdateOrderRequest, Order>();
-            CreateMap<DeleteOrderRequest, Order>();
-            CreateMap<ViewOrderRequest, Order>();
         }
     }
 }

@@ -39,5 +39,26 @@ namespace DecorGearApi.Controllers.User
             return Ok(_cartRepository.GetCartById(id, cancellationToken));
         }
 
+        [HttpDelete("user/{userId}/clear")]
+        public async Task<IActionResult> ClearCart([FromRoute] int userId, CancellationToken cancellationToken)
+        {
+            var result = await _cartRepository.ClearCart(userId, cancellationToken);
+            if (result == ErrorMessage.Successfull)
+            {
+                return Ok(new { message = "Cart cleared successfully" });
+            }
+            return BadRequest(new { message = "Failed to clear cart" });
+        }
+         
+        [HttpDelete("user/{userId}/product/{productId}")]
+        public async Task<IActionResult> DeleteProductFromCart([FromRoute] int userId, [FromRoute] int productId, CancellationToken cancellationToken)
+        {
+            var result = await _cartRepository.DeleteProductFromCart(userId, productId, cancellationToken);
+            if (result == ErrorMessage.Successfull)
+            {
+                return Ok(new { message = "Product removed from cart successfully" });
+            }
+            return BadRequest(new { message = "Failed to remove product from cart" });
+        }
     }
 }

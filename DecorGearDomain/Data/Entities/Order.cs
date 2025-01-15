@@ -9,25 +9,16 @@ namespace DecorGearDomain.Data.Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OrderID { get; set; }
+
         public int UserID { get; set; }
-        public int? VoucherID { get; set; }
 
-        [Required(ErrorMessage = "Không được để trống")]
-        [Range(1, int.MaxValue, ErrorMessage = "Số lượng phải lớn hơn 0")]
-        public int totalQuantity { get; set; }
+        public int? VoucherID { get; set; } 
 
-        [Required(ErrorMessage = "Không được để trống")]
-        [Range(0.01, double.MaxValue, ErrorMessage = "Tổng giá phải là giá trị dương")]
-        public double totalPrice { get; set; }
-        public OrderStatus Status { get; set; }
+        public OrderStatus OrderStatus { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng chọn phương thức thanh toán")]
         public string paymentMethod { get; set; }
-        public string size { get; set; }
-        public float weight { get; set; }
 
-        [Required(ErrorMessage = "Không được để trống")]
-        public DateTime OrderDate { get; set; } // ngày giao hàng
+        public DateTime OrderDate { get; set; } // thời gian hoàn thành thanh toán
 
         // Khóa ngoại
 
