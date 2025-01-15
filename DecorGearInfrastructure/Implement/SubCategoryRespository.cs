@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DecorGearApplication.DataTransferObj.Brand;
+using DecorGearApplication.DataTransferObj.KeyBoardDetails;
 using DecorGearApplication.DataTransferObj.MouseDetails;
 using DecorGearApplication.DataTransferObj.Product;
 using DecorGearApplication.DataTransferObj.SubCategory;
@@ -180,6 +181,82 @@ namespace DecorGearInfrastructure.Implement
                     Message = "Lỗi không xác định: " + ex.Message + "."
                 };
             }
+        }
+
+        public async Task<List<SubCategoryProductDto>> GetSubCategoryProductById(int id, CancellationToken cancellationToken)
+        {
+            var subCategory = await _appDbContext.SubCategories
+                .Include(sc => sc.ProductSubCategories)
+                    .ThenInclude(sc => sc.Product)
+                            .ThenInclude(p => p.MouseDetails)
+                .Include(sc => sc.ProductSubCategories)
+                    .ThenInclude(psc => psc.Product)
+                            .ThenInclude(p => p.KeyboardDetails)
+                .Include(sc => sc.ProductSubCategories)
+                        .ThenInclude(psc => psc.Product)
+                            .ThenInclude(p => p.ImageLists)
+                .Include(sc => sc.Category)
+                .FirstOrDefaultAsync(sc => sc.SubCategoryID == id, cancellationToken);
+            if (subCategory == null)
+            {
+                return null;
+            }
+
+            var subCategoryProductDtos = subCategory.ProductSubCategories.Select(psc => new SubCategoryProductDto
+            {
+                ProductID = psc.Product.ProductID,
+                ProductName = psc.Product.ProductName,
+                ProductCode = psc.Product.ProductCode,
+                View = psc.Product.View,
+                AvatarProduct = psc.Product.AvatarProduct,
+                ImageProduct = psc.Product.ImageLists?.Select(img => img.ImagePath).ToList() ?? new List<string>(),
+                Description = psc.Product.Description,
+                CategoryID = psc.SubCategory.Category.CategoryID,
+                SubCategoryID = psc.SubCategory.SubCategoryID,
+                SubCategoryName = psc.SubCategory?.SubCategoryName ?? "Unknown SubCategory",
+                ProductDetail = psc.SubCategory.Category.CategoryID switch
+                {
+                    1 => (object?)psc.Product.MouseDetails?.Select(md => new MouseDetailsDto
+                    {
+                        MouseDetailID = md.MouseDetailID,
+                        Color = md.Color,
+                        Price = md.Price,
+                        Quantity = md.Quantity,
+                        Switch = md.Switch,
+                        Weight = md.Weight,
+                        Size = md.Size,
+                        DPI = md.DPI ?? 0,
+                        Connectivity = md.Connectivity,
+                        Dimensions = md.Dimensions,
+                        Material = md.Material,
+                        EyeReading = md.EyeReading,
+                        BatteryCapacity = md.BatteryCapacity,
+                        Button = md.Button,
+                        LED = md.LED,
+                        SS = md.SS
+                    }).ToList(),
+                    2 => (object?)psc.Product.KeyboardDetails?.Select(kd => new KeyBoardDetailsDto
+                    {
+                        KeyboardDetailID = kd.KeyboardDetailID,
+                        Color = kd.Color,
+                        Price = kd.Price,
+                        Quantity = kd.Quantity,
+                        Layout = kd.Layout,
+                        Case = kd.Case,
+                        Switch = kd.Switch,
+                        SwitchLife = kd.SwitchLife,
+                        Led = kd.Led,
+                        KeycapMaterial = kd.KeycapMaterial,
+                        SwitchMaterial = kd.SwitchMaterial,
+                        SS = kd.SS,
+                        Stabilizes = kd.Stabilizes,
+                        PCB = kd.PCB,
+                    }).ToList(),
+                    _ => null
+                }
+            }).ToList();
+
+            return subCategoryProductDtos;
         }
     }
 }

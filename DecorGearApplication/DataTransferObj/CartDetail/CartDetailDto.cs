@@ -3,6 +3,8 @@
     public class CartDetailDto
     {
         public int CartDetailID { get; set; }
+        public string ProductCode { get; set; }
+        public string ProductName { get; set; }
 
         public int ProductID { get; set; }
 
@@ -14,6 +16,9 @@
 
         public double UnitPrice { get; set; }
 
-        public double CartDetailPrice => UnitPrice * Quantity;
+        public double TotalPrice { get; set; }
+        public int TotalQuantity { get; set; }
+        public double TotalPrices { get; set; }
+
     }
 }

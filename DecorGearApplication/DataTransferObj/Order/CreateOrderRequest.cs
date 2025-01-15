@@ -13,6 +13,7 @@ namespace DecorGearApplication.DataTransferObj.Order
         [Range(1, 9, ErrorMessage = "Vui lòng lựa chọn từ chọn trạng thái> ")]
         public OrderStatus OrderStatus { get; set; }
 
+
         [Required(ErrorMessage = "Không được để trống")]
         [StringLength(100, ErrorMessage = "Không được vượt quá 100 ký tự")]
         public string paymentMethod { get; set; }

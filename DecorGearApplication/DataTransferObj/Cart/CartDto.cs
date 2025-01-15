@@ -8,10 +8,13 @@ namespace DecorGearApplication.DataTransferObj
 
         public int UserID { get; set; }
 
-        public List<CartDetailDto> cartDetails { get; set; } = new List<CartDetailDto> { };
+        public List<CartDetailDto> CartDetails { get; set; } = new List<CartDetailDto> { };
+        //public int TotalQuantity => CartDetails.Sum(x => x.Quantity);
 
-        public int TotalQuantity => cartDetails.Sum(x => x.Quantity);
+        //public double TotalPrice => CartDetails.Sum(x => x.UnitPrice * x.TotalPrice);
+        public int TotalQuantity { get; set; }
 
-        public double TotalPrice => cartDetails.Sum(x => x.CartDetailPrice);
+        // Thêm setter để có thể gán giá trị
+        public double TotalAmount { get; set; }
     }
 }

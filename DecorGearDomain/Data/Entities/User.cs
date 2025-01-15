@@ -40,6 +40,7 @@ namespace DecorGearDomain.Data.Entities
         public virtual ICollection<FeedBack>? FeedBacks { get; set; }
         public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
         public virtual ICollection<VoucherUser>? VoucherUsers { get; set; } = new List<VoucherUser>();
+        public virtual ICollection<CustomerAddresses> CustomerAddresses { get; set; }
 
         // 1 - 1
         public virtual Cart Cart { get; set; }
