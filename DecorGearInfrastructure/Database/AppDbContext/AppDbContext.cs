@@ -344,6 +344,8 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     PCB = "PCB tiêu chuẩn",
                     Price = 80000,
                     Quantity = 10,
+                    Weight  = 500,
+                    Size = "Kích thước bàn phím : 388*139*37 (mm)"
                 },
                 new KeyboardDetail
                 {
@@ -362,6 +364,8 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     PCB = "PCB tiêu chuẩn",
                     Price = 100000,
                     Quantity = 10,
+                    Weight  = 500,
+                    Size = "Kích thước bàn phím : 388*139*37 (mm)"
                 }
             };
 
@@ -386,7 +390,8 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     Price = 520000,
                     Quantity = 10,
                     BatteryCapacity = 0,
-                    Weight = 105
+                    Weight = 105,
+                    Size = "125.5*68.6*39.6mm",
                 },
                 new MouseDetail
                 {
@@ -405,6 +410,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     Weight = 105,
                     Price = 520000,
                     Quantity = 10,
+                    Size = "125.5*68.6*39.6mm",
                 },
                 new MouseDetail
                 {
@@ -423,6 +429,7 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     Weight = 105,
                     Price = 190000,
                     Quantity = 10,
+                    Size = "125.5*68.6*39.6mm"
                 },
                  new MouseDetail
                 {
@@ -705,6 +712,9 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     ProductID=3,
                     Quantity=10,
                     UnitPrice=10000000,
+                    size = "M",
+                    weight = 500,
+
                 },
                 new OrderDetail
                 {
@@ -713,6 +723,8 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     ProductID=3,
                     Quantity=1,
                     UnitPrice=1000000,
+                    size = "XL",
+                    weight = 500,
                 },
                 new OrderDetail
                 {
@@ -721,6 +733,8 @@ namespace DecorGearInfrastructure.Database.AppDbContext
                     ProductID=1,
                     Quantity=1000,
                     UnitPrice=1000000000,
+                    size = "X",
+                    weight = 500,
                 }
             };
 
