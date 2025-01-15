@@ -3,20 +3,25 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DecorGearDomain.Data.Entities
 {
-    public class OrderDetail
+    public class OrderDetail 
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OrderDetailId { get; set; }
-        [Required]
+    
         public int OrderID { get; set; }
 
-        [Required(ErrorMessage = "Không được để trống")]
         public int ProductID { get; set; }
 
-        [Required(ErrorMessage = "Số lượng phải lớn hơn 0")]
-        public int Quantity { get; set; }
         public double UnitPrice { get; set; }
+
+        public int Quantity { get; set; }
+
+        public string size { get; set; }
+
+        public double weight { get; set; }
+
         public virtual Order Order { get; set; }
+
         public virtual Product Product { get; set; }
     }
 }

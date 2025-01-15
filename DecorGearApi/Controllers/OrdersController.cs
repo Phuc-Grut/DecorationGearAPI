@@ -18,41 +18,42 @@ namespace DecorGearApi.Controllers
 
         // GET: api/Orders
         [HttpGet("get-all-order")]
-        public async Task<ActionResult<IEnumerable<OderDto>>> GetAllOrders(CancellationToken cancellationToken)
+        public async Task<ActionResult<IEnumerable<OrderDto>>> GetAllOrders(CancellationToken cancellationToken)
         {
             var orders = await _orderRepo.GetAllOder(cancellationToken);
             return Ok(orders);
         }
 
         // GET: api/Orders/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<OderDto>> GetByIdOrder(int id, CancellationToken cancellationToken)
+        [HttpGet("get-all-order-detail")]
+        public async Task<ActionResult<OrderDto>> GetByIdOrder(int id, CancellationToken cancellationToken)
         {
-            var request = new ViewOrderRequest { OderID = id };
-            var order = await _orderRepo.GetKeyOderById(request, cancellationToken);
-
-            if (order == null)
+            var result = await _orderRepo.GetKeyOderById(id, cancellationToken);
+            if (result == null)
             {
-                return NotFound();
+                return NotFound("Không có giá trị ID");
             }
 
-            return Ok(order);
+            return Ok(result);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete-order")]
         public async Task<IActionResult> DeleteOrder(int id, CancellationToken cancellationToken)
         {
-            var request = new DeleteOrderRequest { OderID = id };
-            var result = await _orderRepo.DeleteOder(request, cancellationToken);
-
-            if (!result)
+            // Lấy sản phẩm cần xóa theo ID
+            var valueId = await _orderRepo.GetKeyOderById(id, cancellationToken);
+            if (valueId == null)
             {
-                return NotFound();
+                return NotFound("Không có giá trị ID");
             }
 
-            return NoContent();
+            // Gọi phương thức Delete để xóa sản phẩm
+            await _orderRepo.DeleteOder(id, cancellationToken);
+
+            // Trả về kết quả thành công với thông báo xác nhận        
+            return Ok(valueId);
         }
-        [HttpPost]
+        [HttpPost("create-order")]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request, CancellationToken cancellationToken)
         {
             if (request == null)
@@ -60,20 +61,16 @@ namespace DecorGearApi.Controllers
                 return BadRequest("Invalid order request.");
             }
 
+            // Kiểm tra nếu ModelState không hợp lệ
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var result = await _orderRepo.CreateOder(request, cancellationToken);
-
-            if (result == ErrorMessage.Successfull)
-            {
-                return CreatedAtAction(nameof(CreateOrder), null);
-            }
-            else if (result == ErrorMessage.Null || result == ErrorMessage.Failed)
-            {
-                return BadRequest("Failed to create order.");
-            }
-
-            return StatusCode(500, "Internal server error.");
+            return Ok(result);
         }
-        [HttpPut("{id}")]
+        [HttpPut("update-order")]
         public async Task<IActionResult> PutOder([FromBody] UpdateOrderRequest request, int id, CancellationToken cancellationToken)
         {
             if (request == null)
@@ -82,31 +79,24 @@ namespace DecorGearApi.Controllers
             }
             else
             {
-                var existingOrder = await _orderRepo.GetKeyOderById(new ViewOrderRequest { OderID = id }, cancellationToken);
-
-                if (existingOrder == null)
+                // Kiểm tra nếu ModelState không hợp lệ
+                if (!ModelState.IsValid)
                 {
-                    return NotFound("Order not found.");
+                    return BadRequest(ModelState);
                 }
-                else
-                {
-                    existingOrder.totalQuantity = request.totalQuantity;
-                    existingOrder.totalPrice = request.totalPrice;
-                    existingOrder.paymentMethod = request.paymentMethod;
-                    existingOrder.size = request.size.ToString();
-                    existingOrder.weight = request.weight;
-                    existingOrder.Status = request.Status;
-                    var result = await _orderRepo.UpdateOder(existingOrder, cancellationToken);
 
-                    if (result == ErrorMessage.Successfull)
-                    {
-                        return NoContent();
-                    }
-                    else
-                    {
-                        return BadRequest("Failed to update order.");
-                    }
+                // Lấy sản phẩm cần cập nhật theo ID
+                var valueId = await GetByIdOrder(id, cancellationToken);
+                if (valueId == null)
+                {
+                    return NotFound("Không có giá trị ID");
                 }
+
+                // Gọi phương thức Update để lưu các thay đổi
+                var result = await _orderRepo.UpdateOder(id, request, cancellationToken);
+
+                // Trả về kết quả thành công với sản phẩm đã cập nhật
+                return Ok(result);
             }
         }
     }

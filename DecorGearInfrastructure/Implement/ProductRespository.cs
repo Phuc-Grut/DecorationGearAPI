@@ -165,20 +165,6 @@ namespace DecorGearInfrastructure.Implement
             return true;
         }
 
-        //public bool IsValidImageFormat(string imagePath)
-        //{
-        //    // Các định dạng hợp lệ
-        //    var validExtensions = new List<string> { ".jpg", ".jpeg" };
-
-        // // Lấy phần mở rộng của tệp var extension = Path.GetExtension(imagePath)?.ToLower();
-
-        // // Nếu phần mở rộng không hợp lệ, trả về false if (!validExtensions.Contains(extension))
-        // { return false; }
-
-        //    // Tất cả các tệp đều hợp lệ
-        //    return true;
-        //}
-
         public async Task<List<ProductDto>> GetAllProduct(ViewProductRequest? request, CancellationToken cancellationToken)
         {
             var query = _appDbContext.Products
@@ -192,23 +178,14 @@ namespace DecorGearInfrastructure.Implement
                 .Include(p => p.Brand)
                 .AsQueryable();
 
-            if (request.ProductID.HasValue)
+            if (!string.IsNullOrEmpty(request.ProductCode))
             {
-                query = query.Where(p => p.ProductID == request.ProductID);
+                query = query.Where(p => p.ProductCode == request.ProductCode);
             }
             if (!string.IsNullOrEmpty(request.ProductName))
             {
                 query = query.Where(p => p.ProductName.Contains(request.ProductName));
             }
-            if (request.View.HasValue)
-            {
-                query = query.Where(p => p.View == request.View);
-            }
-            if (!string.IsNullOrEmpty(request.Description))
-            {
-                query = query.Where(p => p.Description.Contains(request.Description));
-            }
-
             var products = await query.Select(p => new ProductDto
             {
                 ProductID = p.ProductID,
@@ -226,7 +203,6 @@ namespace DecorGearInfrastructure.Implement
                     .Select(psc => psc.SubCategory.SubCategoryName)
                     .ToList(),
                 SaleID = p.Sale.SaleID,
-                SaleCode = p.Sale.SalePercent,
                 AvatarProduct = p.AvatarProduct,
                 Description = p.Description,
                 ImageProduct = p.ImageLists
@@ -253,11 +229,10 @@ namespace DecorGearInfrastructure.Implement
                 ? (object?)p.MouseDetails.Select(md => new MouseDetailsDto
                 {
                     MouseDetailID = md.MouseDetailID,
-                    Switch = md.Switch,
                     Price = md.Price,
                     Quantity = md.Quantity,
                     Color = md.Color,
-                    DPI = md.DPI ?? 0,
+                    DPI = md.DPI,
                     Connectivity = md.Connectivity,
                     Dimensions = md.Dimensions,
                     Material = md.Material,
@@ -344,10 +319,9 @@ namespace DecorGearInfrastructure.Implement
                         Color = md.Color,
                         Price = md.Price,
                         Quantity = md.Quantity,
-                        Switch = md.Switch,
                         Weight = md.Weight,
                         Size = md.Size,
-                        DPI = md.DPI ?? 0,
+                        DPI = md.DPI,
                         Connectivity = md.Connectivity,
                         Dimensions = md.Dimensions,
                         Material = md.Material,
@@ -412,7 +386,6 @@ namespace DecorGearInfrastructure.Implement
 
                 // Cập nhật thông tin của sản phẩm
                 product.ProductName = request.ProductName;
-                product.View = request.View;
                 product.Description = request.Description;
                 product.SaleID = request.SaleID;
                 product.BrandID = request.BrandID;
@@ -455,7 +428,7 @@ namespace DecorGearInfrastructure.Implement
                         ProductName = product.ProductName,
                         CategoryName = string.Join(", ", product.ProductSubCategories.Select(psc => psc.SubCategory.SubCategoryName).ToList()),
                         SaleID = product.SaleID,
-                        BrandId = product.BrandID,
+                        BrandID = product.BrandID,
                         AvatarProduct = product.AvatarProduct
                     },
                     Status = StatusCodes.Status200OK,
