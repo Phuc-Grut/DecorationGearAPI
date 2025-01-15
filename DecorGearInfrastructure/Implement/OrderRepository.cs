@@ -35,15 +35,7 @@ namespace DecorGearInfrastructure.implement
                     Message = "Chưa có request."
                 };
             }
-            if (request.completeDate < DateTime.Now)
-            {
-                return new ResponseDto<OrderDto>
-                {
-                    DataResponse = null,
-                    Status = StatusCodes.Status400BadRequest,
-                    Message = "ngày hoàn thành phải sau hoặc cùng thời gian tạo hóa đơn."
-                };
-            }
+            
 
             try
             {
@@ -167,7 +159,7 @@ namespace DecorGearInfrastructure.implement
                     UnitPrice = od.UnitPrice,
                     Quantity = od.Quantity,
                     size = od.size, // Nếu có trường Size, bạn có thể thêm
-                    weight = od.weight // Nếu có trường Weight, bạn có thể thêm
+                    weight = od.weight.Value // Nếu có trường Weight, bạn có thể thêm
                 }).ToList(),
             };
         }

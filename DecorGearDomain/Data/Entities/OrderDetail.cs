@@ -16,12 +16,12 @@ namespace DecorGearDomain.Data.Entities
 
         public int Quantity { get; set; }
 
-        public string size { get; set; }
+        public string? size { get; set; }
 
-        public double weight { get; set; }
+        public double? weight { get; set; }
 
-        public virtual Order Order { get; set; }
+        public virtual Order? Order { get; set; }
 
-        public virtual Product Product { get; set; }
+        public virtual Product? Product { get; set; }
     }
 }
